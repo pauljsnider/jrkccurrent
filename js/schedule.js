@@ -3,90 +3,12 @@
  * 2025 Season Schedule (Spring + Fall)
  */
 
-// 2025 Season Game data array - Updated from TeamSnap calendar
+// Multi-Season Game data array - Updated from TeamSnap calendar
+// Ordered from newest to oldest (past games), then upcoming games
 const games = [
+    // 2025 Past Season Games (newest first)
     {
-        date: "Mar 1",
-        opponent: "Blue Starfish",
-        time: "12:00 PM",
-        location: "Compass Minerals Field #4",
-        result: "Win",
-        score: "5-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Mar 7",
-        opponent: "Undercurrent",
-        time: "6:00 PM",
-        location: "Scheels Complex #12S",
-        result: "Loss",
-        score: "3-5",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Mar 9",
-        opponent: "Thundercats",
-        time: "3:00 PM",
-        location: "Scheels Complex #12S",
-        result: "Win",
-        score: "2-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Mar 30",
-        opponent: "Shooting Stars",
-        time: "9:00 AM",
-        location: "Olathe Complex #6N",
-        result: "Win",
-        score: "4-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Apr 4",
-        opponent: "Blue Starfish",
-        time: "5:00 PM",
-        location: "Olathe Complex #6S",
-        result: "Loss",
-        score: "2-3",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Apr 27",
-        opponent: "Undercurrent",
-        time: "11:00 AM",
-        location: "Scheels Complex #12N",
-        result: "Loss",
-        score: "0-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "May 3",
-        opponent: "Shooting Stars",
-        time: "9:00 AM",
-        location: "Compass Minerals Field #4",
-        result: "Loss",
-        score: "0-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "May 17",
-        opponent: "Thundercats",
-        time: "9:00 AM",
-        location: "Olathe Complex #6N",
-        result: "Loss",
-        score: "0-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Aug 23",
+        date: "Aug 23, 2025",
         opponent: "Wolves",
         time: "2:00 PM",
         location: "Scheels Complex #8 S",
@@ -96,7 +18,320 @@ const games = [
         isPast: true
     },
     {
-        date: "Aug 24",
+        date: "May 17, 2025",
+        opponent: "Thundercats",
+        time: "9:00 AM",
+        location: "Olathe Complex #6N",
+        result: "Loss",
+        score: "0-1",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "May 3, 2025",
+        opponent: "Shooting Stars",
+        time: "9:00 AM",
+        location: "Compass Minerals Field #4",
+        result: "Loss",
+        score: "0-1",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Apr 27, 2025",
+        opponent: "Undercurrent",
+        time: "11:00 AM",
+        location: "Scheels Complex #12N",
+        result: "Loss",
+        score: "0-1",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Apr 4, 2025",
+        opponent: "Blue Starfish",
+        time: "5:00 PM",
+        location: "Olathe Complex #6S",
+        result: "Loss",
+        score: "2-3",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Mar 30, 2025",
+        opponent: "Shooting Stars",
+        time: "9:00 AM",
+        location: "Olathe Complex #6N",
+        result: "Win",
+        score: "4-1",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Mar 9, 2025",
+        opponent: "Thundercats",
+        time: "3:00 PM",
+        location: "Scheels Complex #12S",
+        result: "Win",
+        score: "2-1",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Mar 8, 2025",
+        opponent: "Undercurrent",
+        time: "6:00 PM",
+        location: "Scheels Complex #12S",
+        result: "Tie",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Mar 1, 2025",
+        opponent: "Blue Starfish",
+        time: "12:00 PM",
+        location: "Compass Minerals Field #4",
+        result: "Win",
+        score: "5-1",
+        isExhibition: false,
+        isPast: true
+    },
+    // 2024 Season Games
+    {
+        date: "Oct 25, 2024",
+        opponent: "Undercurrent",
+        time: "10:00 PM",
+        location: "Scheels Complex #12S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 20, 2024",
+        opponent: "Shooting Stars",
+        time: "5:00 PM",
+        location: "Scheels Complex #10N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 4, 2024",
+        opponent: "Current Kickers",
+        time: "11:00 PM",
+        location: "Olathe Complex #6N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 28, 2024",
+        opponent: "Undercurrent",
+        time: "10:15 PM",
+        location: "Scheels Complex #12S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 15, 2024",
+        opponent: "Panthers",
+        time: "3:00 PM",
+        location: "Olathe Complex #9South",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 8, 2024",
+        opponent: "Current Kickers",
+        time: "12:15 AM",
+        location: "Scheels Complex #12S",
+        result: "Tie",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Aug 23, 2024",
+        opponent: "Panthers",
+        time: "11:00 PM",
+        location: "Scheels Complex #10N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Aug 18, 2024",
+        opponent: "Shooting Stars",
+        time: "4:00 PM",
+        location: "Olathe Complex #6N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "May 18, 2024",
+        opponent: "TBD",
+        time: "2:00 PM",
+        location: "Scheels Complex #4SW",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "May 5, 2024",
+        opponent: "TBD",
+        time: "8:30 PM",
+        location: "Scheels Complex #4SE",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "May 4, 2024",
+        opponent: "TBD",
+        time: "2:00 PM",
+        location: "Scheels Complex #4SW",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Apr 27, 2024",
+        opponent: "TBD",
+        time: "2:00 PM",
+        location: "Scheels Complex #4SW",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Apr 21, 2024",
+        opponent: "TBD",
+        time: "7:30 PM",
+        location: "Scheels Complex #4SW",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Apr 20, 2024",
+        opponent: "TBD",
+        time: "4:00 PM",
+        location: "Scheels Complex #4SW",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Mar 30, 2024",
+        opponent: "TBD",
+        time: "4:00 PM",
+        location: "Scheels Complex #4SE",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    // 2023 Season Games
+    {
+        date: "Oct 28, 2023",
+        opponent: "MASSEY",
+        time: "3:00 PM",
+        location: "Scheels Complex #6S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 21, 2023",
+        opponent: "TROUTMAN",
+        time: "2:00 PM",
+        location: "Scheels Complex #6S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 14, 2023",
+        opponent: "FRANKEL",
+        time: "4:00 PM",
+        location: "Scheels Complex #5S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 1, 2023",
+        opponent: "WASKO",
+        time: "7:30 PM",
+        location: "Scheels Complex #5S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 30, 2023",
+        opponent: "Couch",
+        time: "2:00 PM",
+        location: "Scheels Complex #6S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 23, 2023",
+        opponent: "Mesiner",
+        time: "2:00 PM",
+        location: "Scheels Complex #6N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Sep 9, 2023",
+        opponent: "Varner",
+        time: "3:00 PM",
+        location: "Scheels Complex #6S",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Aug 26, 2023",
+        opponent: "Benevides",
+        time: "1:00 PM",
+        location: "Scheels Complex #4N",
+        result: "-",
+        score: "",
+        isExhibition: false,
+        isPast: true
+    },
+    // 2025 Upcoming Games (chronological order)
+    {
+        date: "Aug 24, 2025",
         opponent: "Blue Starfish",
         time: "2:15 PM",
         location: "Scheels Complex #8 N",
@@ -106,7 +341,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Sep 7",
+        date: "Sep 7, 2025",
         opponent: "Hawks",
         time: "9:15 AM",
         location: "Scheels Complex #7 S",
@@ -116,7 +351,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Sep 20",
+        date: "Sep 20, 2025",
         opponent: "Wolves",
         time: "7:15 PM",
         location: "Compass Minerals Field #1 S",
@@ -126,7 +361,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Sep 26",
+        date: "Sep 26, 2025",
         opponent: "Storm Dooley",
         time: "7:30 PM",
         location: "Scheels Complex #8 S",
@@ -136,7 +371,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Oct 12",
+        date: "Oct 12, 2025",
         opponent: "Hawks",
         time: "10:30 AM",
         location: "Scheels Complex #8 S",
@@ -146,7 +381,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Oct 17",
+        date: "Oct 17, 2025",
         opponent: "Blue Starfish",
         time: "5:00 PM",
         location: "Scheels Complex #7 S",
@@ -156,7 +391,7 @@ const games = [
         isPast: false
     },
     {
-        date: "Oct 19",
+        date: "Oct 19, 2025",
         opponent: "Storm Dooley",
         time: "10:30 AM",
         location: "Scheels Complex #8 S",
