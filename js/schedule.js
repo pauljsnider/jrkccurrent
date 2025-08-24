@@ -90,10 +90,10 @@ const games = [
         opponent: "Wolves",
         time: "2:00 PM",
         location: "Scheels Complex #8 S",
-        result: null,
-        score: null,
+        result: "Win",
+        score: "2-1",
         isExhibition: false,
-        isPast: false
+        isPast: true
     },
     {
         date: "Aug 24",
