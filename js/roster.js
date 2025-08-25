@@ -75,15 +75,15 @@ const players = [
         secondaryPosition: "Midfielder",
         description: "Dynamic and creative, Harper brings speed and skill to the attacking third with natural goal-scoring instincts.",
         positionCategory: "forward",
-        photoUrl: null
+        photoUrl: "Images/roster/harper.png"
     },
     {
-        name: "Vivien",
+        name: "Vivian",
         position: "Defender",
         secondaryPosition: "Midfielder",
-        description: "Composed and reliable, Vivien reads the game well and provides solid defensive coverage with smart positioning.",
+        description: "Composed and reliable, Vivian reads the game well and provides solid defensive coverage with smart positioning.",
         positionCategory: "defender",
-        photoUrl: null
+        photoUrl: "Images/roster/vivian.png"
     },
     {
         name: "Emmie",
