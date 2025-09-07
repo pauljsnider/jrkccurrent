@@ -50,15 +50,15 @@
                 <div class="record-stats">
                     <div class="stat-item">
                         <i class="fas fa-trophy"></i>
-                        <span>1 Win</span>
+                        <span id="wins-count">1 Win</span>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-times-circle"></i>
-                        <span>0 Losses</span>
+                        <span id="losses-count">0 Losses</span>
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-calendar-check"></i>
-                        <span>7 More Games</span>
+                        <span id="remaining-count">7 More Games</span>
                     </div>
                 </div>
             </div>
@@ -87,5 +87,8 @@
 
     <script src="js/main.js"></script>
     <script src="js/navigation.js"></script>
+    <!-- Load schedule data so we can compute the record dynamically -->
+    <script src="js/schedule.js"></script>
+    <script src="js/season-record.js"></script>
 </body>
 </html>

@@ -278,77 +278,7 @@ const games = [
         isExhibition: false,
         isPast: true
     },
-    // 2025 Fall Season Games  
-    {
-        date: "Oct 25, 2025",
-        opponent: "Undercurrent",
-        time: "10:00 PM",
-        location: "Scheels Complex #12S",
-        result: "Tie",
-        score: "2-2",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Oct 20, 2025",
-        opponent: "Shooting Stars",
-        time: "5:00 PM",
-        location: "Scheels Complex #10N",
-        result: "Win",
-        score: "2-0",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Oct 4, 2025",
-        opponent: "Current Kickers",
-        time: "11:00 PM",
-        location: "Olathe Complex #6N",
-        result: "Win",
-        score: "5-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Sep 28, 2025",
-        opponent: "Undercurrent",
-        time: "10:15 PM",
-        location: "Scheels Complex #12S",
-        result: "Win",
-        score: "3-2",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Sep 15, 2025",
-        opponent: "Panthers",
-        time: "3:00 PM",
-        location: "Olathe Complex #9South",
-        result: "Loss",
-        score: "0-8",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Sep 7, 2025",
-        opponent: "Current Kickers",
-        time: "12:15 AM",
-        location: "Scheels Complex #12S",
-        result: "Tie",
-        score: "1-1",
-        isExhibition: false,
-        isPast: true
-    },
-    {
-        date: "Aug 18, 2025",
-        opponent: "Shooting Stars",
-        time: "4:00 PM",
-        location: "Olathe Complex #6N",
-        result: "Loss",
-        score: "1-3",
-        isExhibition: false,
-        isPast: true
-    },
+    // 2025 Fall Season Games (none completed yet beyond Aug 23-24)
     // 2024 Season Games
     {
         date: "Oct 25, 2024",
@@ -634,6 +564,9 @@ const games = [
     }
 ];
 
+// Expose games for other pages (e.g., homepage stats)
+try { window.games = games; } catch (e) { /* no-op for non-browser contexts */ }
+
 /**
  * Helper function to format date from YYYY-MM-DD to "Mon DD" format
  * @param {string} dateString - Date in YYYY-MM-DD format
@@ -665,6 +598,20 @@ function formatGameTime(timeString) {
     } catch (error) {
         console.error('Error formatting time:', error);
         return timeString;
+    }
+}
+
+/**
+ * Parse a game's date and time into a JS Date
+ * Accepts formats like "Aug 24, 2025" and time like "2:15 PM"
+ */
+function parseGameDateTime(game) {
+    try {
+        const stamp = game && game.date ? `${game.date}${game.time ? ' ' + game.time : ''}` : '';
+        const dt = new Date(stamp);
+        return isNaN(dt) ? null : dt;
+    } catch (e) {
+        return null;
     }
 }
 
@@ -717,17 +664,38 @@ function generateSchedule(filter = 'all') {
         return;
     }
     
-    // Filter games if needed
+    // Filter and sort games
     let filteredGames;
-    switch(filter) {
-        case 'past':
-            filteredGames = games.filter(game => game.isPast);
+    const now = new Date();
+    switch (filter) {
+        case 'past': {
+            filteredGames = games
+                .filter(game => {
+                    const dt = parseGameDateTime(game);
+                    return dt && dt < now;
+                })
+                // Newest past games first
+                .sort((a, b) => (parseGameDateTime(b) - parseGameDateTime(a)));
             break;
-        case 'upcoming':
-            filteredGames = games.filter(game => !game.isPast);
+        }
+        case 'upcoming': {
+            filteredGames = games
+                .filter(game => {
+                    const dt = parseGameDateTime(game);
+                    return dt && dt >= now;
+                })
+                // Earliest upcoming games first
+                .sort((a, b) => (parseGameDateTime(a) - parseGameDateTime(b)));
             break;
-        default:
-            filteredGames = games;
+        }
+        default: {
+            // All games: show upcoming first (soonest to latest), then past (newest to oldest)
+            const withDates = games.map(g => ({ g, dt: parseGameDateTime(g) })).filter(x => x.dt);
+            const upcoming = withDates.filter(x => x.dt >= now).sort((a, b) => a.dt - b.dt).map(x => x.g);
+            const past = withDates.filter(x => x.dt < now).sort((a, b) => b.dt - a.dt).map(x => x.g);
+            filteredGames = [...upcoming, ...past];
+            break;
+        }
     }
     
     // Create table structure
