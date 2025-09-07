@@ -58,28 +58,120 @@
       const now = new Date();
       const pastThisSeason = window.games.filter(g => {
         const dt = parseDate(g.date, g.time);
-        return dt && dt <= now && inSeason(dt, season) && !g.isExhibition;
+        return dt && g.isPast && inSeason(dt, season) && !g.isExhibition;
       });
 
       const upcomingThisSeason = window.games.filter(g => {
         const dt = parseDate(g.date, g.time);
-        return dt && dt > now && inSeason(dt, season) && !g.isExhibition;
+        return dt && !g.isPast && inSeason(dt, season) && !g.isExhibition;
       });
 
       const wins = pastThisSeason.filter(g => g.result === 'Win').length;
       const losses = pastThisSeason.filter(g => g.result === 'Loss').length;
       const remaining = upcomingThisSeason.length;
 
+      // Debug logging
+      console.log('Current date:', now);
+      console.log('Season detected:', season);
+      console.log('All games:', window.games.map(g => ({date: g.date, result: g.result, opponent: g.opponent, isPast: g.isPast})));
+      console.log('Past games this season:', pastThisSeason.map(g => ({date: g.date, result: g.result, opponent: g.opponent})));
+      console.log('Calculated: wins:', wins, 'losses:', losses, 'remaining:', remaining);
+
       const winsEl = document.getElementById('wins-count');
       const lossesEl = document.getElementById('losses-count');
       const remainingEl = document.getElementById('remaining-count');
 
-      if (winsEl) winsEl.textContent = `${wins} ${wins === 1 ? 'Win' : 'Wins'}`;
-      if (lossesEl) lossesEl.textContent = `${losses} ${losses === 1 ? 'Loss' : 'Losses'}`;
-      if (remainingEl) remainingEl.textContent = `${remaining} More ${remaining === 1 ? 'Game' : 'Games'}`;
+      if (winsEl) winsEl.textContent = wins;
+      if (lossesEl) lossesEl.textContent = losses;
+      if (remainingEl) remainingEl.textContent = remaining;
+      
+      // Update recent games section
+      updateRecentGames(pastThisSeason, season);
+      
+      // Update next game section
+      updateNextGame(upcomingThisSeason, season);
+      
     } catch (e) {
       console.error('Failed to update season record:', e);
     }
+  }
+
+  function updateRecentGames(pastGames, season) {
+    const recentGamesEl = document.getElementById('recent-games-list');
+    if (!recentGamesEl) return;
+    
+    // Get the 3 most recent games
+    const recentGames = pastGames
+      .sort((a, b) => {
+        const da = parseDate(a.date, a.time) || new Date(0);
+        const db = parseDate(b.date, b.time) || new Date(0);
+        return db - da; // newest first
+      })
+      .slice(0, 3);
+    
+    if (recentGames.length === 0) {
+      recentGamesEl.innerHTML = '<p class="no-games">No recent games this season.</p>';
+      return;
+    }
+    
+    const gamesHtml = recentGames.map(game => {
+      const resultClass = game.result ? game.result.toLowerCase() : 'pending';
+      const resultIcon = game.result === 'Win' ? 'fa-trophy' : 
+                        game.result === 'Loss' ? 'fa-times-circle' : 
+                        'fa-clock';
+      
+      return `
+        <div class="game-item ${resultClass}">
+          <div class="game-date">${game.date}</div>
+          <div class="game-details">
+            <div class="game-opponent">vs ${game.opponent}</div>
+            <div class="game-result">
+              <i class="fas ${resultIcon}"></i>
+              ${game.result && game.score ? `${game.result} ${game.score}` : 'Pending'}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    recentGamesEl.innerHTML = gamesHtml;
+  }
+
+  function updateNextGame(upcomingGames, season) {
+    const nextGameEl = document.getElementById('next-game-info');
+    if (!nextGameEl) return;
+    
+    // Get the next upcoming game
+    const nextGame = upcomingGames
+      .sort((a, b) => {
+        const da = parseDate(a.date, a.time) || new Date(0);
+        const db = parseDate(b.date, b.time) || new Date(0);
+        return da - db; // earliest first
+      })[0];
+    
+    if (!nextGame) {
+      nextGameEl.innerHTML = '<p class="no-games">No upcoming games scheduled.</p>';
+      return;
+    }
+    
+    const gameDate = parseDate(nextGame.date, nextGame.time);
+    const isToday = gameDate && gameDate.toDateString() === new Date().toDateString();
+    
+    nextGameEl.innerHTML = `
+      <div class="next-game-card ${isToday ? 'today' : ''}">
+        <div class="game-header">
+          <div class="game-date">
+            ${nextGame.date}${nextGame.time ? ` at ${nextGame.time}` : ''}
+            ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
+          </div>
+        </div>
+        <div class="game-opponent">vs ${nextGame.opponent}</div>
+        <div class="game-location">
+          <i class="fas fa-map-marker-alt"></i>
+          ${nextGame.location || 'Location TBD'}
+        </div>
+      </div>
+    `;
   }
 
   // Run on DOM ready

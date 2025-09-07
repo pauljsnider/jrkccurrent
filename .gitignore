@@ -3,6 +3,7 @@ data/
 
 # Python scripts with team-specific data/API integration
 *.py
+scripts/
 
 # Node modules
 node_modules/
@@ -23,4 +24,4 @@ Thumbs.db
 *.swo
 
 # Logs
-*.log/data/
+*.log

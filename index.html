@@ -41,34 +41,78 @@
             <img src="Images/bannerpic.jpg" alt="Junior Current Team Banner" class="banner-image">
         </section>
 
-        <section class="container">
-            <h1>Junior Current – Fall 2025</h1>
-            <h2>A Girls Club Team Fueled by Passion, Purpose, and KC Current Pride</h2>
-            
-            <div class="team-record">
-                <h3>Fall 2025 Season</h3>
-                <div class="record-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-trophy"></i>
-                        <span id="wins-count">1 Win</span>
+        <!-- Hero Stats Section -->
+        <section class="hero-stats">
+            <div class="container">
+                <div class="season-header">
+                    <h1>Junior Current</h1>
+                    <p class="season-subtitle">Fall 2025 • KC Current Inspired</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card wins">
+                        <div class="stat-number" id="wins-count">-</div>
+                        <div class="stat-label">Wins</div>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-times-circle"></i>
-                        <span id="losses-count">0 Losses</span>
+                    
+                    <div class="stat-card losses">
+                        <div class="stat-number" id="losses-count">-</div>
+                        <div class="stat-label">Losses</div>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-calendar-check"></i>
-                        <span id="remaining-count">7 More Games</span>
+                    
+                    <div class="stat-card remaining">
+                        <div class="stat-number" id="remaining-count">-</div>
+                        <div class="stat-label">Remaining</div>
                     </div>
                 </div>
             </div>
-            
-            <div class="team-narrative">
-                <p>The Junior Current is a girls soccer club inspired by the energy and professionalism of the KC Current. Made up of players from schools across Overland Park and Leawood, Kansas, this team plays with heart, hustle, and pride. Every match is a chance to grow, compete, and support one another. As we begin the Fall 2025 season, we carry forward the resilience, camaraderie, and relentless drive that define this team. The future is bright, and the journey continues.</p>
-            </div>
-            
-            <div class="cta-container">
-                <a href="roster.html" class="btn btn-primary"><i class="fas fa-users"></i> View Roster</a>
+        </section>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="container">
+                <!-- Two Column Layout -->
+                <div class="content-grid">
+                    <!-- Left Column -->
+                    <div class="content-primary">
+                        <div class="next-game-spotlight">
+                            <div class="section-header">
+                                <h2><i class="fas fa-play-circle"></i> Next Game</h2>
+                            </div>
+                            <div id="next-game-info" class="game-info">
+                                <!-- Next game populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="recent-games-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-history"></i> Recent Games</h2>
+                            </div>
+                            <div id="recent-games-list" class="games-list">
+                                <!-- Recent games populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="content-secondary">
+                        <div class="team-story">
+                            <div class="section-header">
+                                <h2><i class="fas fa-heart"></i> Our Story</h2>
+                            </div>
+                            <div class="story-content">
+                                <p>The Junior Current is a girls soccer club inspired by the energy and professionalism of the KC Current. Made up of players from schools across Overland Park and Leawood, Kansas, this team plays with heart, hustle, and pride.</p>
+                                <p>Every match is a chance to grow, compete, and support one another. As we continue the Fall 2025 season, we carry forward the resilience, camaraderie, and relentless drive that define this team.</p>
+                                <div class="team-motto">
+                                    <i class="fas fa-quote-left"></i>
+                                    <span>The future is bright, and the journey continues.</span>
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </section>
     </main>

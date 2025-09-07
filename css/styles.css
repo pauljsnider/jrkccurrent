@@ -97,6 +97,7 @@ a:hover {
 .logo {
     height: 50px;
     width: auto;
+    display: block;
 }
 
 .nav-links {
@@ -116,6 +117,7 @@ a:hover {
     letter-spacing: 0.5px;
     padding: 0.5rem 0;
     position: relative;
+    text-decoration: none;
 }
 
 .nav-links a::after {
@@ -172,7 +174,7 @@ a:hover {
 }
 
 .tagline {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -188,57 +190,191 @@ a:hover {
     object-position: center;
 }
 
-/* Team Record */
-.team-record {
-    background-color: var(--light-teal);
-    color: var(--navy-blue);
-    padding: 1.5rem;
-    border-radius: 8px;
+/* Hero Stats Section - Compact Professional Design */
+.hero-stats {
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 2rem 0;
+    margin-top: -2px;
+    border-bottom: 3px solid var(--light-teal);
+}
+
+.season-header {
     text-align: center;
-    margin: 2rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 2px solid var(--navy-blue);
+    margin-bottom: 2rem;
 }
 
-.team-record h3 {
-    color: var(--navy-blue);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.season-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--white);
 }
 
-.record-stats {
+.season-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--light-teal);
+    opacity: 0.9;
+}
+
+.stats-grid {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.stat-item {
+.stat-card {
+    background: var(--white);
+    border: 2px solid var(--light-teal);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    min-width: 120px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(12, 34, 63, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(12, 34, 63, 0.2);
+    border-color: var(--dark-teal);
+}
+
+.stat-card.wins {
+    border-color: var(--light-teal);
+}
+
+.stat-card.losses {
+    border-color: var(--red);
+}
+
+.stat-card.remaining {
+    border-color: var(--dark-teal);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    color: var(--navy-blue);
+}
+
+.stat-card.wins .stat-number {
+    color: var(--dark-teal);
+}
+
+.stat-card.losses .stat-number {
+    color: var(--red);
+}
+
+.stat-card.remaining .stat-number {
+    color: var(--navy-blue);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--dark-gray);
+}
+
+/* Main Content Layout - Compact Professional */
+.main-content {
+    padding: 3rem 0;
+    background: var(--gray);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.content-primary, .content-secondary {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 0.5rem;
+    gap: 2rem;
 }
 
-.stat-item i {
+/* Section Headers */
+.section-header {
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
     color: var(--navy-blue);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--light-teal);
+    padding-bottom: 0.5rem;
 }
 
-.stat-item span {
-    font-size: 1.2rem;
-    font-weight: 700;
+.section-header h2 i {
+    font-size: 1.25rem;
+    color: var(--light-teal);
 }
 
-/* Team Narrative */
-.team-narrative {
-    background-color: var(--white);
-    padding: 2rem;
+/* Card Styling - Clean and Professional */
+.next-game-spotlight, 
+.recent-games-section, 
+.team-story {
+    background: var(--white);
     border-radius: 8px;
-    margin: 2rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(12, 34, 63, 0.08);
+    border: 1px solid rgba(109, 210, 220, 0.2);
+    transition: all 0.2s ease;
 }
+
+.next-game-spotlight:hover,
+.recent-games-section:hover,
+.team-story:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(12, 34, 63, 0.12);
+    border-color: var(--light-teal);
+}
+
+/* Team Story Styling */
+.story-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--dark-gray);
+}
+
+.story-content p:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
+.team-motto {
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 500;
+    border-left: 4px solid var(--light-teal);
+}
+
+.team-motto i {
+    opacity: 0.8;
+    margin: 0 0.25rem;
+    color: var(--light-teal);
+}
+
 
 /* CTA Button */
 .cta-container {
@@ -757,5 +893,268 @@ body.menu-open {
     
     .close-button {
         font-size: 1.8rem;
+    }
+    
+    /* Hero Stats and Main Content - Compact Design */
+    .hero-stats {
+        padding: 1.5rem 0;
+    }
+    
+    .season-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .season-header h1 {
+        font-size: 2rem;
+    }
+    
+    .season-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .stats-grid {
+        gap: 1rem;
+        max-width: 100%;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+        min-width: 100px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .main-content {
+        padding: 2rem 0;
+    }
+    
+    .next-game-spotlight,
+    .recent-games-section,
+    .team-story {
+        padding: 1.25rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .game-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .game-details {
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .next-game-card .game-opponent {
+        font-size: 1.1rem;
+    }
+    
+    .story-content p {
+        font-size: 0.95rem;
+    }
+    
+    .team-motto {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Games Styling - Professional and Compact */
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.game-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border-left: 3px solid var(--light-teal);
+    background: var(--gray);
+}
+
+.game-item.win {
+    border-left-color: var(--dark-teal);
+    background-color: rgba(14, 60, 78, 0.03);
+}
+
+.game-item.loss {
+    border-left-color: var(--red);
+    background-color: rgba(214, 31, 38, 0.03);
+}
+
+.game-date {
+    font-weight: 600;
+    color: var(--navy-blue);
+    min-width: 100px;
+    font-size: 0.9rem;
+}
+
+.game-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.game-opponent {
+    font-weight: 500;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+.game-result {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.game-result i {
+    font-size: 0.8rem;
+}
+
+.win .game-result {
+    color: var(--dark-teal);
+}
+
+.loss .game-result {
+    color: var(--red);
+}
+
+/* Next Game Styles - Clean and Professional */
+.next-game-card {
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 1.25rem;
+    border-radius: 6px;
+    text-align: center;
+    border: 2px solid var(--light-teal);
+}
+
+.next-game-card.today {
+    background: var(--red);
+    border-color: var(--white);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
+.game-header {
+    margin-bottom: 0.75rem;
+}
+
+.game-date {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.today-badge {
+    background-color: var(--white);
+    color: var(--red);
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+}
+
+.next-game-card .game-opponent {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--light-teal);
+}
+
+.game-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.no-games {
+    text-align: center;
+    color: var(--dark-gray);
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Responsive Design - Compact and Clean */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .content-secondary {
+        order: -1;
+    }
+    
+    .stats-grid {
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .hero {
+        height: 40vh;
+    }
+    
+    .season-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .season-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .stats-grid {
+        flex-direction: column;
+        gap: 0.75rem;
+        max-width: 200px;
+    }
+    
+    .stat-card {
+        padding: 0.75rem;
+    }
+    
+    .next-game-spotlight,
+    .recent-games-section,
+    .team-story {
+        padding: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2rem;
     }
 }
