@@ -1,0 +1,28 @@
+{
+  "name": "Soccer Stat Tracker",
+  "short_name": "Soccer Stats",
+  "description": "Simple soccer stat tracking app for youth coaches",
+  "start_url": "/stat-tracker/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "scope": "/stat-tracker/",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "utilities"],
+  "lang": "en-US",
+  "prefer_related_applications": false
+}

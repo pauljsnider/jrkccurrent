@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Stat Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            min-height: 36px;
+        }
+
+        .btn-start { background: #10b981; color: white; }
+        .btn-stop { background: #ef4444; color: white; }
+        .btn-reset { background: #6b7280; color: white; }
+        .btn-email { background: #8b5cf6; color: white; }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stats-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stats-header {
+            background: #f8fafc;
+            padding: 15px;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .stats-table th {
+            background: #f8fafc;
+            padding: 4px 1px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 11px;
+            border-bottom: 1px solid #e5e7eb;
+            line-height: 1.2;
+        }
+
+        .stats-table td {
+            padding: 3px 1px;
+            text-align: center;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .player-name {
+            text-align: left !important;
+            font-weight: 500;
+            min-width: 45px;
+            max-width: 55px;
+            font-size: 10px;
+            padding-left: 3px !important;
+            line-height: 1.1;
+            word-break: break-word;
+        }
+
+        .stat-cell {
+            width: 60px;
+        }
+
+        .stat-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .stat-display {
+            font-weight: bold;
+            font-size: 14px;
+            min-height: 16px;
+            color: #1d4ed8;
+        }
+
+        .stat-buttons {
+            display: flex;
+            gap: 1px;
+        }
+
+        .stat-btn {
+            width: 22px;
+            height: 22px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .stat-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .stat-btn.decrement {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .stat-btn.increment {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .stat-btn:hover {
+            border-color: #2563eb;
+            background: #f0f9ff;
+        }
+
+        .stat-btn.has-stats {
+            background: #dbeafe;
+            border-color: #2563eb;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 1px;
+            justify-content: center;
+        }
+
+        .star {
+            cursor: pointer;
+            font-size: 14px;
+            color: #d1d5db;
+        }
+
+        .star.filled {
+            color: #fbbf24;
+        }
+
+        .notes-cell {
+            min-width: 100px;
+        }
+
+        .notes-input {
+            flex: 1;
+            padding: 3px;
+            border: 1px solid #d1d5db;
+            border-radius: 3px;
+            font-size: 10px;
+            min-width: 0;
+        }
+
+        .notes-btn {
+            width: 30px;
+            height: 24px;
+            padding: 1px 2px;
+            border: 1px solid #2563eb;
+            background: #2563eb;
+            color: white;
+            border-radius: 3px;
+            font-size: 8px;
+            cursor: pointer;
+            margin-left: 3px;
+            flex-shrink: 0;
+        }
+
+        .notes-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .notes-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .game-log {
+            margin-top: 15px;
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .game-log h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .log-entry {
+            padding: 4px 8px;
+            margin: 2px 0;
+            background: #f8fafc;
+            border-radius: 3px;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .log-time {
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="timer" id="timer">00:00</div>
+        <div class="timer-controls">
+            <button class="btn btn-start" id="startBtn">Start</button>
+            <button class="btn btn-stop" id="stopBtn" disabled>Stop</button>
+            <button class="btn btn-reset" id="resetBtn">Reset</button>
+            <button class="btn btn-email" id="emailBtn">Email Summary</button>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stats-header">
+            <div class="stats-title">Game Stats</div>
+        </div>
+
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th style="width: 55px;">Player</th>
+                    <th class="stat-cell">⚽<br>Goals</th>
+                    <th class="stat-cell">🅰️<br>Assists</th>
+                    <th class="stat-cell">🛡️<br>Blocks</th>
+                    <th class="stat-cell">🏃<br>Hustle</th>
+                    <th style="width: 65px;">⭐<br>Stars</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="statsTable">
+                <!-- Player rows will be generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="game-log">
+        <h3>Game Log</h3>
+        <div id="gameLog">
+            <div class="log-entry">
+                <span>Game log will appear here as you track stats</span>
+                <span class="log-time">--:--</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Static roster data
+        const ROSTER = [
+            { id: 1, name: 'Audrey', jersey: 9, position: 'Striker' },
+            { id: 2, name: 'Payton', jersey: 10, position: 'Midfielder' },
+            { id: 3, name: 'Teagan', jersey: 4, position: 'Center Back' },
+            { id: 4, name: 'Neda', jersey: 1, position: 'Goalkeeper' },
+            { id: 5, name: 'Saavya', jersey: 8, position: 'Midfield' },
+            { id: 6, name: 'Livy', jersey: 5, position: 'Defender' },
+            { id: 7, name: 'Madison', jersey: 11, position: 'Forward' },
+            { id: 8, name: 'Riley', jersey: 7, position: 'Midfield' },
+            { id: 9, name: 'Harper', jersey: 6, position: 'Forward' },
+            { id: 10, name: 'Vivian', jersey: 3, position: 'Defender' },
+            { id: 11, name: 'Emmie', jersey: 2, position: 'Midfielder' },
+            { id: 12, name: 'Sela', jersey: 12, position: 'Midfielder' }
+        ];
+
+        // Game state
+        let gameState = {
+            startTime: null,
+            elapsed: 0,
+            isRunning: false,
+            stats: {},
+            gameLog: []
+        };
+
+        // Initialize stats for all players
+        ROSTER.forEach(player => {
+            gameState.stats[player.id] = {
+                goals: 0,
+                assists: 0,
+                blocks: 0,
+                hustle: 0,
+                stars: 0,
+                notes: ''
+            };
+        });
+
+        // Timer functions
+        function startTimer() {
+            if (!gameState.isRunning) {
+                gameState.startTime = Date.now() - gameState.elapsed;
+                gameState.isRunning = true;
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                addLogEntry('Game started');
+            }
+        }
+
+        function stopTimer() {
+            if (gameState.isRunning) {
+                gameState.isRunning = false;
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                addLogEntry('Game stopped');
+            }
+        }
+
+        function resetTimer() {
+            if (confirm('Reset timer and clear all stats?')) {
+                gameState.startTime = null;
+                gameState.elapsed = 0;
+                gameState.isRunning = false;
+                gameState.gameLog = [];
+
+                // Reset all stats
+                ROSTER.forEach(player => {
+                    gameState.stats[player.id] = {
+                        goals: 0,
+                        assists: 0,
+                        blocks: 0,
+                        hustle: 0,
+                        stars: 0,
+                        notes: ''
+                    };
+                });
+
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                renderStats();
+                renderGameLog();
+                updateTimer();
+            }
+        }
+
+        function updateTimer() {
+            if (gameState.isRunning) {
+                gameState.elapsed = Date.now() - gameState.startTime;
+            }
+
+            const totalSeconds = Math.floor(gameState.elapsed / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            document.getElementById('timer').textContent =
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function getGameTime() {
+            const totalSeconds = Math.floor(gameState.elapsed / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Stat tracking functions
+        function incrementStat(playerId, statType) {
+            gameState.stats[playerId][statType]++;
+            const player = ROSTER.find(p => p.id === playerId);
+            addLogEntry(`#${player.jersey} ${player.name} - ${getStatLabel(statType)}`);
+            renderStats();
+        }
+
+        function setStar(playerId, value) {
+            gameState.stats[playerId].stars = value;
+            const player = ROSTER.find(p => p.id === playerId);
+            addLogEntry(`#${player.jersey} ${player.name} - ${value} star${value !== 1 ? 's' : ''}`);
+            renderStats();
+        }
+
+        function updateNotes(playerId, notes) {
+            gameState.stats[playerId].notes = notes;
+            // Don't log note changes to avoid spam
+        }
+
+        function logPlayerNote(playerId) {
+            const player = ROSTER.find(p => p.id === playerId);
+            const notes = gameState.stats[playerId].notes;
+            if (notes.trim()) {
+                addLogEntry(`#${player.jersey} ${player.name} - Note: ${notes}`);
+            }
+        }
+
+        function getStatLabel(statType) {
+            const labels = {
+                goals: 'Goal',
+                assists: 'Assist',
+                blocks: 'Block/Save',
+                hustle: 'Hustle Play'
+            };
+            return labels[statType] || statType;
+        }
+
+        function addLogEntry(text) {
+            const entry = {
+                text: text,
+                time: getGameTime(),
+                timestamp: Date.now()
+            };
+            gameState.gameLog.unshift(entry); // Add to beginning
+            renderGameLog();
+        }
+
+        // Rendering functions
+        function decrementStat(playerId, statType) {
+            if (gameState.stats[playerId][statType] > 0) {
+                gameState.stats[playerId][statType]--;
+                const player = ROSTER.find(p => p.id === playerId);
+                addLogEntry(`#${player.jersey} ${player.name} - ${getStatLabel(statType)} removed`);
+                renderStats();
+            }
+        }
+
+        function renderStats() {
+            const tbody = document.getElementById('statsTable');
+            tbody.innerHTML = ROSTER.map(player => {
+                const stats = gameState.stats[player.id];
+                return `
+                    <tr>
+                        <td class="player-name">#${player.jersey} ${player.name}</td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.goals || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'goals')" ${stats.goals === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'goals')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.assists || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'assists')" ${stats.assists === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'assists')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.blocks || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'blocks')" ${stats.blocks === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'blocks')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.hustle || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'hustle')" ${stats.hustle === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'hustle')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="star-rating">
+                                ${[1,2,3].map(i =>
+                                    `<span class="star ${stats.stars >= i ? 'filled' : ''}"
+                                           onclick="setStar(${player.id}, ${i})">★</span>`
+                                ).join('')}
+                            </div>
+                        </td>
+                        <td class="notes-cell">
+                            <div class="notes-container">
+                                <input type="text" class="notes-input"
+                                       value="${stats.notes}"
+                                       onchange="updateNotes(${player.id}, this.value)"
+                                       placeholder="Quick notes...">
+                                <button class="notes-btn" onclick="logPlayerNote(${player.id})">Log</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderGameLog() {
+            const logDiv = document.getElementById('gameLog');
+            if (gameState.gameLog.length === 0) {
+                logDiv.innerHTML = '<div class="log-entry"><span>Game log will appear here as you track stats</span><span class="log-time">--:--</span></div>';
+                return;
+            }
+
+            logDiv.innerHTML = gameState.gameLog.map(entry => `
+                <div class="log-entry">
+                    <span>${entry.text}</span>
+                    <span class="log-time">${entry.time}</span>
+                </div>
+            `).join('');
+        }
+
+        // Email functionality (placeholder)
+        function emailSummary() {
+            const subject = `Soccer Game Summary - ${new Date().toLocaleDateString()}`;
+            const gameTime = getGameTime();
+
+            let body = `Soccer Game Summary\n`;
+            body += `Date: ${new Date().toLocaleDateString()}\n`;
+            body += `Game Time: ${gameTime}\n\n`;
+
+            body += `PLAYER STATS:\n`;
+            ROSTER.forEach(player => {
+                const stats = gameState.stats[player.id];
+                const hasStats = stats.goals || stats.assists || stats.blocks || stats.hustle || stats.stars || stats.notes;
+
+                if (hasStats) {
+                    body += `#${player.jersey} ${player.name}:\n`;
+                    if (stats.goals) body += `  Goals: ${stats.goals}\n`;
+                    if (stats.assists) body += `  Assists: ${stats.assists}\n`;
+                    if (stats.blocks) body += `  Blocks/Saves: ${stats.blocks}\n`;
+                    if (stats.hustle) body += `  Hustle Plays: ${stats.hustle}\n`;
+                    if (stats.stars) body += `  Coach Stars: ${stats.stars}\n`;
+                    if (stats.notes) body += `  Notes: ${stats.notes}\n`;
+                    body += `\n`;
+                }
+            });
+
+            if (gameState.gameLog.length > 0) {
+                body += `GAME LOG:\n`;
+                gameState.gameLog.slice().reverse().forEach(entry => {
+                    body += `${entry.time} - ${entry.text}\n`;
+                });
+            }
+
+            // Create mailto link
+            const mailto = `mailto:paul@paulsnider.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailto;
+        }
+
+        // Event listeners
+        document.getElementById('startBtn').addEventListener('click', startTimer);
+        document.getElementById('stopBtn').addEventListener('click', stopTimer);
+        document.getElementById('resetBtn').addEventListener('click', resetTimer);
+        document.getElementById('emailBtn').addEventListener('click', emailSummary);
+
+        // Initialize app
+        function init() {
+            renderStats();
+            renderGameLog();
+
+            // Update timer every second
+            setInterval(updateTimer, 1000);
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>
