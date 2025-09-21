@@ -625,18 +625,15 @@
             body += `JR CURRENT PLAYER STATS:\n`;
             ROSTER.forEach(player => {
                 const stats = gameState.stats[player.id];
-                const hasStats = stats.goals || stats.shots || stats.passes || stats.blocks || stats.hustle || stats.notes;
 
-                if (hasStats) {
-                    body += `#${player.jersey} ${player.name}:\n`;
-                    if (stats.goals) body += `  Goals: ${stats.goals}\n`;
-                    if (stats.shots) body += `  Shots on Goal: ${stats.shots}\n`;
-                    if (stats.passes) body += `  Passes: ${stats.passes}\n`;
-                    if (stats.blocks) body += `  Blocks/Saves: ${stats.blocks}\n`;
-                    if (stats.hustle) body += `  Hustle Plays: ${stats.hustle}\n`;
-                    if (stats.notes) body += `  Notes: ${stats.notes}\n`;
-                    body += `\n`;
-                }
+                body += `#${player.jersey} ${player.name}:\n`;
+                body += `  Goals: ${stats.goals || 0}\n`;
+                body += `  Shots on Goal: ${stats.shots || 0}\n`;
+                body += `  Passes: ${stats.passes || 0}\n`;
+                body += `  Blocks/Saves: ${stats.blocks || 0}\n`;
+                body += `  Hustle Plays: ${stats.hustle || 0}\n`;
+                if (stats.notes) body += `  Notes: ${stats.notes}\n`;
+                body += `\n`;
             });
 
             body += `\nOPPONENT TEAM STATS:\n`;
