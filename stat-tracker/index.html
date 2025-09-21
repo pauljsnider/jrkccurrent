@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soccer Stat Tracker</title>
+    <link rel="icon" href="../Images/logo.png" type="image/png">
     <style>
+        /* Junior Current Color Variables */
+        :root {
+            --navy-blue: #0c223f;      /* Background and outlines */
+            --light-teal: #6dd2dc;     /* Side panels and stars */
+            --red: #d61f26;            /* Central stripe */
+            --white: #ffffff;          /* Text and stars */
+            --dark-teal: #0e3c4e;      /* Accents within the teal side */
+            --very-dark-navy: #0a1a2e; /* Shadows/outlines */
+            --gray: #f4f4f4;           /* Light background */
+            --dark-gray: #333333;      /* Text color */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,19 +25,21 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f5f5f5;
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            background: var(--gray);
             padding: 5px;
             font-size: 14px;
+            color: var(--dark-gray);
         }
 
         .header {
-            background: #2563eb;
-            color: white;
+            background: var(--navy-blue);
+            color: var(--white);
             padding: 10px;
             border-radius: 6px;
             margin-bottom: 10px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .timer {
@@ -49,10 +64,10 @@
             min-height: 36px;
         }
 
-        .btn-start { background: #10b981; color: white; }
-        .btn-stop { background: #ef4444; color: white; }
-        .btn-reset { background: #6b7280; color: white; }
-        .btn-email { background: #8b5cf6; color: white; }
+        .btn-start { background: var(--light-teal); color: var(--white); }
+        .btn-stop { background: var(--red); color: var(--white); }
+        .btn-reset { background: var(--dark-gray); color: var(--white); }
+        .btn-email { background: var(--dark-teal); color: var(--white); }
 
         .btn:disabled {
             opacity: 0.5;
@@ -60,16 +75,17 @@
         }
 
         .stats-container {
-            background: white;
+            background: var(--white);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid var(--navy-blue);
         }
 
         .stats-header {
-            background: #f8fafc;
+            background: var(--light-teal);
             padding: 15px;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid var(--navy-blue);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -78,6 +94,7 @@
         .stats-title {
             font-size: 1.2rem;
             font-weight: bold;
+            color: var(--white);
         }
 
         .stats-table {
@@ -87,13 +104,14 @@
         }
 
         .stats-table th {
-            background: #f8fafc;
+            background: var(--gray);
             padding: 4px 1px;
             text-align: center;
             font-weight: 600;
             font-size: 11px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--navy-blue);
             line-height: 1.2;
+            color: var(--navy-blue);
         }
 
         .stats-table td {
@@ -106,8 +124,7 @@
         .player-name {
             text-align: left !important;
             font-weight: 500;
-            min-width: 45px;
-            max-width: 55px;
+            width: 50px;
             font-size: 10px;
             padding-left: 3px !important;
             line-height: 1.1;
@@ -129,7 +146,7 @@
             font-weight: bold;
             font-size: 14px;
             min-height: 16px;
-            color: #1d4ed8;
+            color: var(--navy-blue);
         }
 
         .stat-buttons {
@@ -140,8 +157,8 @@
         .stat-btn {
             width: 22px;
             height: 22px;
-            border: 1px solid #d1d5db;
-            background: white;
+            border: 1px solid var(--navy-blue);
+            background: var(--white);
             border-radius: 3px;
             font-size: 12px;
             cursor: pointer;
@@ -152,28 +169,28 @@
         }
 
         .stat-btn:hover {
-            background: #f3f4f6;
+            background: var(--gray);
         }
 
         .stat-btn.decrement {
             background: #fef2f2;
-            color: #dc2626;
+            color: var(--red);
         }
 
         .stat-btn.increment {
             background: #f0fdf4;
-            color: #16a34a;
+            color: var(--light-teal);
         }
 
         .stat-btn:hover {
-            border-color: #2563eb;
-            background: #f0f9ff;
+            border-color: var(--dark-teal);
+            background: var(--gray);
         }
 
         .stat-btn.has-stats {
-            background: #dbeafe;
-            border-color: #2563eb;
-            color: #1d4ed8;
+            background: var(--light-teal);
+            border-color: var(--navy-blue);
+            color: var(--white);
             font-weight: bold;
         }
 
@@ -210,9 +227,9 @@
             width: 30px;
             height: 24px;
             padding: 1px 2px;
-            border: 1px solid #2563eb;
-            background: #2563eb;
-            color: white;
+            border: 1px solid var(--navy-blue);
+            background: var(--navy-blue);
+            color: var(--white);
             border-radius: 3px;
             font-size: 8px;
             cursor: pointer;
@@ -221,7 +238,7 @@
         }
 
         .notes-btn:hover {
-            background: #1d4ed8;
+            background: var(--dark-teal);
         }
 
         .notes-container {
@@ -232,32 +249,35 @@
 
         .game-log {
             margin-top: 15px;
-            background: white;
+            background: var(--white);
             border-radius: 6px;
             padding: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             max-height: 200px;
             overflow-y: auto;
+            border: 1px solid var(--navy-blue);
         }
 
         .game-log h3 {
             font-size: 14px;
             margin-bottom: 8px;
-            color: #374151;
+            color: var(--navy-blue);
+            font-weight: bold;
         }
 
         .log-entry {
             padding: 4px 8px;
             margin: 2px 0;
-            background: #f8fafc;
+            background: var(--gray);
             border-radius: 3px;
             font-size: 11px;
             display: flex;
             justify-content: space-between;
+            border-left: 3px solid var(--light-teal);
         }
 
         .log-time {
-            color: #6b7280;
+            color: var(--dark-teal);
             font-weight: 500;
             font-size: 10px;
         }
@@ -282,7 +302,7 @@
         <table class="stats-table">
             <thead>
                 <tr>
-                    <th style="width: 55px;">Player</th>
+                    <th style="width: 50px;">Player</th>
                     <th class="stat-cell">⚽<br>Goals</th>
                     <th class="stat-cell">🥅<br>Shots</th>
                     <th class="stat-cell">🎯<br>Passes</th>
@@ -306,7 +326,7 @@
         <table class="stats-table">
             <thead>
                 <tr>
-                    <th style="width: 80px;">Player</th>
+                    <th style="width: 50px;">Player</th>
                     <th class="stat-cell">⚽<br>Goals</th>
                     <th class="stat-cell">🥅<br>Shots</th>
                     <th class="stat-cell">🎯<br>Passes</th>
@@ -733,7 +753,7 @@
                                    value="${player.name}"
                                    onchange="updateOpponentName('${player.id}', this.value)"
                                    placeholder="Player name..."
-                                   style="width: 100%; border: 1px solid #d1d5db; border-radius: 3px; padding: 2px; font-size: 10px;">
+                                   style="width: 44px; border: 1px solid #d1d5db; border-radius: 3px; padding: 2px; font-size: 10px; box-sizing: border-box;">
                         </td>
                         <td class="stat-cell">
                             <div class="stat-controls">
