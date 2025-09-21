@@ -194,7 +194,7 @@
         }
 
         .notes-cell {
-            min-width: 100px;
+            min-width: 140px;
         }
 
         .notes-input {
@@ -276,7 +276,7 @@
 
     <div class="stats-container">
         <div class="stats-header">
-            <div class="stats-title">Game Stats</div>
+            <div class="stats-title">Jr Current Game Stats</div>
         </div>
 
         <table class="stats-table">
@@ -284,15 +284,39 @@
                 <tr>
                     <th style="width: 55px;">Player</th>
                     <th class="stat-cell">⚽<br>Goals</th>
-                    <th class="stat-cell">🅰️<br>Assists</th>
+                    <th class="stat-cell">🥅<br>Shots</th>
+                    <th class="stat-cell">🎯<br>Passes</th>
                     <th class="stat-cell">🛡️<br>Blocks</th>
                     <th class="stat-cell">🏃<br>Hustle</th>
-                    <th style="width: 65px;">⭐<br>Stars</th>
                     <th>Notes</th>
                 </tr>
             </thead>
             <tbody id="statsTable">
                 <!-- Player rows will be generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="stats-container">
+        <div class="stats-header">
+            <div class="stats-title">Opponent Team Stats</div>
+            <button class="btn btn-secondary btn-small" id="addOpponentBtn">Add Player</button>
+        </div>
+
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Player</th>
+                    <th class="stat-cell">⚽<br>Goals</th>
+                    <th class="stat-cell">🥅<br>Shots</th>
+                    <th class="stat-cell">🎯<br>Passes</th>
+                    <th class="stat-cell">🛡️<br>Blocks</th>
+                    <th class="stat-cell">🏃<br>Hustle</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="opponentStatsTable">
+                <!-- Opponent rows will be generated here -->
             </tbody>
         </table>
     </div>
@@ -311,17 +335,17 @@
         // Static roster data
         const ROSTER = [
             { id: 1, name: 'Audrey', jersey: 9, position: 'Striker' },
-            { id: 2, name: 'Payton', jersey: 10, position: 'Midfielder' },
-            { id: 3, name: 'Teagan', jersey: 4, position: 'Center Back' },
-            { id: 4, name: 'Neda', jersey: 1, position: 'Goalkeeper' },
-            { id: 5, name: 'Saavya', jersey: 8, position: 'Midfield' },
+            { id: 11, name: 'Emmie', jersey: 2, position: 'Midfielder' },
+            { id: 9, name: 'Harper', jersey: 6, position: 'Forward' },
             { id: 6, name: 'Livy', jersey: 5, position: 'Defender' },
             { id: 7, name: 'Madison', jersey: 11, position: 'Forward' },
+            { id: 4, name: 'Neda', jersey: 1, position: 'Goalkeeper' },
+            { id: 2, name: 'Payton', jersey: 10, position: 'Midfielder' },
             { id: 8, name: 'Riley', jersey: 7, position: 'Midfield' },
-            { id: 9, name: 'Harper', jersey: 6, position: 'Forward' },
-            { id: 10, name: 'Vivian', jersey: 3, position: 'Defender' },
-            { id: 11, name: 'Emmie', jersey: 2, position: 'Midfielder' },
-            { id: 12, name: 'Sela', jersey: 12, position: 'Midfielder' }
+            { id: 5, name: 'Saavya', jersey: 8, position: 'Midfield' },
+            { id: 12, name: 'Sela', jersey: 12, position: 'Midfielder' },
+            { id: 3, name: 'Teagan', jersey: 4, position: 'Center Back' },
+            { id: 10, name: 'Vivian', jersey: 3, position: 'Defender' }
         ];
 
         // Game state
@@ -330,20 +354,44 @@
             elapsed: 0,
             isRunning: false,
             stats: {},
+            opponentStats: {},
             gameLog: []
         };
+
+        // Opponent team roster (starts with 3 default rows)
+        let opponentRoster = [
+            { id: 'opp1', name: '', jersey: '', isEditable: true },
+            { id: 'opp2', name: '', jersey: '', isEditable: true },
+            { id: 'opp3', name: '', jersey: '', isEditable: true }
+        ];
 
         // Initialize stats for all players
         ROSTER.forEach(player => {
             gameState.stats[player.id] = {
                 goals: 0,
-                assists: 0,
+                shots: 0,
+                passes: 0,
                 blocks: 0,
                 hustle: 0,
-                stars: 0,
                 notes: ''
             };
         });
+
+        // Initialize opponent stats
+        function initializeOpponentStats() {
+            opponentRoster.forEach(player => {
+                gameState.opponentStats[player.id] = {
+                    goals: 0,
+                    shots: 0,
+                    passes: 0,
+                    blocks: 0,
+                    hustle: 0,
+                    notes: ''
+                };
+            });
+        }
+
+        initializeOpponentStats();
 
         // Timer functions
         function startTimer() {
@@ -376,11 +424,10 @@
                 ROSTER.forEach(player => {
                     gameState.stats[player.id] = {
                         goals: 0,
-                        assists: 0,
+                        passes: 0,
                         blocks: 0,
                         hustle: 0,
-                        stars: 0,
-                        notes: ''
+                                notes: ''
                     };
                 });
 
@@ -420,12 +467,6 @@
             renderStats();
         }
 
-        function setStar(playerId, value) {
-            gameState.stats[playerId].stars = value;
-            const player = ROSTER.find(p => p.id === playerId);
-            addLogEntry(`#${player.jersey} ${player.name} - ${value} star${value !== 1 ? 's' : ''}`);
-            renderStats();
-        }
 
         function updateNotes(playerId, notes) {
             gameState.stats[playerId].notes = notes;
@@ -443,7 +484,8 @@
         function getStatLabel(statType) {
             const labels = {
                 goals: 'Goal',
-                assists: 'Assist',
+                shots: 'Shot on Goal',
+                passes: 'Pass',
                 blocks: 'Block/Save',
                 hustle: 'Hustle Play'
             };
@@ -476,7 +518,7 @@
                 const stats = gameState.stats[player.id];
                 return `
                     <tr>
-                        <td class="player-name">#${player.jersey} ${player.name}</td>
+                        <td class="player-name">${player.name}</td>
                         <td class="stat-cell">
                             <div class="stat-controls">
                                 <div class="stat-display">${stats.goals || 0}</div>
@@ -488,10 +530,19 @@
                         </td>
                         <td class="stat-cell">
                             <div class="stat-controls">
-                                <div class="stat-display">${stats.assists || 0}</div>
+                                <div class="stat-display">${stats.shots || 0}</div>
                                 <div class="stat-buttons">
-                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'assists')" ${stats.assists === 0 ? 'disabled' : ''}>-</button>
-                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'assists')">+</button>
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'shots')" ${stats.shots === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'shots')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.passes || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'passes')" ${stats.passes === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'passes')">+</button>
                                 </div>
                             </div>
                         </td>
@@ -511,14 +562,6 @@
                                     <button class="stat-btn decrement" onclick="decrementStat(${player.id}, 'hustle')" ${stats.hustle === 0 ? 'disabled' : ''}>-</button>
                                     <button class="stat-btn increment" onclick="incrementStat(${player.id}, 'hustle')">+</button>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="star-rating">
-                                ${[1,2,3].map(i =>
-                                    `<span class="star ${stats.stars >= i ? 'filled' : ''}"
-                                           onclick="setStar(${player.id}, ${i})">★</span>`
-                                ).join('')}
                             </div>
                         </td>
                         <td class="notes-cell">
@@ -559,18 +602,36 @@
             body += `Date: ${new Date().toLocaleDateString()}\n`;
             body += `Game Time: ${gameTime}\n\n`;
 
-            body += `PLAYER STATS:\n`;
+            body += `JR CURRENT PLAYER STATS:\n`;
             ROSTER.forEach(player => {
                 const stats = gameState.stats[player.id];
-                const hasStats = stats.goals || stats.assists || stats.blocks || stats.hustle || stats.stars || stats.notes;
+                const hasStats = stats.goals || stats.shots || stats.passes || stats.blocks || stats.hustle || stats.notes;
 
                 if (hasStats) {
                     body += `#${player.jersey} ${player.name}:\n`;
                     if (stats.goals) body += `  Goals: ${stats.goals}\n`;
-                    if (stats.assists) body += `  Assists: ${stats.assists}\n`;
+                    if (stats.shots) body += `  Shots on Goal: ${stats.shots}\n`;
+                    if (stats.passes) body += `  Passes: ${stats.passes}\n`;
                     if (stats.blocks) body += `  Blocks/Saves: ${stats.blocks}\n`;
                     if (stats.hustle) body += `  Hustle Plays: ${stats.hustle}\n`;
-                    if (stats.stars) body += `  Coach Stars: ${stats.stars}\n`;
+                    if (stats.notes) body += `  Notes: ${stats.notes}\n`;
+                    body += `\n`;
+                }
+            });
+
+            body += `\nOPPONENT TEAM STATS:\n`;
+            opponentRoster.forEach(player => {
+                const stats = gameState.opponentStats[player.id];
+                const hasStats = stats.goals || stats.shots || stats.passes || stats.blocks || stats.hustle || stats.notes;
+                const playerName = player.name || 'Unnamed Player';
+
+                if (hasStats || player.name) {
+                    body += `${playerName}:\n`;
+                    if (stats.goals) body += `  Goals: ${stats.goals}\n`;
+                    if (stats.shots) body += `  Shots on Goal: ${stats.shots}\n`;
+                    if (stats.passes) body += `  Passes: ${stats.passes}\n`;
+                    if (stats.blocks) body += `  Blocks/Saves: ${stats.blocks}\n`;
+                    if (stats.hustle) body += `  Hustle Plays: ${stats.hustle}\n`;
                     if (stats.notes) body += `  Notes: ${stats.notes}\n`;
                     body += `\n`;
                 }
@@ -593,14 +654,144 @@
         document.getElementById('stopBtn').addEventListener('click', stopTimer);
         document.getElementById('resetBtn').addEventListener('click', resetTimer);
         document.getElementById('emailBtn').addEventListener('click', emailSummary);
+        document.getElementById('addOpponentBtn').addEventListener('click', addOpponentRow);
 
         // Initialize app
         function init() {
             renderStats();
+            renderOpponentStats();
             renderGameLog();
 
             // Update timer every second
             setInterval(updateTimer, 1000);
+        }
+
+        // Opponent team functions
+        function addOpponentRow() {
+            const newId = 'opp' + Date.now();
+            const newPlayer = { id: newId, name: '', jersey: '', isEditable: true };
+            opponentRoster.push(newPlayer);
+
+            gameState.opponentStats[newId] = {
+                goals: 0,
+                shots: 0,
+                passes: 0,
+                blocks: 0,
+                hustle: 0,
+                notes: ''
+            };
+
+            renderOpponentStats();
+        }
+
+        function updateOpponentName(playerId, name) {
+            const player = opponentRoster.find(p => p.id === playerId);
+            if (player) {
+                player.name = name;
+            }
+        }
+
+        function incrementOpponentStat(playerId, statType) {
+            gameState.opponentStats[playerId][statType]++;
+            const player = opponentRoster.find(p => p.id === playerId);
+            const playerName = player.name || 'Opponent Player';
+            addLogEntry(`${playerName} (Opponent) - ${getStatLabel(statType)}`);
+            renderOpponentStats();
+        }
+
+        function decrementOpponentStat(playerId, statType) {
+            if (gameState.opponentStats[playerId][statType] > 0) {
+                gameState.opponentStats[playerId][statType]--;
+                const player = opponentRoster.find(p => p.id === playerId);
+                const playerName = player.name || 'Opponent Player';
+                addLogEntry(`${playerName} (Opponent) - ${getStatLabel(statType)} removed`);
+                renderOpponentStats();
+            }
+        }
+
+        function updateOpponentNotes(playerId, notes) {
+            gameState.opponentStats[playerId].notes = notes;
+        }
+
+        function logOpponentNote(playerId) {
+            const player = opponentRoster.find(p => p.id === playerId);
+            const playerName = player.name || 'Opponent Player';
+            const notes = gameState.opponentStats[playerId].notes;
+            if (notes.trim()) {
+                addLogEntry(`${playerName} (Opponent) - Note: ${notes}`);
+            }
+        }
+
+        function renderOpponentStats() {
+            const tbody = document.getElementById('opponentStatsTable');
+            tbody.innerHTML = opponentRoster.map(player => {
+                const stats = gameState.opponentStats[player.id];
+                return `
+                    <tr>
+                        <td class="player-name">
+                            <input type="text"
+                                   value="${player.name}"
+                                   onchange="updateOpponentName('${player.id}', this.value)"
+                                   placeholder="Player name..."
+                                   style="width: 100%; border: 1px solid #d1d5db; border-radius: 3px; padding: 2px; font-size: 10px;">
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.goals || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementOpponentStat('${player.id}', 'goals')" ${stats.goals === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementOpponentStat('${player.id}', 'goals')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.shots || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementOpponentStat('${player.id}', 'shots')" ${stats.shots === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementOpponentStat('${player.id}', 'shots')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.passes || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementOpponentStat('${player.id}', 'passes')" ${stats.passes === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementOpponentStat('${player.id}', 'passes')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.blocks || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementOpponentStat('${player.id}', 'blocks')" ${stats.blocks === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementOpponentStat('${player.id}', 'blocks')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="stat-cell">
+                            <div class="stat-controls">
+                                <div class="stat-display">${stats.hustle || 0}</div>
+                                <div class="stat-buttons">
+                                    <button class="stat-btn decrement" onclick="decrementOpponentStat('${player.id}', 'hustle')" ${stats.hustle === 0 ? 'disabled' : ''}>-</button>
+                                    <button class="stat-btn increment" onclick="incrementOpponentStat('${player.id}', 'hustle')">+</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="notes-cell">
+                            <div class="notes-container">
+                                <input type="text" class="notes-input"
+                                       value="${stats.notes}"
+                                       onchange="updateOpponentNotes('${player.id}', this.value)"
+                                       placeholder="Quick notes...">
+                                <button class="notes-btn" onclick="logOpponentNote('${player.id}')">Log</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         // Start the app
