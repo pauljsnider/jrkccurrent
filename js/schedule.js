@@ -5,6 +5,13 @@
 
 // Match Report Data
 const matchReports = {
+  "Sep 20, 2025": {
+    "date": "Sep 20, 2025",
+    "original_date": "9-20",
+    "report": "Match Report: Jr Current vs Wolves\n\nCompass Minerals Field – Under the Lights\nFinal: Jr Current 1, Wolves 0\nRecord: 4–1\n\nUnder the glow of stadium lights at Compass Minerals Field, the Jr Current delivered a gutsy, hard-fought 1–0 win over the Wolves in a defensive battle that tested every ounce of effort. With two players unavailable—Payton (#10) and Sela (#12)—the rest of the team stepped up in a big way. From hustle plays to game-saving stops, this one was earned minute by minute.\n\nFirst Half: Setting the Tone\n\nRight from kickoff, Harper (#6) and Madison (#11) ignited the team's energy with early hustle plays in the first minute. Emmie (#2) nearly gave the Jr Current the lead in the 3rd minute with a clean shot on goal that was waved off for offsides, but it was a warning shot that the Wolves wouldn't forget.\n\nOn defense, Teagan (#4) showed no hesitation, coming up with a huge block just before the 4-minute mark. Then it was Madison (#11) again, forcing the Wolves' keeper to make a save after her shot in the 5th minute. Emmie followed it up with a corner, keeping the Wolves under pressure.\n\nIn the 11th minute, the breakthrough came. Madison (#11), always composed under pressure, delivered a perfectly placed assist to Riley (#7), who buried it in the back of the net. It was the only goal of the match—but it was all they would need.\n\nDefending the Lead: Grit and Grind\n\nAs the Wolves pressed for an equalizer, the Jr Current relied on depth and defense. Neda (#1) and Audrey (#9) subbed in and immediately made their presence felt—Neda with a throw-in and Audrey helping anchor the backline.\n\nRight before the half, Livy (#5) came up with a key hustle play to shut down a run, and Saavya (#8) turned up the intensity with back-to-back defensive stops and hustle plays that drew cheers from the sideline. Teagan blocked another shot just before halftime, helping preserve the 1–0 lead at the break.\n\nSecond Half: The Riley Wall\n\nWith the lead intact, the Jr Current leaned on their defensive shape and introduced a secret weapon—Riley (#7) in goal. What followed was a goalkeeping clinic.\n\nAt the 27th minute, Riley stopped a dangerous attempt.\n\nAgain at the 30th, she responded to pressure with another save.\n\nIn the 36th, she calmly handled a difficult Wolves shot.\n\nThe 41st minute? Another save.\n\nAt 47 and again at 49 minutes—two massive saves, with the Wolves threatening to tie. Riley's composure, timing, and fearless dives kept the clean sheet intact and sealed her as the undisputed Player of the Game.\n\nSupporting her was an ironclad defensive unit. Saavya (#8) was everywhere—logging six recorded hustle plays or blocks in the second half alone. Whether breaking up attacks or sprinting back in transition, she was the engine behind the Jr Current's grit. Teagan (#4) added more blocks, and Livy (#5) returned late with a big block and hustle moment of her own.\n\nNeda (#1) also came up clutch with a defensive block in the 30th and a pair of throw-ins that helped reset the field. Emmie (#2) stayed aggressive, earning another corner in the 33rd minute, while Audrey (#9) launched back-to-back shots in the 34th minute off a beautiful assist from Madison (#11).\n\nHarper (#6) rotated back in and brought steady midfield energy late, helping slow down Wolves' momentum. Vivian (#3) played steady and supported transitions, keeping the shape strong.\n\nFinal Whistle\n\nWhen the final whistle blew, it wasn't just a win—it was a battle earned with sweat and sacrifice. Every girl on the field contributed: from Riley's game-winning goal and show-stopping saves, to Madison's relentless engine and two key assists, to Saavya's nonstop defensive effort and Teagan's wall-like presence.\n\nIt was a night where every name on the roster mattered.\n\nFinal Score: Jr Current 1, Wolves 0\nHalftime: 1–0\nRecord: 4–1",
+    "score": "1-0",
+    "result": "Win"
+  },
   "Aug 24, 2025": {
     "date": "Aug 24, 2025",
     "original_date": "8-24",
@@ -178,6 +185,16 @@ const matchReports = {
 // Ordered from newest to oldest (past games), then upcoming games
 const games = [
     // 2025 Past Season Games (newest first)
+    {
+        date: "Sep 20, 2025",
+        opponent: "Wolves",
+        time: "7:15 PM",
+        location: "Compass Minerals Field 1 South",
+        result: "Win",
+        score: "1-0",
+        isExhibition: false,
+        isPast: true
+    },
     {
         date: "Sep 7, 2025",
         opponent: "Hawks",
@@ -532,16 +549,6 @@ const games = [
         isPast: true
     },
     // 2025 Upcoming Games (chronological order)
-    {
-        date: "Sep 21, 2025",
-        opponent: "Wolves",
-        time: "7:15 PM",
-        location: "Compass Minerals Field 1 South",
-        result: null,
-        score: null,
-        isExhibition: false,
-        isPast: false
-    },
     {
         date: "Sep 27, 2025",
         opponent: "Storm Dooley",
