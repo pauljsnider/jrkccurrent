@@ -813,6 +813,16 @@
 
         // Start the app
         init();
+
+        // Warn user before leaving if game is active
+        window.addEventListener('beforeunload', (event) => {
+            const gameInProgress = gameState.isRunning || (gameState.gameLog && gameState.gameLog.length > 0);
+            if (gameInProgress) {
+                event.preventDefault();
+                event.returnValue = 'Game activity is still in progress. Are you sure you want to leave?';
+                return 'Game activity is still in progress. Are you sure you want to leave?';
+            }
+        });
     </script>
 </body>
 </html>

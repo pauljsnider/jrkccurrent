@@ -1011,6 +1011,12 @@ body.menu-open {
     gap: 0.25rem;
 }
 
+.game-links {
+    display: block;
+    align-self: flex-end;
+    margin-top: 0.15rem;
+}
+
 .game-opponent {
     font-weight: 500;
     color: var(--dark-gray);
@@ -1067,6 +1073,10 @@ body.menu-open {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
+}
+
+.next-game-card .game-date {
+    color: var(--white);
 }
 
 .today-badge {

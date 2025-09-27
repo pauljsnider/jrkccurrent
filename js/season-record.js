@@ -119,16 +119,24 @@
       const resultIcon = game.result === 'Win' ? 'fa-trophy' : 
                         game.result === 'Loss' ? 'fa-times-circle' : 
                         'fa-clock';
+      const hasReport = typeof matchReports !== 'undefined' && matchReports && matchReports[game.date];
+      const reportLink = hasReport ? 
+        `<a href="#" class="match-report-link" onclick="showMatchReport('${game.date}'); return false;">📰 Match Report</a>` : '';
+      const gameDate = parseDate(game.date, game.time);
+      const formattedDate = gameDate ? 
+        `${gameDate.toLocaleDateString('en-US', { weekday: 'short' })}, ${gameDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}` :
+        game.date;
       
       return `
         <div class="game-item ${resultClass}">
-          <div class="game-date">${game.date}</div>
+          <div class="game-date">${formattedDate}</div>
           <div class="game-details">
             <div class="game-opponent">vs ${game.opponent}</div>
             <div class="game-result">
               <i class="fas ${resultIcon}"></i>
               ${game.result && game.score ? `${game.result} ${game.score}` : 'Pending'}
             </div>
+            ${reportLink ? `<div class="game-links">${reportLink}</div>` : ''}
           </div>
         </div>
       `;
@@ -156,12 +164,26 @@
     
     const gameDate = parseDate(nextGame.date, nextGame.time);
     const isToday = gameDate && gameDate.toDateString() === new Date().toDateString();
-    
+
+    let dateLine = nextGame.date;
+    if (gameDate) {
+      const weekday = gameDate.toLocaleDateString('en-US', { weekday: 'long' });
+      const fullDate = gameDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      if (nextGame.time) {
+        const time = gameDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        dateLine = `${weekday}, ${fullDate} at ${time}`;
+      } else {
+        dateLine = `${weekday}, ${fullDate}`;
+      }
+    } else if (nextGame.time) {
+      dateLine = `${nextGame.date} at ${nextGame.time}`;
+    }
+
     nextGameEl.innerHTML = `
       <div class="next-game-card ${isToday ? 'today' : ''}">
         <div class="game-header">
           <div class="game-date">
-            ${nextGame.date}${nextGame.time ? ` at ${nextGame.time}` : ''}
+            ${dateLine}
             ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
           </div>
         </div>

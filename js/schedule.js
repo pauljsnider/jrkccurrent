@@ -5,6 +5,13 @@
 
 // Match Report Data
 const matchReports = {
+  "Sep 26, 2025": {
+    "date": "Sep 26, 2025",
+    "original_date": "9-26",
+    "report": "Jr Current vs Storm – Match Report\n\nDate: 9/26/2025\nLocation: Friday Night Under the Lights\n\nThe Jr Current returned to action under the lights on Friday night, taking on the Storm in a match full of grit, teamwork, and defensive resilience.\n\nFirst Half Dominance\n\nFrom the opening whistle, the Current wasted no time applying pressure. Neda (#1) and Audrey (#9) both tested the Storm with early shots, setting the tone. Just two minutes in, Payton (#10) found the net with a confident finish, giving the Current the spark they needed. Only moments later, Audrey doubled the lead, capitalizing on her attacking instincts and putting the Storm on the back foot.\n\nThe momentum kept rolling as Teagan (#4) stepped up to the penalty spot and calmly slotted home her chance, making it 3-0 before the half. With goals from Payton, Audrey, and Teagan, the Current had complete control by the break.\n\nBetween the posts, Madison (#11) anchored the defense through the first half, making a strong save and showing composure even after a handball call.\n\nDefensive Backbone\n\nThe second half was a story of defensive toughness. Livy (#5) was everywhere, earning Player of the Game honors with four huge blocks and saves that frustrated the Storm’s best chances. Sela (#12) brought relentless hustle with multiple blocks and energy plays, while Saavya (#8) added her own crucial defensive stop. Vivian (#3) chipped in with a hustle play to keep the ball moving the Current’s way.\n\nRiley (#7) patrolled midfield with her trademark aggressiveness, disrupting Storm attacks and pushing the tempo forward. Harper (#6) showed her commitment by joining straight from a birthday party, adding energy and a key hustle play in the second half.\n\nNeda (#1), who had helped spark the opening moments with an early shot, unfortunately went down injured in the second half, but not before making her presence felt.\n\nAfter halftime, Teagan moved into goal, showing versatility by making a big save and shutting down any chance of a Storm comeback.\n\nFinal Whistle\n\nThe scoreline never changed after the break. The Jr Current’s early burst proved decisive, and the defensive unit held firm to secure a 3-0 victory.\n\nAudrey (#9): Goal scorer and attacking spark.\n\nPayton (#10): Scored the opener, dangerous on corners and throws.\n\nTeagan (#4): Scored from the penalty spot, later made key saves as keeper.\n\nLivy (#5): Defensive rock, Player of the Game.\n\nMadison (#11): First-half keeper with saves and attacking looks.\n\nNeda (#1): Early shot and hustle before second-half injury.\n\nRiley (#7): Aggressive midfield engine.\n\nSela (#12): Hustle and defensive work rate.\n\nSaavya (#8): Solid defensive block.\n\nVivian (#3): Contributed with hustle in midfield.\n\nHarper (#6): Hustle play and team-first energy.\n\nEmmie (#2): Out with injury but supported from the sideline.\n\nClosing Note\n\nIt was a complete team effort — goals from Audrey, Payton, and Teagan set the tone, and the defense made sure the Storm never found a way back in. The Jr Current showed balance, fight, and unity under the lights.",
+    "score": "3-0",
+    "result": "Win"
+  },
   "Sep 20, 2025": {
     "date": "Sep 20, 2025",
     "original_date": "9-20",
@@ -185,6 +192,16 @@ const matchReports = {
 // Ordered from newest to oldest (past games), then upcoming games
 const games = [
     // 2025 Past Season Games (newest first)
+    {
+        date: "Sep 26, 2025",
+        opponent: "Storm Dooley",
+        time: "7:30 PM",
+        location: "Scheels OP Soccer Complex Field 8 South",
+        result: "Win",
+        score: "3-0",
+        isExhibition: false,
+        isPast: true
+    },
     {
         date: "Sep 20, 2025",
         opponent: "Wolves",
@@ -550,16 +567,6 @@ const games = [
     },
     // 2025 Upcoming Games (chronological order)
     {
-        date: "Sep 27, 2025",
-        opponent: "Storm Dooley",
-        time: "7:30 PM",
-        location: "Scheels OP Soccer Complex Field 8 South",
-        result: null,
-        score: null,
-        isExhibition: false,
-        isPast: false
-    },
-    {
         date: "Oct 12, 2025",
         opponent: "Hawks",
         time: "10:30 AM",
@@ -592,7 +599,12 @@ const games = [
 ];
 
 // Expose games for other pages (e.g., homepage stats)
-try { window.games = games; } catch (e) { /* no-op for non-browser contexts */ }
+try {
+  window.games = games;
+  window.matchReports = matchReports;
+} catch (e) {
+  /* no-op for non-browser contexts */
+}
 
 /**
  * Helper function to format date from YYYY-MM-DD to "Mon DD" format
