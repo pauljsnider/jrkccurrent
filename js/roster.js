@@ -6,7 +6,80 @@
 // Player data array
 const players = [
     {
+        name: "Neda",
+        number: "#1",
+        position: "Goalkeeper",
+        secondaryPosition: "Center Back",
+        description: "Calm under pressure, Neda brings focus and power to the goal box with confident decision-making.",
+        positionCategory: "goalkeeper",
+        photoUrl: "Images/roster/neda.jpg"
+    },
+    {
+        name: "Emmie",
+        number: "#2",
+        position: "Midfielder",
+        secondaryPosition: "Forward",
+        description: "Tireless and selfless, Emmie is everywhere—pressing, passing, and leading by example.",
+        positionCategory: "midfielder",
+        photoUrl: "Images/roster/emmie.jpg"
+    },
+    {
+        name: "Vivian",
+        number: "#3",
+        position: "Defender",
+        secondaryPosition: "Midfielder",
+        description: "Composed and reliable, Vivian reads the game well and provides solid defensive coverage with smart positioning.",
+        positionCategory: "defender",
+        photoUrl: "Images/roster/vivian.png"
+    },
+    {
+        name: "Teagan",
+        number: "#4",
+        position: "Center Back",
+        secondaryPosition: "Goalkeeper",
+        description: "Solid and steady, Teagan is the backbone of the defense and leads with quiet strength.",
+        positionCategory: "defender",
+        photoUrl: "Images/roster/tegan.jpg"
+    },
+    {
+        name: "Livy",
+        number: "#5",
+        position: "Defender",
+        secondaryPosition: "Midfielder",
+        description: "Steady and thoughtful, Livy supports her teammates with smart play and strong positioning.",
+        positionCategory: "defender",
+        photoUrl: "Images/roster/livi.jpg"
+    },
+    {
+        name: "Harper",
+        number: "#6",
+        position: "Forward",
+        secondaryPosition: "Midfielder",
+        description: "Dynamic and creative, Harper brings speed and skill to the attacking third with natural goal-scoring instincts.",
+        positionCategory: "forward",
+        photoUrl: "Images/roster/harper.png"
+    },
+    {
+        name: "Riley",
+        number: "#7",
+        position: "Midfield",
+        secondaryPosition: "Striker",
+        description: "Creative and confident, Riley brings flair and rhythm to the field with her footwork and movement.",
+        positionCategory: "midfielder",
+        photoUrl: "Images/roster/riley.jpg"
+    },
+    {
+        name: "Saavya",
+        number: "#8",
+        position: "Midfield",
+        secondaryPosition: "Utility Player",
+        description: "A true team player, Saavya can step into any position with composure and grit.",
+        positionCategory: "midfielder",
+        photoUrl: "Images/roster/saavya.jpg"
+    },
+    {
         name: "Audrey",
+        number: "#9",
         position: "Striker",
         secondaryPosition: "Forward",
         description: "Fierce, focused, and fearless in front of goal, Audrey brings a striker's mentality and sharp instincts.",
@@ -15,6 +88,7 @@ const players = [
     },
     {
         name: "Payton",
+        number: "#10",
         position: "Midfielder",
         secondaryPosition: "Winger",
         description: "A visionary playmaker, Payton sees passing lanes others miss and sets the tempo for the team.",
@@ -22,39 +96,8 @@ const players = [
         photoUrl: "Images/roster/payton.jpg"
     },
     {
-        name: "Teagan",
-        position: "Center Back",
-        secondaryPosition: "Goalkeeper",
-        description: "Solid and steady, Teagan is the backbone of the defense and leads with quiet strength.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/tegan.jpg"
-    },
-    {
-        name: "Neda",
-        position: "Goalkeeper",
-        secondaryPosition: "Center Back",
-        description: "Calm under pressure, Neda brings focus and power to the goal box with confident decision-making.",
-        positionCategory: "goalkeeper",
-        photoUrl: "Images/roster/neda.jpg"
-    },
-    {
-        name: "Saavya",
-        position: "Midfield",
-        secondaryPosition: "Utility Player",
-        description: "A true team player, Saavya can step into any position with composure and grit.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/saavya.jpg"
-    },
-    {
-        name: "Livy",
-        position: "Defender",
-        secondaryPosition: "Midfielder",
-        description: "Steady and thoughtful, Livy supports her teammates with smart play and strong positioning.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/livi.jpg"
-    },
-    {
         name: "Madison",
+        number: "#11",
         position: "Forward",
         secondaryPosition: "Midfielder",
         description: "Energetic and vocal, Madison pushes the team forward with her relentless pace and presence.",
@@ -62,39 +105,8 @@ const players = [
         photoUrl: "Images/roster/madison.jpg"
     },
     {
-        name: "Riley",
-        position: "Midfield",
-        secondaryPosition: "Striker",
-        description: "Creative and confident, Riley brings flair and rhythm to the field with her footwork and movement.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/riley.jpg"
-    },
-    {
-        name: "Harper",
-        position: "Forward",
-        secondaryPosition: "Midfielder",
-        description: "Dynamic and creative, Harper brings speed and skill to the attacking third with natural goal-scoring instincts.",
-        positionCategory: "forward",
-        photoUrl: "Images/roster/harper.png"
-    },
-    {
-        name: "Vivian",
-        position: "Defender",
-        secondaryPosition: "Midfielder",
-        description: "Composed and reliable, Vivian reads the game well and provides solid defensive coverage with smart positioning.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/vivian.png"
-    },
-    {
-        name: "Emmie",
-        position: "Midfielder",
-        secondaryPosition: "Forward",
-        description: "Tireless and selfless, Emmie is everywhere—pressing, passing, and leading by example.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/emmie.jpg"
-    },
-    {
         name: "Sela",
+        number: "#12",
         position: "Midfielder",
         secondaryPosition: "Goalkeeper",
         description: "Smart and intuitive, Sela has a game sense that allows her to shine in key moments.",

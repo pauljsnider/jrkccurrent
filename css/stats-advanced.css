@@ -1,0 +1,622 @@
+/**
+ * Junior Current - Mission Control Dashboard Styles
+ * Flight Control Board Aesthetic
+ */
+
+:root {
+    --mission-bg: #0a0e27;
+    --panel-bg: #1a1d29;
+    --panel-header: #252836;
+    --accent-green: #06d6a0;
+    --accent-red: #ef476f;
+    --accent-yellow: #ffd60a;
+    --accent-blue: #118ab2;
+    --text-primary: #ffffff;
+    --text-secondary: #8892b0;
+    --border-color: #2d3142;
+}
+
+body {
+    background: var(--mission-bg);
+}
+
+.stats-container {
+    background: transparent;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+.stats-hero-compact {
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    padding: 0.5rem 0;
+    min-height: auto;
+    height: auto !important;
+}
+
+.stats-hero-compact .hero-overlay {
+    padding: 0;
+    min-height: auto;
+    height: auto;
+    position: relative;
+}
+
+.stats-hero-compact h1 {
+    font-size: 0.85rem;
+    margin: 0;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+}
+
+.stats-hero-compact .hero-text {
+    text-align: center;
+    padding: 0;
+}
+
+/* Mission Control Header */
+.mission-control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--accent-green);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.pulse {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 15px var(--accent-green);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.timestamp {
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+}
+
+.metric-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-green);
+}
+
+.metric-panel.success::before { background: var(--accent-green); }
+.metric-panel.info::before { background: var(--accent-blue); }
+.metric-panel.warning::before { background: var(--accent-yellow); }
+.metric-panel.primary::before { background: #7765FF; }
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 0.75rem;
+}
+
+.panel-header i {
+    font-size: 0.9rem;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+}
+
+.metric-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.metric-trend {
+    color: var(--accent-green);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.metric-comparison {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.trend-positive {
+    color: var(--accent-green);
+}
+
+.trend-negative {
+    color: var(--accent-red);
+}
+
+.mini-chart {
+    height: 50px;
+    margin-top: 0.75rem;
+}
+
+/* Streak Visual */
+.streak-visual {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+}
+
+.result-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.result-icon.win {
+    background: var(--accent-green);
+    color: var(--mission-bg);
+}
+
+.result-icon.loss {
+    background: var(--accent-red);
+    color: white;
+}
+
+.result-icon.tie {
+    background: var(--accent-yellow);
+    color: var(--mission-bg);
+}
+
+/* Form Guide */
+.dark-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.stats-section {
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.section-title {
+    color: var(--accent-green) !important;
+    border-bottom-color: var(--border-color) !important;
+    font-size: 1rem !important;
+    margin-bottom: 0.875rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.dark-panel .section-title {
+    color: var(--accent-green) !important;
+    border-bottom-color: var(--border-color) !important;
+}
+
+.form-guide-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.form-box {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.form-box:hover {
+    transform: scale(1.1);
+}
+
+.form-box.win {
+    background: var(--accent-green);
+    color: var(--mission-bg);
+}
+
+.form-box.loss {
+    background: var(--accent-red);
+    color: white;
+}
+
+.form-box.tie {
+    background: var(--accent-yellow);
+    color: var(--mission-bg);
+}
+
+/* Momentum Indicator */
+.momentum-indicator {
+    margin-top: 1rem;
+}
+
+.momentum-bar {
+    height: 24px;
+    background: var(--panel-header);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.momentum-fill {
+    height: 100%;
+    transition: width 0.5s ease, background 0.5s ease;
+    border-radius: 15px;
+}
+
+.momentum-fill.positive {
+    background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--accent-green) 100%);
+}
+
+.momentum-fill.neutral {
+    background: var(--accent-yellow);
+}
+
+.momentum-fill.negative {
+    background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-yellow) 100%);
+}
+
+.momentum-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+}
+
+.chart-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.chart-panel.wide {
+    grid-column: 1 / -1;
+}
+
+.chart-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chart-panel h3 {
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.chart-panel h3 i {
+    color: var(--accent-green);
+}
+
+.panel-info {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.panel-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chart-btn {
+    background: var(--panel-header);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.chart-btn:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.chart-btn.active {
+    background: var(--accent-green);
+    color: var(--mission-bg);
+    border-color: var(--accent-green);
+}
+
+.player-select {
+    background: var(--panel-header);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+/* Tables */
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+}
+
+.stat-table-container h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.mission-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.mission-table thead {
+    background: var(--panel-header);
+    color: var(--text-secondary);
+}
+
+.mission-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.mission-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.mission-table tbody tr:hover {
+    background: rgba(6, 214, 160, 0.1);
+}
+
+.mission-table td {
+    padding: 0.75rem;
+    color: var(--text-primary);
+}
+
+.mission-table tbody tr.result-win {
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.mission-table tbody tr.result-loss {
+    background: rgba(239, 71, 111, 0.1);
+}
+
+.mission-table tbody tr.result-tie {
+    background: rgba(255, 214, 10, 0.1);
+}
+
+.position-badge {
+    background: var(--panel-header);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+}
+
+.impact-bar {
+    background: var(--panel-header);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100px;
+}
+
+.impact-bar div {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-yellow) 100%);
+    border-radius: 4px;
+}
+
+.result-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.result-badge.win {
+    background: var(--accent-green);
+    color: var(--mission-bg);
+}
+
+.result-badge.loss {
+    background: var(--accent-red);
+    color: white;
+}
+
+.result-badge.tie {
+    background: var(--accent-yellow);
+    color: var(--mission-bg);
+}
+
+.result-win { border-left: 3px solid var(--accent-green); }
+.result-loss { border-left: 3px solid var(--accent-red); }
+.result-tie { border-left: 3px solid var(--accent-yellow); }
+
+/* AI Insights */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.insight-card {
+    background: var(--panel-header);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-green);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.insight-card i {
+    font-size: 2rem;
+    color: var(--accent-green);
+    margin-bottom: 1rem;
+}
+
+.insight-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.insight-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-panel.wide {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .metric-value {
+        font-size: 2.25rem;
+    }
+
+    .metric-panel {
+        padding: 0.875rem;
+    }
+
+    .tables-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-control-header {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .form-box {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-panel {
+        padding: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .metric-value {
+        font-size: 2rem;
+    }
+
+    .chart-panel {
+        padding: 0.75rem;
+    }
+
+    .mission-table {
+        font-size: 0.8rem;
+    }
+
+    .mission-table th,
+    .mission-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .stats-section {
+        padding: 0.75rem;
+    }
+}

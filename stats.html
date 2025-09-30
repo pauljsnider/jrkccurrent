@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Junior Current Statistics Dashboard - Team Analytics and Performance Insights">
+    <title>Statistics Dashboard - Junior Current</title>
+    <link rel="icon" href="Images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/stats-advanced.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo-container">
+                <img src="Images/logo.png" alt="Junior Current Logo" class="logo">
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roster.html">Roster</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="awards.html">Awards</a></li>
+                <li><a href="stats.html" class="active">Stats</a></li>
+                <li><a href="coaches.html">Coaches</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero stats-hero-compact">
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <h1><i class="fas fa-chart-line"></i> STATISTICS DASHBOARD</h1>
+                </div>
+            </div>
+        </section>
+
+        <section class="container stats-container">
+
+            <!-- Mission Control Header -->
+            <div class="mission-control-header">
+                <div class="live-indicator">
+                    <span class="pulse"></span>
+                    <span>LIVE DATA</span>
+                </div>
+                <div class="timestamp" id="lastUpdate">Last Updated: Loading...</div>
+            </div>
+
+            <!-- Primary Metrics Dashboard -->
+            <div class="metrics-grid">
+                <div class="metric-panel primary">
+                    <div class="panel-header">
+                        <i class="fas fa-trophy"></i>
+                        <span>WIN RATE</span>
+                    </div>
+                    <div class="metric-value" id="winRate">--</div>
+                    <div class="metric-trend" id="winRateTrend"></div>
+                    <div class="mini-chart">
+                        <canvas id="winRateGauge"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-panel success">
+                    <div class="panel-header">
+                        <i class="fas fa-fire"></i>
+                        <span>CURRENT STREAK</span>
+                    </div>
+                    <div class="metric-value" id="currentStreak">--</div>
+                    <div class="metric-label" id="streakType">--</div>
+                    <div class="streak-visual" id="streakVisual"></div>
+                </div>
+
+                <div class="metric-panel info">
+                    <div class="panel-header">
+                        <i class="fas fa-futbol"></i>
+                        <span>GOALS/GAME</span>
+                    </div>
+                    <div class="metric-value" id="goalsPerGame">--</div>
+                    <div class="metric-comparison" id="goalComparison"></div>
+                    <div class="mini-chart">
+                        <canvas id="goalsSparkline"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-panel warning">
+                    <div class="panel-header">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>CLEAN SHEETS</span>
+                    </div>
+                    <div class="metric-value" id="cleanSheets">--</div>
+                    <div class="metric-label" id="cleanSheetPct">--</div>
+                    <div class="mini-chart">
+                        <canvas id="defensiveChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Guide -->
+            <div class="stats-section dark-panel">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> FORM GUIDE & MOMENTUM</h2>
+                <div id="formGuide" class="form-guide-container"></div>
+                <div class="momentum-indicator">
+                    <div class="momentum-bar">
+                        <div id="momentumFill" class="momentum-fill"></div>
+                    </div>
+                    <div class="momentum-labels">
+                        <span>Negative</span>
+                        <span>Neutral</span>
+                        <span>Positive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Charts Grid -->
+            <div class="charts-grid">
+                <!-- Win/Loss Distribution -->
+                <div class="chart-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-pie"></i> RESULTS DISTRIBUTION</h3>
+                        <div class="panel-controls">
+                            <button class="chart-btn active" data-season="2025">2025</button>
+                            <button class="chart-btn" data-season="2024">2024</button>
+                        </div>
+                    </div>
+                    <canvas id="resultsChart"></canvas>
+                </div>
+
+                <!-- Scoring Trends -->
+                <div class="chart-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-area"></i> SCORING TRENDS</h3>
+                        <div class="panel-info">Goals For vs Against</div>
+                    </div>
+                    <canvas id="scoringChart"></canvas>
+                </div>
+
+                <!-- Season Progression -->
+                <div class="chart-panel wide">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-line"></i> SEASON PROGRESSION</h3>
+                        <div class="panel-info">Cumulative Points & Goal Differential</div>
+                    </div>
+                    <canvas id="progressionChart"></canvas>
+                </div>
+
+                <!-- Player Radar -->
+                <div class="chart-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-users"></i> TOP PERFORMERS</h3>
+                        <select id="playerSelect" class="player-select">
+                            <option value="">Select Player...</option>
+                        </select>
+                    </div>
+                    <canvas id="playerRadarChart"></canvas>
+                </div>
+
+                <!-- Opponent Analysis -->
+                <div class="chart-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-users-between-lines"></i> OPPONENT ANALYSIS</h3>
+                        <div class="panel-info">Performance vs Each Team</div>
+                    </div>
+                    <canvas id="opponentChart"></canvas>
+                </div>
+
+                <!-- Goal Timing -->
+                <div class="chart-panel wide">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-clock"></i> GOAL TIMING ANALYSIS</h3>
+                        <div class="panel-info">When goals are scored/conceded</div>
+                    </div>
+                    <canvas id="goalTimingChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Advanced Stats Tables -->
+            <div class="stats-section">
+                <h2 class="section-title"><i class="fas fa-table"></i> DETAILED STATISTICS</h2>
+                <div class="tables-grid">
+                    <!-- Player Stats -->
+                    <div class="stat-table-container">
+                        <h3>Player Performance Matrix</h3>
+                        <div id="playerStatsTable"></div>
+                    </div>
+
+                    <!-- Game Log -->
+                    <div class="stat-table-container">
+                        <h3>Recent Game Log</h3>
+                        <div id="gameLogTable"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights -->
+            <div class="stats-section dark-panel">
+                <h2 class="section-title"><i class="fas fa-robot"></i> AI-POWERED INSIGHTS</h2>
+                <div id="aiInsights" class="insights-grid"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Junior Current | Powered by Passion | Fall 2025</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/thekccurrent" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 Junior Current. All rights reserved.</p>
+            <p class="ai-credit"><i class="fas fa-robot"></i> Advanced analytics powered by AI insights</p>
+        </div>
+    </footer>
+
+    <!-- Load data sources first -->
+    <script src="js/roster.js"></script>
+    <script src="js/schedule.js"></script>
+    <!-- Then load stats engine -->
+    <script src="js/stats-advanced.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>
