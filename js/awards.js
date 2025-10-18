@@ -6,7 +6,7 @@
 // Fall 2025 Season Awards (based on PowerPoint presentation)
 const fall2025Awards = [
     {
-        title: "Midfielder of the Year",
+        title: "Rookie of the Year",
         recipient: "Vivian Karpuk",
         description: "Composed and reliable mid-fielder who reads the game exceptionally well, providing solid coverage with smart positioning. Her steady presence and soccer intelligence were crucial to the team's defensive success."
     },
@@ -26,12 +26,12 @@ const fall2025Awards = [
         description: "Brought dynamic energy and creativity to the attacking third with natural instincts and speed. Her team-first attitude and attacking flair made her a constant threat on offense."
     },
     {
-        title: "Defensive Player of the Year",
+        title: "Up and Coming Defender",
         recipient: "Liviana Hodges",
         description: "Everywhere on the field with steady and thoughtful play. Her four huge blocks and saves in the Storm match earned her Player of the Game honors and showcased her defensive prowess."
     },
     {
-        title: "Most Versatile Player",
+        title: "Breakaway Player of the Year",
         recipient: "Madison Snider",
         description: "Energetic and vocal, pushing the team forward with relentless pace on both ends of the field. Her assist for the game-winning goal and strong goalkeeping showed her incredible versatility."
     },
@@ -56,7 +56,7 @@ const fall2025Awards = [
         description: "Displayed smart and intuitive play with exceptional game sense. Her relentless hustle, multiple blocks, and ability to contribute in defense and offense showcased her versatility and tactical awareness."
     },
     {
-        title: "Defensive Backbone",
+        title: "Defensive Player of the Year",
         recipient: "Teagan Kurtz",
         description: "Established herself as the backbone of the defense with solid and steady play. Her penalty kick goal, seamless transition to goalkeeper, and multiple Player of the Game honors demonstrated incredible versatility."
     }
