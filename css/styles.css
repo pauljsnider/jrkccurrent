@@ -512,6 +512,49 @@ a:hover {
 }
 
 /* Award Cards */
+.season-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.season-tab {
+    background: var(--white);
+    border: 2px solid var(--dark-teal);
+    color: var(--dark-teal);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.season-tab:hover {
+    background: var(--light-teal);
+    color: var(--white);
+}
+
+.season-tab.active {
+    background: var(--dark-teal);
+    color: var(--white);
+}
+
+.season-awards {
+    display: none;
+}
+
+.season-awards.active {
+    display: block;
+}
+
+.season-awards h2 {
+    text-align: center;
+    color: var(--dark-teal);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
 .award-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

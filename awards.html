@@ -35,10 +35,28 @@
     <main>
         <section class="container">
             <h1>Team Awards</h1>
-            <p class="awards-intro text-center mb-2">Recognizing the outstanding achievements and contributions of our players throughout the season. Each award celebrates the unique qualities that make our team special.</p>
+            <p class="awards-intro text-center mb-2">Recognizing the outstanding achievements and contributions of our players throughout the seasons. Each award celebrates the unique qualities that make our team special.</p>
             
-            <div class="award-cards">
-                <!-- Award cards will be dynamically generated here -->
+            <!-- Season Navigation -->
+            <div class="season-tabs">
+                <button class="season-tab active" data-season="fall2025">Fall 2025</button>
+                <button class="season-tab" data-season="spring2025">Spring 2025</button>
+            </div>
+            
+            <!-- Fall 2025 Awards -->
+            <div id="fall2025-awards" class="season-awards active">
+                <h2>Fall 2025 Season Awards</h2>
+                <div class="award-cards" id="fall2025-cards">
+                    <!-- Fall 2025 award cards will be generated here -->
+                </div>
+            </div>
+            
+            <!-- Spring 2025 Awards -->
+            <div id="spring2025-awards" class="season-awards">
+                <h2>Spring 2025 Season Awards</h2>
+                <div class="award-cards" id="spring2025-cards">
+                    <!-- Spring 2025 award cards will be generated here -->
+                </div>
             </div>
         </section>
     </main>
