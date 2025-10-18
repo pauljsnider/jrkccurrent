@@ -10,7 +10,8 @@ const matchReports = {
     "original_date": "10-12",
     "report": "Jr Current vs Wolves — Match Report\n\nDate: 10/12/2025\nFinal: Jr Current 1, Wolves 3\nHalftime: Jr Current 1, Wolves 0\nGame clock: 59:12\n\nJr Current came out sharp and disciplined, owning the opening minutes through organized defending and quick outlets from the back. Emmie wore the gloves for the full match and set the tone right away with confident stops at 1:54 and 3:31. Those early saves settled everyone in and let the girls push the game onto the front foot.\n\nThe breakthrough arrived in the sixth minute. Madison pressed high and fired a clean shot on goal that deflected into traffic, and Audrey, wearing the captain's armband, followed up with perfect timing to bury the rebound at 6:57 for a 1 to 0 lead. A few minutes later Harper stung a shot on frame at 12:10, forcing the Wolves to respect the wing threat. Payton, who covered every blade of grass, connected midfield to attack with a crisp pass at 14:56 and kept the tempo high for most of the half.\n\nTeagan anchored the spine with a clean block at 17:58 and never took a play off. She logged zero sub time and still looked strong in late sequences. Livy, back from vacation, slotted in seamlessly with two key blocks to snuff out counters and help protect the six. On the opposite side, Saavya stacked stops on defense and read passing lanes well to break up Wolves build ups. Neda added a brave block at 47:45 in the second half, stepping into a shooting lane that could have changed the scoreline earlier.\n\nRiley's two way shift stood out. She hustled to win second balls at 30:06 and 35:31, then turned those into quick transitions. Vivian wore the captain's band up top, repeatedly stretching the back line with multiple breakaways that kept the Wolves honest. Madison kept driving the attack with two shots on goal and a relentless hustle play at 29:41. Her intensity in transition and on the press helped maintain the team's edge throughout the first half.\n\nThe match turned in a tough five minute spell. The Wolves equalized at 38:18 and struck again at 39:25, then added a third at 43:03. Credit to the Current for responding with courage. Emmie produced another save late at 58:36 and continued to marshal the box with clear instructions and safe hands. Even with momentum against them, the girls kept playing forward. Riley, Payton, and Vivian pushed for a late lifeline while Harper and Madison kept testing from the edges. The back unit, with Teagan, Livy, Saavya, and Neda rotating support, battled to the final whistle.\n\nPlayer of the Game: Emmie. Full time in goal, multiple timely saves, calm distribution, and fearless positioning.\n\nCaptain Impact: Audrey delivered the goal that put the Current in front. Vivian set the attacking tone with repeated breakaways and leadership up top.\n\nUnavailable: Sela was out attending a family reunion, and the team missed her steady defensive presence.\n\nThe result will sting, but the performance carried a lot to build on. Early organization, collective pressing, and brave goalkeeping gave the Current a winning platform. Clean up a short second half window, keep that first half shape, and this group is right back in the win column.",
     "score": "1-3",
-    "result": "Loss"
+    "result": "Loss",
+    "video": "https://youtu.be/x5NDq6LwCFc?si=qeKCSjUb7wP-OW33"
   },
   "Oct 17, 2025": {
     "date": "Oct 17, 2025",
@@ -788,6 +789,8 @@ function generateSchedule(filter = 'all') {
         const hasMatchReport = matchReports[game.date];
         const matchReportLink = hasMatchReport ? 
             `<br><a href="#" onclick="showMatchReport('${game.date}'); return false;" class="match-report-link">📰 Match Report</a>` : '';
+        const videoLink = hasMatchReport && hasMatchReport.video ? 
+            `<br><a href="${hasMatchReport.video}" target="_blank" rel="noopener noreferrer" class="video-link">🎥 Game Video</a>` : '';
         
         tableHTML += `
             <tr>
@@ -795,7 +798,7 @@ function generateSchedule(filter = 'all') {
                 <td>${game.opponent}${game.isExhibition ? ' (Exhibition)' : ''}</td>
                 <td>${game.time}</td>
                 <td>${game.location}</td>
-                <td><span class="game-result ${resultClass}">${resultText}</span>${matchReportLink}</td>
+                <td><span class="game-result ${resultClass}">${resultText}</span>${matchReportLink}${videoLink}</td>
             </tr>
         `;
     });
