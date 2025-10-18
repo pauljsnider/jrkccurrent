@@ -5,6 +5,13 @@
 
 // Match Report Data
 const matchReports = {
+  "Oct 17, 2025": {
+    "date": "Oct 17, 2025",
+    "original_date": "10-17",
+    "report": "**Junior Current vs. Dolphins – Match Report**\n**Date:** October 17, 2025\n**Final Time:** 58:45\n\nThe Junior Current faced off against the Dolphins in a fast-paced and hard-fought match that highlighted teamwork, grit, and flashes of brilliance across the field. The game ended in a 2–2 draw, with both teams trading momentum and showing resilience in every phase of play.\n\n### **First Half – Audrey Strikes First**\n\nThe opening minutes set the tone, with Sela anchoring the defense through quick reactions and strong blocks. Teagan followed up with another well-timed stop to keep the Dolphins' early attacks in check, while Harper and Livy worked hard off the ball to transition the team forward.\n\nThe Current struck first after a smooth build-up. Vivian slipped a pass through midfield to Audrey, who buried a well-placed shot to give the team the early 1–0 lead. That goal energized the Current, with Madison hustling across the field to pressure the Dolphins and support both ends of play.\n\nSela continued to shine defensively with multiple saves, and Payton and Neda made strong clearances to keep control of the back line. Despite the early lead, the Dolphins equalized near the midpoint of the half when one of their attackers capitalized on a rebound.\n\nAs the half wound down, the Dolphins managed another goal to go up 2–1, but the Current refused to back down. Just before halftime, Madison made a confident run upfield and finished with composure to tie the game 2–2 going into the break.\n\n### **Second Half – End-to-End Battle**\n\nThe second half opened with both sides pressing hard. Audrey continued to threaten the Dolphins' defense with multiple shots on goal, while Riley provided relentless energy in the midfield, winning 50/50 balls and connecting passes. Payton was active defensively and supported playmaking through smart positioning.\n\nVivian and Harper created several chances in transition, while Saavya and Livy brought strong hustle to the wings, constantly tracking back and applying pressure. Sela and Teagan stayed solid in defense, combining for key stops that kept the Dolphins from pulling ahead.\n\nLate in the match, goalkeeper and captain Emmie made a crucial save to keep the score even, reading the play perfectly and holding her ground against a strong shot. In the final moments, Saavya's back-to-back hustle plays sealed the draw, helping the Current control possession until the whistle.\n\n### **Final Thoughts**\n\nThis match showcased the depth and determination of the Junior Current. Audrey's early goal, Madison's game-tying finish, and the defensive strength of Sela, Teagan, and Payton anchored a complete team performance. Every player contributed—from the forwards creating pressure to the defenders staying composed under attack—and the result reflected their effort.\n\n**Final Score:** Junior Current 2 – Dolphins 2\n**Goals:** Audrey, Madison\n**Player of the Game:** Madison Snider",
+    "score": "2-2",
+    "result": "Tie"
+  },
   "Sep 26, 2025": {
     "date": "Sep 26, 2025",
     "original_date": "9-26",
@@ -192,6 +199,16 @@ const matchReports = {
 // Ordered from newest to oldest (past games), then upcoming games
 const games = [
     // 2025 Past Season Games (newest first)
+    {
+        date: "Oct 17, 2025",
+        opponent: "Dolphins",
+        time: "5:00 PM",
+        location: "Scheels Complex #7 S",
+        result: "Tie",
+        score: "2-2",
+        isExhibition: false,
+        isPast: true
+    },
     {
         date: "Sep 26, 2025",
         opponent: "Storm Dooley",
@@ -571,16 +588,6 @@ const games = [
         opponent: "Hawks",
         time: "10:30 AM",
         location: "Scheels Complex #8 S",
-        result: null,
-        score: null,
-        isExhibition: false,
-        isPast: false
-    },
-    {
-        date: "Oct 17, 2025",
-        opponent: "Blue Starfish",
-        time: "5:00 PM",
-        location: "Scheels Complex #7 S",
         result: null,
         score: null,
         isExhibition: false,
