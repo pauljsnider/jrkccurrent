@@ -248,6 +248,10 @@ a:hover {
     border-color: var(--light-teal);
 }
 
+.stat-card.ties {
+    border-color: var(--gold);
+}
+
 .stat-card.losses {
     border-color: var(--red);
 }
@@ -266,6 +270,10 @@ a:hover {
 
 .stat-card.wins .stat-number {
     color: var(--dark-teal);
+}
+
+.stat-card.ties .stat-number {
+    color: var(--gold);
 }
 
 .stat-card.losses .stat-number {
@@ -990,6 +998,11 @@ body.menu-open {
 .game-item.win {
     border-left-color: var(--dark-teal);
     background-color: rgba(14, 60, 78, 0.03);
+}
+
+.game-item.tie {
+    border-left-color: var(--gold);
+    background-color: rgba(255, 193, 7, 0.03);
 }
 
 .game-item.loss {

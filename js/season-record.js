@@ -67,6 +67,7 @@
       });
 
       const wins = pastThisSeason.filter(g => g.result === 'Win').length;
+      const ties = pastThisSeason.filter(g => g.result === 'Tie').length;
       const losses = pastThisSeason.filter(g => g.result === 'Loss').length;
       const remaining = upcomingThisSeason.length;
 
@@ -75,13 +76,15 @@
       console.log('Season detected:', season);
       console.log('All games:', window.games.map(g => ({date: g.date, result: g.result, opponent: g.opponent, isPast: g.isPast})));
       console.log('Past games this season:', pastThisSeason.map(g => ({date: g.date, result: g.result, opponent: g.opponent})));
-      console.log('Calculated: wins:', wins, 'losses:', losses, 'remaining:', remaining);
+      console.log('Calculated: wins:', wins, 'ties:', ties, 'losses:', losses, 'remaining:', remaining);
 
       const winsEl = document.getElementById('wins-count');
+      const tiesEl = document.getElementById('ties-count');
       const lossesEl = document.getElementById('losses-count');
       const remainingEl = document.getElementById('remaining-count');
 
       if (winsEl) winsEl.textContent = wins;
+      if (tiesEl) tiesEl.textContent = ties;
       if (lossesEl) lossesEl.textContent = losses;
       if (remainingEl) remainingEl.textContent = remaining;
       
@@ -118,6 +121,7 @@
       const resultClass = game.result ? game.result.toLowerCase() : 'pending';
       const resultIcon = game.result === 'Win' ? 'fa-trophy' : 
                         game.result === 'Loss' ? 'fa-times-circle' : 
+                        game.result === 'Tie' ? 'fa-handshake' :
                         'fa-clock';
       const hasReport = typeof matchReports !== 'undefined' && matchReports && matchReports[game.date];
       const reportLink = hasReport ? 
