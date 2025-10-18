@@ -5,10 +5,17 @@
 
 // Match Report Data
 const matchReports = {
+  "Oct 12, 2025": {
+    "date": "Oct 12, 2025",
+    "original_date": "10-12",
+    "report": "Jr Current vs Wolves — Match Report\n\nDate: 10/12/2025\nFinal: Jr Current 1, Wolves 3\nHalftime: Jr Current 1, Wolves 0\nGame clock: 59:12\n\nJr Current came out sharp and disciplined, owning the opening minutes through organized defending and quick outlets from the back. Emmie wore the gloves for the full match and set the tone right away with confident stops at 1:54 and 3:31. Those early saves settled everyone in and let the girls push the game onto the front foot.\n\nThe breakthrough arrived in the sixth minute. Madison pressed high and fired a clean shot on goal that deflected into traffic, and Audrey, wearing the captain's armband, followed up with perfect timing to bury the rebound at 6:57 for a 1 to 0 lead. A few minutes later Harper stung a shot on frame at 12:10, forcing the Wolves to respect the wing threat. Payton, who covered every blade of grass, connected midfield to attack with a crisp pass at 14:56 and kept the tempo high for most of the half.\n\nTeagan anchored the spine with a clean block at 17:58 and never took a play off. She logged zero sub time and still looked strong in late sequences. Livy, back from vacation, slotted in seamlessly with two key blocks to snuff out counters and help protect the six. On the opposite side, Saavya stacked stops on defense and read passing lanes well to break up Wolves build ups. Neda added a brave block at 47:45 in the second half, stepping into a shooting lane that could have changed the scoreline earlier.\n\nRiley's two way shift stood out. She hustled to win second balls at 30:06 and 35:31, then turned those into quick transitions. Vivian wore the captain's band up top, repeatedly stretching the back line with multiple breakaways that kept the Wolves honest. Madison kept driving the attack with two shots on goal and a relentless hustle play at 29:41. Her intensity in transition and on the press helped maintain the team's edge throughout the first half.\n\nThe match turned in a tough five minute spell. The Wolves equalized at 38:18 and struck again at 39:25, then added a third at 43:03. Credit to the Current for responding with courage. Emmie produced another save late at 58:36 and continued to marshal the box with clear instructions and safe hands. Even with momentum against them, the girls kept playing forward. Riley, Payton, and Vivian pushed for a late lifeline while Harper and Madison kept testing from the edges. The back unit, with Teagan, Livy, Saavya, and Neda rotating support, battled to the final whistle.\n\nPlayer of the Game: Emmie. Full time in goal, multiple timely saves, calm distribution, and fearless positioning.\n\nCaptain Impact: Audrey delivered the goal that put the Current in front. Vivian set the attacking tone with repeated breakaways and leadership up top.\n\nUnavailable: Sela was out attending a family reunion, and the team missed her steady defensive presence.\n\nThe result will sting, but the performance carried a lot to build on. Early organization, collective pressing, and brave goalkeeping gave the Current a winning platform. Clean up a short second half window, keep that first half shape, and this group is right back in the win column.",
+    "score": "1-3",
+    "result": "Loss"
+  },
   "Oct 17, 2025": {
     "date": "Oct 17, 2025",
     "original_date": "10-17",
-    "report": "**Junior Current vs. Dolphins – Match Report**\n**Date:** October 17, 2025\n**Final Time:** 58:45\n\nThe Junior Current faced off against the Dolphins in a fast-paced and hard-fought match that highlighted teamwork, grit, and flashes of brilliance across the field. The game ended in a 2–2 draw, with both teams trading momentum and showing resilience in every phase of play.\n\n### **First Half – Audrey Strikes First**\n\nThe opening minutes set the tone, with Sela anchoring the defense through quick reactions and strong blocks. Teagan followed up with another well-timed stop to keep the Dolphins' early attacks in check, while Harper and Livy worked hard off the ball to transition the team forward.\n\nThe Current struck first after a smooth build-up. Vivian slipped a pass through midfield to Audrey, who buried a well-placed shot to give the team the early 1–0 lead. That goal energized the Current, with Madison hustling across the field to pressure the Dolphins and support both ends of play.\n\nSela continued to shine defensively with multiple saves, and Payton and Neda made strong clearances to keep control of the back line. Despite the early lead, the Dolphins equalized near the midpoint of the half when one of their attackers capitalized on a rebound.\n\nAs the half wound down, the Dolphins managed another goal to go up 2–1, but the Current refused to back down. Just before halftime, Madison made a confident run upfield and finished with composure to tie the game 2–2 going into the break.\n\n### **Second Half – End-to-End Battle**\n\nThe second half opened with both sides pressing hard. Audrey continued to threaten the Dolphins' defense with multiple shots on goal, while Riley provided relentless energy in the midfield, winning 50/50 balls and connecting passes. Payton was active defensively and supported playmaking through smart positioning.\n\nVivian and Harper created several chances in transition, while Saavya and Livy brought strong hustle to the wings, constantly tracking back and applying pressure. Sela and Teagan stayed solid in defense, combining for key stops that kept the Dolphins from pulling ahead.\n\nLate in the match, goalkeeper and captain Emmie made a crucial save to keep the score even, reading the play perfectly and holding her ground against a strong shot. In the final moments, Saavya's back-to-back hustle plays sealed the draw, helping the Current control possession until the whistle.\n\n### **Final Thoughts**\n\nThis match showcased the depth and determination of the Junior Current. Audrey's early goal, Madison's game-tying finish, and the defensive strength of Sela, Teagan, and Payton anchored a complete team performance. Every player contributed—from the forwards creating pressure to the defenders staying composed under attack—and the result reflected their effort.\n\n**Final Score:** Junior Current 2 – Dolphins 2\n**Goals:** Audrey, Madison\n**Player of the Game:** Madison Snider",
+    "report": "Junior Current vs. Dolphins – Match Report\nDate: October 17, 2025\nFinal Time: 58:45\n\nThe Junior Current faced off against the Dolphins in a fast-paced and hard-fought match that highlighted teamwork, grit, and flashes of brilliance across the field. The game ended in a 2–2 draw, with both teams trading momentum and showing resilience in every phase of play.\n\nFirst Half – Audrey Strikes First\n\nThe opening minutes set the tone, with Sela anchoring the defense through quick reactions and strong blocks. Teagan followed up with another well-timed stop to keep the Dolphins' early attacks in check, while Harper and Livy worked hard off the ball to transition the team forward.\n\nThe Current struck first after a smooth build-up. Vivian slipped a pass through midfield to Audrey, who buried a well-placed shot to give the team the early 1–0 lead. That goal energized the Current, with Madison hustling across the field to pressure the Dolphins and support both ends of play.\n\nSela continued to shine defensively with multiple saves, and Payton and Neda made strong clearances to keep control of the back line. Despite the early lead, the Dolphins equalized near the midpoint of the half when one of their attackers capitalized on a rebound.\n\nAs the half wound down, the Dolphins managed another goal to go up 2–1, but the Current refused to back down. Just before halftime, Madison made a confident run upfield and finished with composure to tie the game 2–2 going into the break.\n\nSecond Half – End-to-End Battle\n\nThe second half opened with both sides pressing hard. Audrey continued to threaten the Dolphins' defense with multiple shots on goal, while Riley provided relentless energy in the midfield, winning 50/50 balls and connecting passes. Payton was active defensively and supported playmaking through smart positioning.\n\nVivian and Harper created several chances in transition, while Saavya and Livy brought strong hustle to the wings, constantly tracking back and applying pressure. Sela and Teagan stayed solid in defense, combining for key stops that kept the Dolphins from pulling ahead.\n\nLate in the match, goalkeeper and captain Emmie made a crucial save to keep the score even, reading the play perfectly and holding her ground against a strong shot. In the final moments, Saavya's back-to-back hustle plays sealed the draw, helping the Current control possession until the whistle.\n\nFinal Thoughts\n\nThis match showcased the depth and determination of the Junior Current. Audrey's early goal, Madison's game-tying finish, and the defensive strength of Sela, Teagan, and Payton anchored a complete team performance. Every player contributed—from the forwards creating pressure to the defenders staying composed under attack—and the result reflected their effort.\n\nFinal Score: Junior Current 2 – Dolphins 2\nGoals: Audrey, Madison\nPlayer of the Game: Madison Snider",
     "score": "2-2",
     "result": "Tie"
   },
@@ -206,6 +213,16 @@ const games = [
         location: "Scheels Complex #7 S",
         result: "Tie",
         score: "2-2",
+        isExhibition: false,
+        isPast: true
+    },
+    {
+        date: "Oct 12, 2025",
+        opponent: "Hawks",
+        time: "10:30 AM",
+        location: "Scheels Complex #8 S",
+        result: "Loss",
+        score: "1-3",
         isExhibition: false,
         isPast: true
     },
@@ -583,16 +600,6 @@ const games = [
         isPast: true
     },
     // 2025 Upcoming Games (chronological order)
-    {
-        date: "Oct 12, 2025",
-        opponent: "Hawks",
-        time: "10:30 AM",
-        location: "Scheels Complex #8 S",
-        result: null,
-        score: null,
-        isExhibition: false,
-        isPast: false
-    },
     {
         date: "Oct 19, 2025",
         opponent: "Storm Dooley",
