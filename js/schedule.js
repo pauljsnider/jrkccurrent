@@ -5,6 +5,13 @@
 
 // Match Report Data
 const matchReports = {
+  "Oct 19, 2025": {
+    "date": "Oct 19, 2025",
+    "original_date": "10-19",
+    "report": "Junior Current vs. Opponent – October 19, 2025\nFinal Game of the Season – 5-0 Win\nSeason Record: 5 Wins, 1 Tie, 2 Losses\n\nThe Junior Current finished their season in dominant fashion, shutting out their opponent 5-0 in a game that showcased the team's growth, skill, and chemistry. From the opening kickoff, it was clear the girls came to play—and they saved their best performance for last.\n\nMadison set the tone early, striking first with a clean finish off a smart setup from Payton. Her confidence only grew from there, adding a second goal and leading the press with strong defensive hustle and precision passing. Audrey quickly followed with a powerful goal of her own, finishing off another Payton pass to put the Current up by two within the first ten minutes.\n\nRiley played one of her best games of the season, flying across the field with relentless energy and leading the team in hustle plays. Her efforts paid off in the second half when she buried a penalty kick, firing up the crowd and sealing her mark on the match. Emmie rounded out the scoring with a late goal after linking up beautifully through the middle, showing great touch and composure in front of the net.\n\nVivian kept the pressure high all game, creating chances with sharp positioning and three well-placed shots on goal. Livy anchored the back line, stepping up with three key blocks and reading plays perfectly to shut down any counterattacks. Sela and Saavya were rock-solid in goal, combining for eight saves and holding the clean sheet with confidence and communication. Neda came in late to close the game with a strong save that capped off the team's defensive shutout.\n\nPayton was everywhere—assisting on multiple goals, taking three shots of her own, and breaking up plays defensively with two big stops. Harper contributed steady defensive work and added a late hustle play to keep the opponent scoreless. Teagan stayed disciplined on defense, keeping spacing tight and helping transition play out of the back.\n\nWhen the final whistle blew, the Junior Current celebrated a flawless 5-0 victory and a strong finish to their season: 5 wins, 1 tie, and 2 losses. Their teamwork, energy, and resilience were on full display, and every player played a part in the shutout win.\n\nThe team wrapped up their incredible season the best way possible—with smiles, laughter, and ice cream at Dairy Queen. It was a well-deserved celebration for a team that grew together, played hard, and ended the year as true teammates both on and off the field.",
+    "score": "5-0",
+    "result": "Win"
+  },
   "Oct 12, 2025": {
     "date": "Oct 12, 2025",
     "original_date": "10-12",
@@ -207,6 +214,16 @@ const matchReports = {
 // Ordered from newest to oldest (past games), then upcoming games
 const games = [
     // 2025 Past Season Games (newest first)
+    {
+        date: "Oct 19, 2025",
+        opponent: "Storm Dooley",
+        time: "10:30 AM",
+        location: "Scheels Complex #8 S",
+        result: "Win",
+        score: "5-0",
+        isExhibition: false,
+        isPast: true
+    },
     {
         date: "Oct 17, 2025",
         opponent: "Dolphins",
@@ -601,16 +618,7 @@ const games = [
         isPast: true
     },
     // 2025 Upcoming Games (chronological order)
-    {
-        date: "Oct 19, 2025",
-        opponent: "Storm Dooley",
-        time: "10:30 AM",
-        location: "Scheels Complex #8 S",
-        result: null,
-        score: null,
-        isExhibition: false,
-        isPast: false
-    }
+    // Season complete - no upcoming games
 ];
 
 // Expose games for other pages (e.g., homepage stats)
