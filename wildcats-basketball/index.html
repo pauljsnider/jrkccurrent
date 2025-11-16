@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildcats Basketball | 2024-2025 Season</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <style>
+        /* K-State Wildcats Color Variables */
+        :root {
+            --kstate-purple: #512888;
+            --kstate-dark-purple: #3d1f66;
+            --kstate-silver: #c0c0c0;
+            --white: #ffffff;
+            --black: #000000;
+            --light-gray: #f4f4f4;
+            --medium-gray: #999999;
+            --dark-gray: #333333;
+            --gold: #ffc627;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        /* Navigation */
+        .nav {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 20px 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            background: var(--white);
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 20px 24px;
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-color: var(--gold);
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-bottom-color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: var(--kstate-silver);
+            margin-bottom: 12px;
+        }
+
+        .hero .season {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--kstate-dark-purple);
+        }
+
+        .btn-primary:hover {
+            background: #ffce3d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 198, 39, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--kstate-purple);
+            transform: translateY(-2px);
+        }
+
+        /* Content Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--kstate-purple);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s;
+            border-top: 4px solid var(--kstate-purple);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(81, 40, 136, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--kstate-purple);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card .btn {
+            padding: 12px 28px;
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--kstate-silver);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer p {
+            color: var(--medium-gray);
+        }
+
+        /* Mobile Menu Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--kstate-dark-purple);
+                flex-direction: column;
+                gap: 0;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-left: none;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png" alt="Wildcats Logo" class="nav-logo">
+                Wildcats Basketball
+            </a>
+            <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="schedule/index.html">Schedule</a></li>
+                <li><a href="roster/index.html">Roster</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Wildcats Basketball</h1>
+        <div class="subtitle">4th Grade Competitive Basketball</div>
+        <div class="season">2024-2025 Season</div>
+        <div class="hero-buttons">
+            <a href="schedule/index.html" class="btn btn-primary">View Schedule</a>
+            <a href="roster/index.html" class="btn btn-secondary">Meet the Team</a>
+        </div>
+    </section>
+
+    <!-- Team Photo Section -->
+    <section class="container">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <img src="img/team.jpg" alt="Wildcats Basketball Team 2024-2025" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(81, 40, 136, 0.3);">
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="container" style="padding-top: 0;">
+        <h2 class="section-title">Team Information</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <h3>Game Schedule</h3>
+                <p>View upcoming games, practice times, and past game results. Stay up to date with the full season schedule.</p>
+                <a href="schedule/index.html" class="btn btn-primary">View Schedule</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Team Roster</h3>
+                <p>Meet the Wildcats! Browse our complete roster with player names and jersey numbers.</p>
+                <a href="roster/index.html" class="btn btn-primary">View Roster</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3>Match Reports</h3>
+                <p>Read detailed game summaries, player highlights, and season statistics from every game.</p>
+                <a href="schedule/index.html" class="btn btn-primary">Read Reports</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Season at a Glance</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Players</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0-0-1</div>
+                <div class="stat-label">Record</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">18</div>
+                <div class="stat-label">Games</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2024-25</div>
+                <div class="stat-label">Season</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 Wildcats Basketball. Go Wildcats! 🏀</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

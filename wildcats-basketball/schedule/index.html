@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildcats Basketball Schedule</title>
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <style>
+        /* K-State Wildcats Color Variables */
+        :root {
+            --kstate-purple: #512888;   /* Primary purple */
+            --kstate-dark-purple: #3d1f66; /* Darker purple for depth */
+            --kstate-silver: #c0c0c0;   /* Silver accent */
+            --white: #ffffff;           /* White */
+            --black: #000000;           /* Black */
+            --light-gray: #f4f4f4;      /* Light background */
+            --medium-gray: #999999;     /* Medium gray */
+            --dark-gray: #333333;       /* Dark gray text */
+            --gold: #ffc627;            /* Gold accent */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        /* Navigation */
+        .nav {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 20px 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            background: var(--white);
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 20px 24px;
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-color: var(--gold);
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-bottom-color: var(--gold);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            color: var(--white);
+            padding: 30px 20px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            color: var(--kstate-silver);
+            margin-bottom: 15px;
+        }
+
+        .season-record {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: var(--kstate-purple);
+        }
+
+        .error {
+            background: #fef2f2;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .schedule-container {
+            margin-bottom: 30px;
+        }
+
+        .schedule-header {
+            padding: 12px 0;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .games-count {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            font-weight: 600;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 20px 0;
+            background: var(--white);
+            padding: 8px;
+            border-radius: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--dark-gray);
+            border-radius: 22px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: rgba(81, 40, 136, 0.08);
+        }
+
+        .filter-btn.active {
+            background: var(--kstate-purple);
+            color: var(--white);
+            box-shadow: 0 2px 6px rgba(81, 40, 136, 0.3);
+        }
+
+        .event {
+            background: var(--white);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid transparent;
+        }
+
+        .event:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateX(2px);
+        }
+
+        .event.past {
+            opacity: 0.7;
+            background: #fafafa;
+        }
+
+        .event.today {
+            border-left-color: var(--gold);
+            box-shadow: 0 4px 16px rgba(255, 198, 39, 0.2);
+        }
+
+        .event.upcoming.is-game {
+            border-left-color: var(--kstate-purple);
+        }
+
+        .event-date {
+            flex-shrink: 0;
+            width: 70px;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .event-month {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--medium-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .event-day {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 4px 0;
+            color: var(--kstate-purple);
+        }
+
+        .event-weekday {
+            font-size: 0.65rem;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .event-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .event-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-type {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .game-type.practice {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .game-type.game {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .event-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+        }
+
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-info-item strong {
+            color: var(--kstate-dark-purple);
+            font-weight: 600;
+        }
+
+        .event-info-compact {
+            color: var(--medium-gray);
+            font-size: 0.8rem;
+        }
+
+        .event-badge {
+            flex-shrink: 0;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-upcoming {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-today {
+            background: var(--gold);
+            color: var(--black);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .badge-past {
+            background: #f5f5f5;
+            color: var(--medium-gray);
+        }
+
+        .no-events {
+            padding: 40px;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+        }
+
+        .game-score {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--kstate-purple);
+            margin-top: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, rgba(81, 40, 136, 0.08) 0%, rgba(81, 40, 136, 0.12) 100%);
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid rgba(81, 40, 136, 0.2);
+        }
+
+        .match-report-link {
+            display: inline-block;
+            margin-top: 8px;
+            margin-left: 8px;
+            padding: 8px 14px;
+            background: var(--kstate-purple);
+            color: var(--white);
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .match-report-link:hover {
+            background: var(--kstate-dark-purple);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(81, 40, 136, 0.3);
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            animation: fadeIn 0.2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            color: var(--white);
+            padding: 24px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 28px;
+            overflow-y: auto;
+            line-height: 1.7;
+        }
+
+        .modal-body h3 {
+            color: var(--kstate-purple);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 24px 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--kstate-purple);
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 16px;
+            color: var(--dark-gray);
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .modal-body ul li {
+            padding: 10px 0 10px 20px;
+            margin-bottom: 8px;
+            position: relative;
+            border-left: 3px solid var(--kstate-purple);
+            background: var(--light-gray);
+            border-radius: 4px;
+            padding-left: 16px;
+        }
+
+        .modal-body ul li strong {
+            color: var(--kstate-purple);
+            font-weight: 700;
+        }
+
+        .modal-body .report-header {
+            background: linear-gradient(135deg, rgba(81, 40, 136, 0.1) 0%, rgba(81, 40, 136, 0.05) 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--kstate-purple);
+        }
+
+        .modal-body .report-header h1 {
+            font-size: 1.6rem;
+            color: var(--kstate-purple);
+            margin: 0 0 8px 0;
+            font-weight: 800;
+        }
+
+        .modal-body .report-header .meta {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            margin: 4px 0;
+        }
+
+        .modal-body .report-header .score {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--kstate-dark-purple);
+            margin-top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--kstate-dark-purple);
+                flex-direction: column;
+                gap: 0;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .event {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .event-date {
+                width: 60px;
+            }
+
+            .event-day {
+                font-size: 1.5rem;
+            }
+
+            .event-info {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .filter-buttons {
+                max-width: 100%;
+            }
+
+            .filter-btn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .modal-content {
+                margin: 10px;
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-body h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="../img/logo.png" alt="Wildcats Logo" class="nav-logo">
+                Wildcats Basketball
+            </a>
+            <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Schedule</a></li>
+                <li><a href="../roster/index.html">Roster</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>Wildcats Basketball</h1>
+        <p>2024-2025 Season</p>
+        <div class="season-record" id="seasonRecord">Record: 0-0-1</div>
+    </div>
+
+    <div class="container">
+        <div id="loadingMessage" class="loading">
+            Loading schedule...
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none;"></div>
+
+        <div id="scheduleContent" style="display: none;">
+            <div class="filter-buttons">
+                <button class="filter-btn" onclick="filterEvents('all')">All</button>
+                <button class="filter-btn active" onclick="filterEvents('upcoming')">Upcoming</button>
+                <button class="filter-btn" onclick="filterEvents('past')">Results</button>
+            </div>
+
+            <div class="schedule-container">
+                <div class="schedule-header">
+                    <div class="schedule-title" id="sectionTitle">Upcoming Games</div>
+                    <div class="games-count" id="gamesCount"></div>
+                </div>
+                <div id="eventsList">
+                    <!-- Events will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Match Report Modal -->
+    <div id="matchReportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Match Report</h2>
+                <button class="modal-close" onclick="closeMatchReportModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <p>Loading match report...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ICS_URL = 'http://ical-cdn.teamsnap.com/team_schedule/c85af52b-3eb0-424d-aad6-05c2659447bd.ics';
+        let allEvents = [];
+        let currentFilter = 'upcoming';
+
+        // Game results data - add completed games here
+        const gameResults = {
+            '2025-11-15': {
+                score: 'Wildcats 10 - 10 All Stars (OT)',
+                matchReport: `Match Report: Wildcats vs All Stars
+Date: November 15, 2025
+Final Score: 10-10 (Tie after OT)
+
+The Wildcats played their most dramatic game of the season on November 15, battling the All Stars to a 10 to 10 tie in a game that needed overtime and about a million deep breaths from the crowd. With two 20 minute halves and a short 2 minute overtime, it felt like a full playoff thriller for these 4th graders.
+
+### First Half – Finding Their Footing
+
+From the opening tip, the game had a playoff feel. The All Stars struck first, slipping in an early layup to go up 2 to 0 in the first few minutes while the Wildcats were still settling in.
+
+Madison (#00) set the tone defensively right away. She jumped passing lanes, grabbing an early steal and pushing the ball up the court. A couple of those fast breaks turned into turnovers, but they were the kind that showed her confidence and aggression. Teagan (#15) helped free her teammates with solid screens, and Blake (#5) poked the ball loose for one of her early steals, getting the Wildcats bench and parents fired up.
+
+The Wildcats needed someone to steady things, and that is when Felicity (#2) started to go to work. Around the middle of the half, she crashed the glass for a defensive rebound, then a few possessions later found herself open and calmly knocked down the Wildcats first basket of the game to tie it at 2 to 2. Her rebounding all night was huge; every time a shot went up, it felt like she was under it.
+
+The All Stars answered with another bucket from their hot hand to make it 4 to 2. The Wildcats could have folded, but they did the opposite. Hazel (#3) and Kayla (#4) started cleaning up missed shots, each pulling down key rebounds to stop second chances. Samantha (#22) picked up a foul battling on defense, showing she was not afraid to mix it up. Winnie (#1) handled the ball against pressure, drawing contact and picking up a couple of fouls against the All Stars as she tried to drive and make the right pass.
+
+With a couple of minutes left in the half, Emersyn (#25) changed the momentum. After a rebound on one end and a steal near midcourt, she turned on the jets, took it strong to the basket, and scored to tie the game at 4 to 4. She added another rebound late in the half to lock things down, and the teams headed to halftime all square, 4 to 4.
+
+### Second Half – Comeback Kids
+
+The second half started with a punch from the All Stars. In the first few minutes after the break they hit back to back shots, stretching the lead to 8 to 4. The Wildcats were suddenly down by four and needed an answer.
+
+They found it on the defensive end. Teagan pulled down a tough rebound in traffic. Hazel grabbed multiple boards and helped push the ball out to the guards. Felicity continued to gobble up rebounds, stacking them one after another. The defensive intensity picked up, and the All Stars had to work for every look.
+
+Midway through the half, the hard work paid off. After another stretch of tough defense and a rebound by Hazel, the Wildcats got the ball to Emersyn. She attacked the lane again and scored to cut the deficit to 8 to 6. You could feel the energy swing to the Wildcats side of the gym.
+
+A few minutes later, with time starting to matter, Blake came up with one of the plays of the game. After securing a rebound, she pushed the ball up the court, found a lane, and finished her shot to tie it at 8 to 8. Her combination of steals, hustle, and that clutch basket was a huge spark.
+
+The All Stars refused to go away, though. Their top scorer answered once more, putting them ahead 10 to 8 with just a few minutes to go. That is when the Wildcats defense completely locked in. Madison fought for another rebound and a steal. Emma (#10) grabbed a rebound of her own, then got a steal on the next possession, staying aggressive even after picking up an offensive foul on an earlier drive.
+
+With a little under two minutes left, the Wildcats got the ball back off another defensive stand. They worked it around, and once again it was Emersyn who delivered. She found a seam, attacked the rim, and scored her third basket of the day to tie the game at 10 to 10. On the next trip, she followed it with a steal, and Hazel added another steal of her own, making sure the All Stars did not get an easy game winner. Regulation ended with the crowd on their feet and the score still tied.
+
+### Overtime – Heart and Hustle
+
+The short overtime period felt like a mini championship. Every possession mattered.
+
+In OT, the Wildcats leaned on their trademark effort. Felicity grabbed another clutch rebound, and later added a steal that stopped a promising All Stars possession. Winnie continued to handle the ball under pressure, even with the All Stars swiping at everything. She did turn it over once in the extra period, but she kept coming back for the inbounds and never shied away from the moment.
+
+Kayla and Teagan battled for position on defense, making sure the All Stars had to shoot over hands. Madison stayed active in the passing lanes, and while the scoreboard did not change, the Wildcats defense held firm.
+
+The All Stars picked up a couple of fouls as they tried to drive, but the Wildcats would not let them get a clean look at the rim. When the final buzzer sounded at the end of overtime, it was still tied 10 to 10. No winner on the scoreboard, but both teams walked away knowing they had just played an absolute classic.
+
+### Wildcats Highlights
+
+* **#25 Emersyn**
+  Leading scorer with 6 points, plus 2 rebounds and 2 steals. She scored at the end of the first half, again to spark the second half comeback, and then drilled the late game tying basket. Big time performance in a big time game.
+
+* **#2 Felicity**
+  A rebounding machine with 6 boards, 2 points, and a steal. Her first basket got the Wildcats going, and she seemed to be under every missed shot, especially late in the game and in overtime.
+
+* **#5 Blake**
+  Huge energy on both ends with 2 points, 1 rebound, and 2 steals. Her second half basket that tied the game at 8 to 8 was a turning point, and her early steals set the defensive tone.
+
+* **#3 Hazel**
+  One of the defensive anchors. She finished with 3 rebounds and 2 steals and seemed to be in the middle of every scramble for a loose ball in the second half.
+
+* **#00 Madison**
+  A pesky defender who racked up 3 steals and 2 rebounds. She pushed the pace all game, sometimes a little too fast, but her aggression and willingness to attack helped keep the All Stars on their heels.
+
+* **#1 Winnie**
+  Steady ball handler under pressure. While the stat sheet shows turnovers and fouls, she was the one taking hits, bringing the ball up against the press, and helping the offense stay organized in crunch time and overtime.
+
+* **#4 Kayla**
+  Tough and physical, with a rebound and a drawn foul while battling inside. Her presence in the paint helped the Wildcats control the boards in the second half.
+
+* **#10 Emma**
+  Quiet on the scoreboard but loud in effort, with a rebound, a steal, and constant hustle. Even after being called for an offensive foul while attacking, she kept competing and helped fuel the late defensive stand.
+
+* **#15 Teagan**
+  Solid screens early, 2 rebounds, and a key foul drawn on the All Stars. She did a lot of the little things that do not always show up in the box score but keep an offense flowing and a defense strong.
+
+* **#22 Samantha**
+  Brought energy off the bench, picking up a foul while playing aggressive defense and handling the ball early in the second half. Her willingness to fight on defense set a tone for the group.
+
+In the end, the Wildcats did not walk away with a win or a loss. They walked away with a 10 to 10 tie, a comeback story, and an overtime memory that every 4th grader on that court is going to remember for a long time.`
+            }
+        };
+
+        // CORS proxy configuration
+        const CORS_PROXIES = [
+            {
+                url: 'https://api.allorigins.win/get?url=',
+                type: 'json',
+                extract: (data) => data.contents
+            },
+            {
+                url: 'https://corsproxy.io/?',
+                type: 'text',
+                extract: (data) => data
+            },
+            {
+                url: 'https://proxy.cors.sh/',
+                type: 'text',
+                extract: (data) => data
+            }
+        ];
+
+        // Parse iCal date format
+        function parseICalDate(dateString, keyPart) {
+            console.log('Parsing date:', dateString, 'with key:', keyPart);
+
+            // Check if this is a UTC time (ends with Z)
+            const isUTC = dateString.endsWith('Z');
+
+            // Handle different iCal date formats
+            if (dateString.includes('T')) {
+                // DateTime format: YYYYMMDDTHHMMSS or YYYYMMDDTHHMMSSZ
+                const cleanDate = dateString.replace(/[TZ]/g, '');
+                const year = parseInt(cleanDate.substring(0, 4));
+                const month = parseInt(cleanDate.substring(4, 6)) - 1; // JS months are 0-based
+                const day = parseInt(cleanDate.substring(6, 8));
+                const hour = parseInt(cleanDate.substring(8, 10)) || 0;
+                const minute = parseInt(cleanDate.substring(10, 12)) || 0;
+                const second = parseInt(cleanDate.substring(12, 14)) || 0;
+
+                let parsedDate;
+                if (isUTC) {
+                    // Create UTC date and convert to local time
+                    parsedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+                    console.log('Parsed UTC datetime:', parsedDate);
+                } else {
+                    // Assume local time
+                    parsedDate = new Date(year, month, day, hour, minute, second);
+                    console.log('Parsed local datetime:', parsedDate);
+                }
+                return parsedDate;
+            } else if (dateString.length === 8) {
+                // Date only format: YYYYMMDD
+                const year = parseInt(dateString.substring(0, 4));
+                const month = parseInt(dateString.substring(4, 6)) - 1;
+                const day = parseInt(dateString.substring(6, 8));
+                const parsedDate = new Date(year, month, day);
+                console.log('Parsed date only:', parsedDate);
+                return parsedDate;
+            } else {
+                // Try to parse as ISO date string
+                try {
+                    const parsedDate = new Date(dateString);
+                    console.log('Parsed as ISO date:', parsedDate);
+                    return parsedDate;
+                } catch (e) {
+                    console.error('Failed to parse date:', dateString, e);
+                    return null;
+                }
+            }
+        }
+
+        // Parse ICS calendar data
+        function parseICalData(icalData) {
+            const events = [];
+            const lines = icalData.split(/\r?\n/);
+            let currentEvent = null;
+            console.log('Parsing iCal data, total lines:', lines.length);
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                // Handle line folding (lines that start with space or tab)
+                while (i + 1 < lines.length && (lines[i + 1].startsWith(' ') || lines[i + 1].startsWith('\t'))) {
+                    line += lines[i + 1].substring(1);
+                    i++;
+                }
+
+                if (line === 'BEGIN:VEVENT') {
+                    currentEvent = {};
+                    console.log('Started new event');
+                } else if (line === 'END:VEVENT' && currentEvent) {
+                    if (currentEvent.dtstart && currentEvent.summary) {
+                        events.push(currentEvent);
+                        console.log('Added event:', currentEvent.summary, currentEvent.dtstart);
+                    } else {
+                        console.log('Skipped incomplete event:', currentEvent);
+                    }
+                    currentEvent = null;
+                } else if (currentEvent) {
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex > 0) {
+                        const keyPart = line.substring(0, colonIndex);
+                        const key = keyPart.split(';')[0];
+                        const value = line.substring(colonIndex + 1);
+
+                        switch (key) {
+                            case 'SUMMARY':
+                                currentEvent.summary = value.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, '\n');
+                                break;
+                            case 'DTSTART':
+                                currentEvent.dtstart = parseICalDate(value, keyPart);
+                                break;
+                            case 'DTEND':
+                                currentEvent.dtend = parseICalDate(value, keyPart);
+                                break;
+                            case 'LOCATION':
+                                currentEvent.location = value.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, '\n');
+                                break;
+                            case 'DESCRIPTION':
+                                currentEvent.description = value.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, '\n');
+                                console.log('Found description for event:', currentEvent.summary, ':', currentEvent.description);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            console.log('Total events found:', events.length);
+            return events;
+        }
+
+        // Load calendar from URL with CORS proxy fallback
+        async function loadSchedule() {
+            try {
+                let url = ICS_URL;
+
+                // Convert http:// to https://
+                if (url.startsWith('http://')) {
+                    url = url.replace('http://', 'https://');
+                }
+
+                let icalData = null;
+                let lastError = null;
+
+                // Try each CORS proxy
+                for (let i = 0; i < CORS_PROXIES.length; i++) {
+                    const proxy = CORS_PROXIES[i];
+                    try {
+                        console.log(`Trying proxy ${i + 1}:`, proxy.url);
+                        const response = await fetch(proxy.url + encodeURIComponent(url));
+                        console.log(`Proxy ${i + 1} response status:`, response.status);
+
+                        if (response.ok) {
+                            let data;
+                            if (proxy.type === 'json') {
+                                data = await response.json();
+                            } else {
+                                data = await response.text();
+                            }
+                            icalData = proxy.extract(data);
+                            console.log(`Proxy ${i + 1} success! Data length:`, icalData.length);
+                            break;
+                        } else {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                    } catch (error) {
+                        console.log(`Proxy ${i + 1} failed:`, error.message);
+                        lastError = error;
+                        continue;
+                    }
+                }
+
+                if (!icalData) {
+                    throw new Error(`Failed to load calendar. Last error: ${lastError?.message || 'Unknown error'}`);
+                }
+
+                // Check if data is base64 encoded (starts with data:text/calendar)
+                let processedData = icalData;
+                if (icalData.startsWith('data:text/calendar')) {
+                    console.log('Detected base64 encoded calendar data');
+                    const base64Part = icalData.split(',')[1];
+                    if (base64Part) {
+                        try {
+                            processedData = atob(base64Part);
+                            console.log('Successfully decoded base64 data, length:', processedData.length);
+                        } catch (e) {
+                            console.error('Failed to decode base64:', e);
+                            throw new Error('Failed to decode calendar data');
+                        }
+                    }
+                }
+
+                // Parse the ICS data
+                const events = parseICalData(processedData);
+
+                // Convert to expected format with start/end properties
+                allEvents = events.map(event => ({
+                    start: event.dtstart,
+                    end: event.dtend || new Date(event.dtstart.getTime() + 60 * 60 * 1000),
+                    summary: event.summary,
+                    location: event.location,
+                    description: event.description
+                }));
+
+                // Sort events by date
+                allEvents.sort((a, b) => a.start - b.start);
+
+                console.log('Loaded and parsed', allEvents.length, 'events');
+
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('scheduleContent').style.display = 'block';
+
+                renderEvents();
+            } catch (error) {
+                console.error('Error loading schedule:', error);
+                document.getElementById('loadingMessage').style.display = 'none';
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = 'Failed to load schedule: ' + error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Format date for display
+        function formatDate(date) {
+            if (!date) return '';
+
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+                            'Thursday', 'Friday', 'Saturday'];
+
+            return {
+                month: months[date.getMonth()],
+                day: date.getDate(),
+                weekday: weekdays[date.getDay()],
+                time: date.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }),
+                fullDate: date.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })
+            };
+        }
+
+        // Determine event status
+        function getEventStatus(startDate) {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const eventDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+
+            if (eventDay.getTime() === today.getTime()) {
+                return 'today';
+            } else if (eventDay > today) {
+                return 'upcoming';
+            } else {
+                return 'past';
+            }
+        }
+
+        // Render events
+        function renderEvents() {
+            const eventsList = document.getElementById('eventsList');
+            const gamesCount = document.getElementById('gamesCount');
+
+            let filteredEvents = allEvents;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (currentFilter === 'upcoming') {
+                // Show upcoming + last completed game for context
+                const upcoming = allEvents.filter(e => e.start >= today);
+                const past = allEvents.filter(e => e.start < today).slice(-1); // Last 1 game
+                filteredEvents = [...past, ...upcoming];
+            } else if (currentFilter === 'past') {
+                filteredEvents = allEvents.filter(e => e.start < today).reverse();
+            }
+
+            if (filteredEvents.length === 0) {
+                eventsList.innerHTML = '<div class="no-events">No games scheduled</div>';
+                gamesCount.textContent = '';
+                return;
+            }
+
+            // Update games count
+            const gameCount = filteredEvents.filter(e => !e.summary.includes('Practice')).length;
+            gamesCount.textContent = gameCount > 0 ? `${gameCount} ${gameCount === 1 ? 'game' : 'games'}` : '';
+
+            let html = '';
+            let lastSection = null;
+
+            filteredEvents.forEach(event => {
+                const dateInfo = formatDate(event.start);
+                const status = getEventStatus(event.start);
+                const isGame = !event.summary.includes('Practice');
+
+                // Add section divider for upcoming filter
+                if (currentFilter === 'upcoming') {
+                    const currentSection = status === 'past' ? 'recent' : 'upcoming';
+                    if (lastSection !== currentSection && currentSection === 'upcoming') {
+                        html += '<div class="section-divider">Upcoming</div>';
+                    }
+                    lastSection = currentSection;
+                }
+
+                const badgeClass = `badge-${status}`;
+                const badgeText = status === 'today' ? 'Today' :
+                                status === 'upcoming' ? 'Upcoming' : 'Final';
+
+                const gameTypeClass = isGame ? 'game' : 'practice';
+                const gameTypeText = isGame ? 'Game' : 'Practice';
+
+                // Extract opponent from summary for games
+                let opponent = '';
+                if (isGame) {
+                    const match = event.summary.match(/(?:at|vs)\s+(.+)/);
+                    opponent = match ? match[1] : event.summary.replace('Wildcats', '').trim();
+                }
+
+                html += `
+                    <div class="event ${status} ${isGame ? 'is-game' : ''}">
+                        <div class="event-date">
+                            <div class="event-month">${dateInfo.month}</div>
+                            <div class="event-day">${dateInfo.day}</div>
+                            <div class="event-weekday">${dateInfo.weekday.substring(0, 3)}</div>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-title">
+                                ${opponent || event.summary}
+                                <span class="game-type ${gameTypeClass}">${gameTypeText}</span>
+                            </div>
+                            <div class="event-info">
+                                <div class="event-info-item">
+                                    <strong>⏰</strong>
+                                    <span>${dateInfo.time}</span>
+                                </div>
+                                ${event.location ? `
+                                    <div class="event-info-item">
+                                        <strong>📍</strong>
+                                        <span class="event-info-compact">${extractLocationName(event.location)}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            ${getGameResultHTML(event)}
+                        </div>
+                        <span class="event-badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                `;
+            });
+
+            eventsList.innerHTML = html;
+        }
+
+        // Extract clean location name
+        function extractLocationName(location) {
+            // Try to extract just the venue name
+            const parts = location.split(',');
+            if (parts[0]) {
+                return parts[0].replace(/^\d+\s+/, ''); // Remove street numbers
+            }
+            return location;
+        }
+
+        // Get game result HTML (score and match report link)
+        function getGameResultHTML(event) {
+            if (!event.start) return '';
+
+            // Format date as YYYY-MM-DD
+            const dateKey = event.start.toISOString().split('T')[0];
+            const result = gameResults[dateKey];
+
+            if (!result) return '';
+
+            let html = '';
+
+            // Add score if available
+            if (result.score) {
+                html += `<div class="game-score">Final: ${result.score}</div>`;
+            }
+
+            // Add match report button if available
+            if (result.matchReport) {
+                html += `<button class="match-report-link" onclick="openMatchReportModalByDate('${dateKey}'); event.stopPropagation();">View Match Report</button>`;
+            }
+
+            return html;
+        }
+
+        // Filter events
+        function filterEvents(filter) {
+            currentFilter = filter;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update section title
+            const titles = {
+                'all': 'Full Schedule',
+                'upcoming': 'Upcoming Games',
+                'past': 'Game Results'
+            };
+            document.getElementById('sectionTitle').textContent = titles[filter] || 'Schedule';
+
+            renderEvents();
+        }
+
+        // Calculate and update season record
+        function updateSeasonRecord() {
+            let wins = 0, losses = 0, ties = 0;
+
+            Object.values(gameResults).forEach(result => {
+                if (result.score) {
+                    const scoreMatch = result.score.match(/Wildcats\s+(\d+)\s*-\s*(\d+)/);
+                    if (scoreMatch) {
+                        const wildcatsScore = parseInt(scoreMatch[1]);
+                        const opponentScore = parseInt(scoreMatch[2]);
+                        if (wildcatsScore > opponentScore) wins++;
+                        else if (wildcatsScore < opponentScore) losses++;
+                        else ties++;
+                    }
+                }
+            });
+
+            const recordEl = document.getElementById('seasonRecord');
+            if (wins + losses + ties > 0) {
+                recordEl.textContent = `Record: ${wins}-${losses}${ties > 0 ? `-${ties}` : ''}`;
+            } else {
+                recordEl.textContent = 'Season: 2024-2025';
+            }
+        }
+
+        // Parse and format match report text
+        function formatMatchReport(text) {
+            // Split into lines
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            // Extract header info (first 4 lines typically contain game info)
+            const headerLines = lines.slice(0, 4);
+            const title = headerLines[0] || '';
+            const date = headerLines[1] || '';
+            const score = headerLines[2] || '';
+
+            // Create header section
+            html += '<div class="report-header">';
+            html += `<h1>${title.replace(/^Match Report:\s*/i, '')}</h1>`;
+            if (date) html += `<div class="meta">${date}</div>`;
+            if (score) html += `<div class="score">${score}</div>`;
+            html += '</div>';
+
+            // Process the rest of the content
+            for (let i = 4; i < lines.length; i++) {
+                const line = lines[i].trim();
+
+                if (!line) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    continue;
+                }
+
+                // Headers (starts with ###)
+                if (line.startsWith('###')) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    html += `<h3>${line.replace(/^###\s*/, '')}</h3>`;
+                }
+                // List items (starts with *)
+                else if (line.startsWith('*')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    // Bold player names/numbers (format: **text**)
+                    let content = line.replace(/^\*\s*/, '');
+                    content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    html += `<li>${content}</li>`;
+                }
+                // Regular paragraphs
+                else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    // Bold text formatting
+                    let content = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    html += `<p>${content}</p>`;
+                }
+            }
+
+            if (inList) {
+                html += '</ul>';
+            }
+
+            return html;
+        }
+
+        // Open match report modal by date
+        function openMatchReportModalByDate(dateKey) {
+            const result = gameResults[dateKey];
+            if (result && result.matchReport) {
+                openMatchReportModal(result.matchReport);
+            }
+        }
+
+        // Open match report modal
+        function openMatchReportModal(reportContent) {
+            const modal = document.getElementById('matchReportModal');
+            const modalBody = document.getElementById('modalBody');
+
+            // Show modal
+            modal.classList.add('show');
+
+            // Format and display the content directly
+            modalBody.innerHTML = formatMatchReport(reportContent);
+        }
+
+        // Close match report modal
+        function closeMatchReportModal() {
+            const modal = document.getElementById('matchReportModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('matchReportModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMatchReportModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMatchReportModal();
+            }
+        });
+
+        // Initialize
+        loadSchedule();
+        updateSeasonRecord();
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

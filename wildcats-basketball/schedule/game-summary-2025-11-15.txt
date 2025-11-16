@@ -1,0 +1,105 @@
+Wildcats Basketball Game Summary
+Date: 2025-11-15
+Opponent: All Stars
+Final Score: Wildcats 10 - 10 All Stars
+
+WILDCATS TEAM TOTALS:
+Points: 10, Rebounds: 18, Assists: 0, Steals: 11, Turnovers: 11
+
+WILDCATS PLAYER STATS:
+#00 Madison: 0 PTS, 2 REB, 0 AST, 3 STL, 6 TO - Foul
+#1 Winnie: 0 PTS, 0 REB, 0 AST, 0 STL, 2 TO - Foul
+#2 Felicity: 2 PTS, 6 REB, 0 AST, 1 STL, 0 TO
+#3 Hazel: 0 PTS, 3 REB, 0 AST, 2 STL, 0 TO
+#4 Kayla: 0 PTS, 1 REB, 0 AST, 0 STL, 0 TO - Foul
+#5 Blake: 2 PTS, 1 REB, 0 AST, 2 STL, 1 TO
+#10 Emma: 0 PTS, 1 REB, 0 AST, 1 STL, 0 TO - Offense foul
+#15 Teagan: 0 PTS, 2 REB, 0 AST, 0 STL, 0 TO - Foul
+#22 Samantha: 0 PTS, 0 REB, 0 AST, 0 STL, 1 TO - Foul
+#25 Emersyn: 6 PTS, 2 REB, 0 AST, 2 STL, 1 TO - Foul
+
+OPPONENT TEAM STATS:
+2: 6 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Foul
+15: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Foul
+3: 0 PTS, 0 REB, 0 AST, 1 STL, 0 TO
+14: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO
+23: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Block
+5: 2 PTS, 0 REB, 0 AST, 0 STL, 0 TO
+11: 2 PTS, 0 REB, 0 AST, 0 STL, 0 TO
+3: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Foul
+15: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Foul
+
+GAME LOG:
+Q1 0:00 - Game started
+Q1 0:32 - #00 Madison - Turnover
+Q1 1:09 - #15 Teagan - Note: Screen
+Q1 1:22 - #00 Madison - Steal
+Q1 1:24 - #00 Madison - Turnover
+Q1 1:37 - #15 Teagan - Rebound
+Q1 1:59 - #5 Blake - Steal
+Q1 2:42 - 2 (Opp) +2 PTS
+Q1 3:32 - #22 Samantha - Note: Foul
+Q1 3:52 - #5 Blake - Steal
+Q1 4:05 - 15 (Opp) - Note: Foul
+Q1 4:57 - 3 (Opp) - Steal
+Q1 7:00 - #2 Felicity - Rebound
+Q1 7:29 - #1 Winnie - Note: Foul
+Q1 8:42 - #2 Felicity +2 PTS
+Q1 8:50 - #2 Felicity - Rebound
+Q1 12:14 - #4 Kayla - Note: Foul
+Q1 13:01 - #00 Madison - Turnover
+Q1 13:46 - #00 Madison - Rebound
+Q1 14:41 - 2 (Opp) +2 PTS
+Q1 15:18 - #00 Madison - Turnover
+Q1 15:45 - #00 Madison - Turnover
+Q1 16:28 - #00 Madison - Steal
+Q1 17:16 - #25 Emersyn - Rebound
+Q1 17:36 - #1 Winnie - Turnover
+Q1 18:02 - #25 Emersyn - Steal
+Q1 18:07 - #25 Emersyn +2 PTS
+Q1 18:28 - #1 Winnie - Note: Foul
+Q1 19:53 - #25 Emersyn - Rebound
+Q1 22:42 - 23 (Opp) - Note: Punch
+Q1 24:02 - Game stopped
+Q2 24:02 - Game started
+Q2 24:22 - 5 (Opp) +2 PTS
+Q2 24:39 - #22 Samantha - Turnover
+Q2 24:45 - #15 Teagan - Rebound
+Q2 26:17 - 11 (Opp) +2 PTS
+Q2 26:44 - 3 (Opp) - Note: Foul
+Q2 28:30 - 15 (Opp) - Note: Foul
+Q2 28:52 - #4 Kayla - Rebound
+Q2 31:26 - #3 Hazel - Rebound
+Q2 32:47 - #25 Emersyn - Note: Foul
+Q2 33:05 - #3 Hazel - Rebound
+Q2 33:27 - #2 Felicity - Rebound
+Q2 33:56 - #2 Felicity - Rebound
+Q2 34:40 - #3 Hazel - Rebound
+Q2 34:47 - #25 Emersyn +2 PTS
+Q2 36:00 - #00 Madison - Turnover
+Q2 36:05 - #00 Madison - Steal
+Q2 36:41 - #15 Teagan - Note: Foul
+Q2 37:55 - #10 Emma - Rebound
+Q2 38:00 - #10 Emma - Steal
+Q2 38:55 - #5 Blake - Rebound
+Q2 39:03 - #5 Blake +2 PTS
+Q2 39:32 - #00 Madison - Rebound
+Q2 40:23 - #5 Blake - Turnover
+Q2 40:31 - 2 (Opp) +2 PTS
+Q2 41:32 - #00 Madison - Note: Foul
+Q2 43:30 - 23 (Opp) - Note: Block
+Q2 44:05 - #25 Emersyn - Turnover
+Q2 45:12 - #10 Emma - Note: Offense foul
+Q2 45:42 - #3 Hazel - Steal
+Q2 46:07 - #25 Emersyn +2 PTS
+Q2 46:09 - #25 Emersyn - Steal
+Q2 46:35 - #3 Hazel - Steal
+Q2 46:53 - #2 Felicity - Rebound
+Q2 48:43 - Game stopped
+OT 48:43 - Game started
+OT 49:08 - 2 (Opp) - Note: Foul
+OT 49:35 - #2 Felicity - Rebound
+OT 50:14 - #2 Felicity - Steal
+OT 50:43 - 15 (Opp) - Note: Foul
+OT 51:01 - #1 Winnie - Turnover
+OT 52:14 - Game stopped
