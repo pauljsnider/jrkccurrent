@@ -597,6 +597,32 @@
             margin-top: 12px;
         }
 
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            color: var(--medium-gray);
+            margin: 8px 0;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .nav-toggle {
                 display: block;
@@ -736,6 +762,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 Wildcats Basketball. Go Wildcats! 🏀</p>
+        <p>Created by Madison & Paul Snider | <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">paulsnider.net</a></p>
+    </footer>
 
     <script>
         const ICS_URL = 'http://ical-cdn.teamsnap.com/team_schedule/c85af52b-3eb0-424d-aad6-05c2659447bd.ics';
