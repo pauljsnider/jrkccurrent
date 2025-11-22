@@ -1,0 +1,134 @@
+Wildcats Basketball Game Summary
+Date: 2025-11-22
+Opponent: Tigers
+Final Score: Wildcats 22 - 0 Tigers
+
+WILDCATS TEAM TOTALS:
+Points: 22, Rebounds: 38, Assists: 0, Steals: 31, Turnovers: 4
+
+WILDCATS PLAYER STATS:
+#00 Madison: 0 PTS, 0 REB, 0 AST, 1 STL, 1 TO - Foul
+#1 Winnie: 6 PTS, 7 REB, 0 AST, 9 STL, 0 TO - Jump ball
+#2 Felicity: 4 PTS, 9 REB, 0 AST, 1 STL, 0 TO
+#3 Hazel: 0 PTS, 3 REB, 0 AST, 2 STL, 0 TO - Block
+#4 Kayla: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - DNP
+#5 Blake: 2 PTS, 6 REB, 0 AST, 3 STL, 1 TO
+#10 Emma: 0 PTS, 2 REB, 0 AST, 3 STL, 0 TO
+#15 Teagan: 0 PTS, 1 REB, 0 AST, 0 STL, 0 TO
+#22 Samantha: 0 PTS, 2 REB, 0 AST, 2 STL, 0 TO - Foul
+#25 Emersyn: 10 PTS, 8 REB, 0 AST, 10 STL, 2 TO
+
+OPPONENT TEAM STATS:
+Lucy: 0 PTS, 0 REB, 0 AST, 0 STL, 1 TO - Hand injury
+32: 0 PTS, 0 REB, 0 AST, 0 STL, 2 TO
+22: 0 PTS, 0 REB, 0 AST, 0 STL, 1 TO
+41: 0 PTS, 0 REB, 0 AST, 0 STL, 0 TO - Elbow
+
+GAME LOG:
+Q1 0:00 - #4 Kayla - Note: DNP
+Q1 0:00 - Game started
+Q1 0:13 - #2 Felicity - Rebound
+Q1 0:26 - #2 Felicity - Rebound
+Q1 0:44 - #25 Emersyn - Steal
+Q1 0:45 - #25 Emersyn +2 PTS
+Q1 1:03 - 32 (Opp) - Turnover
+Q1 1:52 - #25 Emersyn - Rebound
+Q1 1:58 - #25 Emersyn - Turnover
+Q1 2:20 - #25 Emersyn - Steal
+Q1 2:37 - #2 Felicity - Rebound
+Q1 2:45 - #25 Emersyn - Steal
+Q1 2:49 - #25 Emersyn +2 PTS
+Q1 3:13 - 22 (Opp) - Turnover
+Q1 3:37 - #25 Emersyn - Turnover
+Q1 4:16 - #25 Emersyn - Steal
+Q1 4:23 - #25 Emersyn - Rebound
+Q1 5:02 - 32 (Opp) - Turnover
+Q1 6:38 - #5 Blake - Rebound
+Q1 6:51 - #22 Samantha - Note: Cross over
+Q1 7:02 - #22 Samantha - Steal
+Q1 7:39 - #1 Winnie - Steal
+Q1 7:49 - #5 Blake - Rebound
+Q1 7:57 - #10 Emma - Rebound
+Q1 8:11 - Lucy (Opp) - Turnover
+Q1 8:19 - #10 Emma - Steal
+Q1 8:22 - #10 Emma - Steal
+Q1 8:35 - #10 Emma - Steal
+Q1 8:44 - #1 Winnie +2 PTS
+Q1 8:47 - #1 Winnie - Rebound
+Q1 9:02 - #5 Blake - Steal
+Q1 9:27 - #1 Winnie - Steal
+Q1 9:37 - #1 Winnie - Steal
+Q1 11:11 - Lucy (Opp) - Note: Point guard
+Q1 11:27 - #2 Felicity - Steal
+Q1 11:41 - #1 Winnie - Rebound
+Q1 11:57 - #1 Winnie - Steal
+Q1 12:50 - 41 (Opp) - Note: Elbow
+Q1 13:44 - #25 Emersyn - Steal
+Q1 14:20 - #3 Hazel - Note: Foul
+Q1 15:02 - #22 Samantha - Note: Foul
+Q1 15:29 - #3 Hazel - Rebound
+Q1 15:57 - #25 Emersyn - Steal
+Q1 16:13 - #25 Emersyn - Rebound
+Q1 16:57 - #00 Madison - Note: Foul
+Q1 18:19 - #1 Winnie - Steal
+Q1 18:26 - #1 Winnie +2 PTS
+Q1 19:24 - #2 Felicity - Rebound
+Q1 19:25 - #2 Felicity +2 PTS
+Q1 19:51 - #1 Winnie - Steal
+Q1 20:02 - #1 Winnie - Rebound
+Q1 21:03 - #25 Emersyn +2 PTS
+Q1 21:18 - #25 Emersyn - Steal
+Q1 21:51 - Lucy (Opp) - Note: Hand injury
+Q1 22:05 - #1 Winnie - Steal
+Q1 22:21 - #2 Felicity +2 PTS
+Q1 22:30 - #2 Felicity - Points removed
+Q1 22:54 - #1 Winnie +2 PTS
+Q1 22:56 - #2 Felicity - Points removed
+Q1 23:07 - #2 Felicity +2 PTS
+Q1 23:11 - #2 Felicity - Rebound
+Q1 23:13 - Game stopped
+Q2 23:13 - Game started
+Q2 24:17 - #3 Hazel - Steal
+Q2 24:48 - #5 Blake - Rebound
+Q2 24:59 - #5 Blake - Turnover
+Q2 25:23 - #00 Madison - Note: Foul
+Q2 25:44 - #00 Madison - Turnover
+Q2 26:37 - #3 Hazel - Rebound
+Q2 28:03 - #3 Hazel - Rebound
+Q2 28:06 - #15 Teagan - Rebound
+Q2 28:09 - #22 Samantha - Rebound
+Q2 29:06 - #25 Emersyn +2 PTS
+Q2 30:05 - #25 Emersyn - Rebound
+Q2 30:05 - #25 Emersyn - Rebound
+Q2 30:42 - #25 Emersyn - Steal
+Q2 31:21 - #1 Winnie - Note: Jump ball
+Q2 31:55 - #10 Emma - Rebound
+Q2 32:07 - #1 Winnie - Steal
+Q2 32:10 - #1 Winnie - Rebound
+Q2 32:12 - #2 Felicity - Rebound
+Q2 32:20 - #25 Emersyn - Steal
+Q2 34:47 - #5 Blake - Rebound
+Q2 35:01 - #1 Winnie - Rebound
+Q2 35:16 - #1 Winnie - Steal
+Q2 35:42 - #22 Samantha - Rebound
+Q2 35:46 - #5 Blake - Rebound
+Q2 35:49 - #1 Winnie - Rebound
+Q2 36:10 - #3 Hazel - Note: Block
+Q2 38:08 - #3 Hazel - Steal
+Q2 38:26 - #22 Samantha - Steal
+Q2 38:35 - #1 Winnie - Rebound
+Q2 38:38 - #5 Blake - Rebound
+Q2 39:09 - #2 Felicity +2 PTS
+Q2 40:07 - #25 Emersyn - Steal
+Q2 40:11 - #25 Emersyn - Rebound
+Q2 40:14 - #2 Felicity - Rebound
+Q2 40:23 - #5 Blake +2 PTS
+Q2 40:31 - #5 Blake - Steal
+Q2 41:01 - #25 Emersyn - Rebound
+Q2 41:36 - #2 Felicity - Rebound
+Q2 42:23 - #25 Emersyn - Rebound
+Q2 42:24 - #25 Emersyn +2 PTS
+Q2 42:55 - #5 Blake - Steal
+Q2 43:13 - #00 Madison - Steal
+Q2 43:27 - #2 Felicity - Rebound
+Q2 43:47 - Game stopped
