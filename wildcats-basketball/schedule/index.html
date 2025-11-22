@@ -1375,7 +1375,7 @@ In the end, the Wildcats did not walk away with a win or a loss. They walked awa
         }
 
         // Parse and format match report text
-        function formatMatchReport(text) {
+        function formatMatchReport(text, dateKey = null) {
             // Split into lines
             const lines = text.split('\n');
             let html = '';
@@ -1392,6 +1392,18 @@ In the end, the Wildcats did not walk away with a win or a loss. They walked awa
             html += `<h1>${title.replace(/^Match Report:\s*/i, '')}</h1>`;
             if (date) html += `<div class="meta">${date}</div>`;
             if (score) html += `<div class="score">${score}</div>`;
+            
+            // Add share link if we have a dateKey
+            if (dateKey) {
+                const shareUrl = `${window.location.origin}${window.location.pathname}#game-${dateKey}`;
+                html += `<div class="share-section" style="margin-top: 15px;">
+                    <button class="share-link-btn" onclick="copyShareLink('${shareUrl}')" style="background: var(--kstate-purple); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-right: 8px; transition: all 0.2s;">
+                        📋 Copy Link
+                    </button>
+                    <span class="share-copied" id="shareCopied" style="color: var(--kstate-purple); font-weight: 600; display: none;">✓ Link copied!</span>
+                </div>`;
+            }
+            
             html += '</div>';
 
             // Process the rest of the content
@@ -1448,26 +1460,32 @@ In the end, the Wildcats did not walk away with a win or a loss. They walked awa
         function openMatchReportModalByDate(dateKey) {
             const result = gameResults[dateKey];
             if (result && result.matchReport) {
-                openMatchReportModal(result.matchReport);
+                // Update URL hash for direct linking
+                window.location.hash = `game-${dateKey}`;
+                openMatchReportModal(result.matchReport, dateKey);
             }
         }
 
         // Open match report modal
-        function openMatchReportModal(reportContent) {
+        function openMatchReportModal(reportContent, dateKey = null) {
             const modal = document.getElementById('matchReportModal');
             const modalBody = document.getElementById('modalBody');
 
             // Show modal
             modal.classList.add('show');
 
-            // Format and display the content directly
-            modalBody.innerHTML = formatMatchReport(reportContent);
+            // Format and display the content
+            modalBody.innerHTML = formatMatchReport(reportContent, dateKey);
         }
 
         // Close match report modal
         function closeMatchReportModal() {
             const modal = document.getElementById('matchReportModal');
             modal.classList.remove('show');
+            // Clear URL hash when closing modal
+            if (window.location.hash.startsWith('#game-')) {
+                history.pushState("", document.title, window.location.pathname);
+            }
         }
 
         // Close modal when clicking outside
@@ -1476,6 +1494,43 @@ In the end, the Wildcats did not walk away with a win or a loss. They walked awa
                 closeMatchReportModal();
             }
         });
+
+        // Copy share link function
+        function copyShareLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                const copiedMsg = document.getElementById('shareCopied');
+                copiedMsg.style.display = 'inline';
+                setTimeout(() => {
+                    copiedMsg.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy link:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const copiedMsg = document.getElementById('shareCopied');
+                copiedMsg.style.display = 'inline';
+                setTimeout(() => {
+                    copiedMsg.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Check URL hash on page load
+        function checkUrlHash() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#game-')) {
+                const dateKey = hash.substring(6); // Remove '#game-' prefix
+                setTimeout(() => {
+                    openMatchReportModalByDate(dateKey);
+                }, 500); // Small delay to ensure page is loaded
+            }
+        }
 
         // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
@@ -1487,6 +1542,7 @@ In the end, the Wildcats did not walk away with a win or a loss. They walked awa
         // Initialize
         loadSchedule();
         updateSeasonRecord();
+        checkUrlHash();
 
         // Mobile menu toggle
         function toggleMenu() {

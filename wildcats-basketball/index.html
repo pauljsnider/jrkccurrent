@@ -263,11 +263,66 @@
         }
 
         /* Footer */
+        /* Next Game Section */
+        .next-game {
+            background: var(--white);
+            padding: 40px 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .next-game-card {
+            background: linear-gradient(135deg, var(--kstate-purple) 0%, var(--kstate-dark-purple) 100%);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(81, 40, 136, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .next-game-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .next-game-opponent {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .next-game-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .next-game-date,
+        .next-game-time,
+        .next-game-location {
+            font-size: 1rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .next-game-action {
+            flex-shrink: 0;
+        }
+
         .footer {
             background: var(--dark-gray);
             color: var(--white);
             text-align: center;
             padding: 30px 20px;
+            margin-top: 60px;
         }
 
         .footer p {
@@ -303,6 +358,38 @@
                 font-size: 2.5rem;
             }
 
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .next-game-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .next-game-info {
+                text-align: center;
+            }
+
+            .next-game-opponent {
+                font-size: 1.5rem;
+            }
+
+            .next-game-details {
+                align-items: center;
+            }
+        }
+        }
+
             .hero .subtitle {
                 font-size: 1.1rem;
             }
@@ -324,6 +411,14 @@
 
             .nav-links.active {
                 display: flex;
+            }
+
+            .nav-links a {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
             }
 
             .nav-links a {
@@ -412,6 +507,24 @@
         </div>
     </section>
 
+    <!-- Next Game Section -->
+    <section class="next-game" id="nextGameSection" style="display: none;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Next Game</h2>
+        <div class="next-game-card">
+            <div class="next-game-info">
+                <div class="next-game-opponent" id="nextGameOpponent">Loading...</div>
+                <div class="next-game-details">
+                    <div class="next-game-date" id="nextGameDate">Loading...</div>
+                    <div class="next-game-time" id="nextGameTime">Loading...</div>
+                    <div class="next-game-location" id="nextGameLocation">Loading...</div>
+                </div>
+            </div>
+            <div class="next-game-action">
+                <a href="schedule/index.html" class="btn btn-primary">View Schedule</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats">
         <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Season at a Glance</h2>
@@ -421,11 +534,11 @@
                 <div class="stat-label">Players</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">0-0-1</div>
+                <div class="stat-number" id="seasonRecord">Loading...</div>
                 <div class="stat-label">Record</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">18</div>
+                <div class="stat-number" id="gamesPlayed">Loading...</div>
                 <div class="stat-label">Games</div>
             </div>
             <div class="stat-item">
@@ -442,6 +555,266 @@
     </footer>
 
     <script>
+        const ICS_URL = 'http://ical-cdn.teamsnap.com/team_schedule/c85af52b-3eb0-424d-aad6-05c2659447bd.ics';
+        
+        // Game results data - sync with schedule page
+        const gameResults = {
+            '2025-11-22': {
+                score: 'Wildcats 22 - 0 Tigers'
+            },
+            '2025-11-15': {
+                score: 'Wildcats 10 - 10 All Stars (OT)'
+            }
+        };
+
+        // CORS proxy configuration
+        const CORS_PROXIES = [
+            {
+                url: 'https://api.allorigins.win/get?url=',
+                type: 'json',
+                extract: (data) => data.contents
+            },
+            {
+                url: 'https://corsproxy.io/?',
+                type: 'text',
+                extract: (data) => data
+            },
+            {
+                url: 'https://proxy.cors.sh/',
+                type: 'text',
+                extract: (data) => data
+            }
+        ];
+
+        // Parse iCal date format
+        function parseICalDate(dateString, keyPart) {
+            const isUTC = dateString.endsWith('Z');
+
+            if (dateString.includes('T')) {
+                const cleanDate = dateString.replace(/[TZ]/g, '');
+                const year = parseInt(cleanDate.substring(0, 4));
+                const month = parseInt(cleanDate.substring(4, 6)) - 1;
+                const day = parseInt(cleanDate.substring(6, 8));
+                const hour = parseInt(cleanDate.substring(8, 10)) || 0;
+                const minute = parseInt(cleanDate.substring(10, 12)) || 0;
+                const second = parseInt(cleanDate.substring(12, 14)) || 0;
+
+                let parsedDate;
+                if (isUTC) {
+                    parsedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+                } else {
+                    parsedDate = new Date(year, month, day, hour, minute, second);
+                }
+                return parsedDate;
+            } else if (dateString.length === 8) {
+                const year = parseInt(dateString.substring(0, 4));
+                const month = parseInt(dateString.substring(4, 6)) - 1;
+                const day = parseInt(dateString.substring(6, 8));
+                const parsedDate = new Date(year, month, day);
+                return parsedDate;
+            } else {
+                try {
+                    const parsedDate = new Date(dateString);
+                    return parsedDate;
+                } catch (e) {
+                    return null;
+                }
+            }
+        }
+
+        // Parse ICS calendar data
+        function parseICalData(icalData) {
+            const events = [];
+            const lines = icalData.split(/\r?\n/);
+            let currentEvent = null;
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                while (i + 1 < lines.length && (lines[i + 1].startsWith(' ') || lines[i + 1].startsWith('\t'))) {
+                    line += lines[i + 1].substring(1);
+                    i++;
+                }
+
+                if (line === 'BEGIN:VEVENT') {
+                    currentEvent = {};
+                } else if (line === 'END:VEVENT' && currentEvent) {
+                    if (currentEvent.dtstart && currentEvent.summary) {
+                        events.push(currentEvent);
+                    }
+                    currentEvent = null;
+                } else if (currentEvent) {
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex > 0) {
+                        const keyPart = line.substring(0, colonIndex);
+                        const key = keyPart.split(';')[0];
+                        const value = line.substring(colonIndex + 1);
+
+                        switch (key) {
+                            case 'SUMMARY':
+                                currentEvent.summary = value.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, '\n');
+                                break;
+                            case 'DTSTART':
+                                currentEvent.dtstart = parseICalDate(value, keyPart);
+                                break;
+                            case 'DTEND':
+                                currentEvent.dtend = parseICalDate(value, keyPart);
+                                break;
+                            case 'LOCATION':
+                                currentEvent.location = value.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, '\n');
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return events;
+        }
+
+        // Load calendar data
+        async function loadCalendarData() {
+            try {
+                let url = ICS_URL;
+
+                if (url.startsWith('http://')) {
+                    url = url.replace('http://', 'https://');
+                }
+
+                let icalData = null;
+                let lastError = null;
+
+                for (let i = 0; i < CORS_PROXIES.length; i++) {
+                    const proxy = CORS_PROXIES[i];
+                    try {
+                        const response = await fetch(proxy.url + encodeURIComponent(url));
+
+                        if (response.ok) {
+                            let data;
+                            if (proxy.type === 'json') {
+                                data = await response.json();
+                            } else {
+                                data = await response.text();
+                            }
+                            icalData = proxy.extract(data);
+                            break;
+                        } else {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                    } catch (error) {
+                        lastError = error;
+                        continue;
+                    }
+                }
+
+                if (!icalData) {
+                    throw new Error(`Failed to load calendar. Last error: ${lastError?.message || 'Unknown error'}`);
+                }
+
+                let processedData = icalData;
+                if (icalData.startsWith('data:text/calendar')) {
+                    const base64Part = icalData.split(',')[1];
+                    if (base64Part) {
+                        try {
+                            processedData = atob(base64Part);
+                        } catch (e) {
+                            throw new Error('Failed to decode calendar data');
+                        }
+                    }
+                }
+
+                const events = parseICalData(processedData);
+                const allEvents = events.map(event => ({
+                    start: event.dtstart,
+                    end: event.dtend || new Date(event.dtstart.getTime() + 60 * 60 * 1000),
+                    summary: event.summary,
+                    location: event.location
+                }));
+
+                allEvents.sort((a, b) => a.start - b.start);
+
+                updateSeasonStats(allEvents);
+                updateNextGame(allEvents);
+
+            } catch (error) {
+                console.error('Error loading calendar data:', error);
+                // Fallback to basic stats if calendar fails
+                updateSeasonStats([]);
+                updateNextGame([]);
+            }
+        }
+
+        // Update season statistics
+        function updateSeasonStats(events) {
+            let wins = 0, losses = 0, ties = 0;
+            let gamesPlayed = 0;
+
+            Object.values(gameResults).forEach(result => {
+                if (result.score) {
+                    const scoreMatch = result.score.match(/Wildcats\s+(\d+)\s*-\s*(\d+)/);
+                    if (scoreMatch) {
+                        const wildcatsScore = parseInt(scoreMatch[1]);
+                        const opponentScore = parseInt(scoreMatch[2]);
+                        if (wildcatsScore > opponentScore) wins++;
+                        else if (wildcatsScore < opponentScore) losses++;
+                        else ties++;
+                        gamesPlayed++;
+                    }
+                }
+            });
+
+            // Update DOM
+            document.getElementById('seasonRecord').textContent = gamesPlayed > 0 ? `${wins}-${losses}${ties > 0 ? `-${ties}` : ''}` : '0-0-0';
+            document.getElementById('gamesPlayed').textContent = gamesPlayed;
+        }
+
+        // Update next game information
+        function updateNextGame(events) {
+            const now = new Date();
+            const upcomingGames = events.filter(e => e.start > now && !e.summary.includes('Practice'));
+            
+            const nextGameSection = document.getElementById('nextGameSection');
+            
+            if (upcomingGames.length > 0) {
+                const nextGame = upcomingGames[0];
+                
+                // Extract opponent name
+                let opponent = nextGame.summary;
+                const match = nextGame.summary.match(/(?:at|vs)\s+(.+)/);
+                if (match) {
+                    opponent = match[1];
+                } else {
+                    opponent = nextGame.summary.replace('Wildcats', '').trim();
+                }
+
+                // Format date and time
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+                
+                const gameDate = nextGame.start.toLocaleDateString('en-US', dateOptions);
+                const gameTime = nextGame.start.toLocaleTimeString('en-US', timeOptions);
+                
+                // Extract location name
+                let location = 'Location TBD';
+                if (nextGame.location) {
+                    const parts = nextGame.location.split(',');
+                    if (parts[0]) {
+                        location = parts[0].replace(/^\d+\s+/, '');
+                    }
+                }
+
+                // Update DOM
+                document.getElementById('nextGameOpponent').textContent = opponent;
+                document.getElementById('nextGameDate').textContent = `📅 ${gameDate}`;
+                document.getElementById('nextGameTime').textContent = `⏰ ${gameTime}`;
+                document.getElementById('nextGameLocation').textContent = `📍 ${location}`;
+                
+                nextGameSection.style.display = 'block';
+            } else {
+                // Hide next game section if no upcoming games
+                nextGameSection.style.display = 'none';
+            }
+        }
+
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
@@ -452,6 +825,11 @@
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('active');
             });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCalendarData();
         });
     </script>
 </body>
