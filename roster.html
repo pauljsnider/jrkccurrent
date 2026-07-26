@@ -27,7 +27,7 @@
                 <li><a href="awards.html">Awards</a></li>
                 <li><a href="coaches.html">Coaches</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="https://allplays.ai/app/#/teams/vulKI10em7YQ0W28AKnu">Manage Team</a></li>
             </ul>
         </nav>
     </header>
@@ -36,6 +36,9 @@
         <section class="container">
             <h1>Team Roster</h1>
             <p class="roster-intro text-center mb-2">Meet the talented players who make up the Junior Current team. Each player brings unique skills and character to our squad.</p>
+            <div id="roster-status" class="data-status data-status-loading" role="status" aria-live="polite">
+                <span>Loading the current AllPlays roster…</span>
+            </div>
             
             <div class="roster-filters mb-2">
                 <button class="filter-btn active" data-position="all">All Positions</button>
@@ -53,18 +56,19 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <p>Junior Current | Powered by Passion | Fall 2025</p>
+            <p>Junior Current | Powered by Passion | Current roster powered by AllPlays</p>
             <div class="social-icons">
                 <a href="https://www.facebook.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://x.com/thekccurrent" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.instagram.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
+            <p class="copyright">&copy; <span data-current-year>2026</span> Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/allplays-public-data.js"></script>
     <script src="js/roster.js"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     try {
+        document.querySelectorAll('[data-current-year]').forEach((element) => {
+            element.textContent = String(new Date().getFullYear());
+        });
+
         // Handle image loading errors
         document.querySelectorAll('img').forEach(img => {
             img.onerror = function() {

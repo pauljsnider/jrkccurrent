@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Junior Current - A Girls Club Team Fueled by Passion, Purpose, and KC Current Pride">
-    <title>Junior Current - Fall 2025</title>
+    <title>Junior Current</title>
     <link rel="icon" href="Images/logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -26,7 +26,7 @@
                 <li><a href="awards.html">Awards</a></li>
                 <li><a href="coaches.html">Coaches</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="https://allplays.ai/app/#/teams/vulKI10em7YQ0W28AKnu">Manage Team</a></li>
             </ul>
         </nav>
     </header>
@@ -70,6 +70,9 @@
                         <div class="stat-label">Remaining</div>
                     </div>
                 </div>
+                <div id="home-data-status" class="data-status data-status-loading" role="status" aria-live="polite">
+                    <span>Checking AllPlays for the latest matches…</span>
+                </div>
             </div>
         </section>
 
@@ -107,7 +110,7 @@
                             </div>
                             <div class="story-content">
                                 <p>The Junior Current is a girls soccer club inspired by the energy and professionalism of the KC Current. Made up of players from schools across Overland Park and Leawood, Kansas, this team plays with heart, hustle, and pride.</p>
-                                <p>Every match is a chance to grow, compete, and support one another. As we continue the Fall 2025 season, we carry forward the resilience, camaraderie, and relentless drive that define this team.</p>
+                                <p>Every match is a chance to grow, compete, and support one another. As the journey continues, we carry forward the resilience, camaraderie, and relentless drive that define this team.</p>
                                 <div class="team-motto">
                                     <i class="fas fa-quote-left"></i>
                                     <span>The future is bright, and the journey continues.</span>
@@ -124,19 +127,20 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <p>Junior Current | Powered by Passion | Fall 2025</p>
+            <p>Junior Current | Powered by Passion | Current schedule powered by AllPlays</p>
             <div class="social-icons">
                 <a href="https://www.facebook.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://x.com/thekccurrent" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.instagram.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
+            <p class="copyright">&copy; <span data-current-year>2026</span> Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/navigation.js"></script>
-    <!-- Load schedule data so we can compute the record dynamically -->
+    <!-- Load public AllPlays data and the preserved match archive. -->
+    <script src="js/allplays-public-data.js"></script>
     <script src="js/schedule.js"></script>
     <script src="js/season-record.js"></script>
 </body>

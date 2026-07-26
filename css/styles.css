@@ -421,6 +421,82 @@ a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--navy-blue);
+    border: 2px solid var(--navy-blue);
+}
+
+.btn-secondary:hover {
+    background-color: var(--navy-blue);
+    color: var(--white);
+}
+
+.btn:focus-visible,
+.data-retry:focus-visible,
+.filter-btn:focus-visible,
+.nav-links a:focus-visible {
+    outline: 3px solid var(--light-teal);
+    outline-offset: 3px;
+}
+
+/* Trustworthy live-data states */
+.data-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 1.5rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid rgba(12, 34, 63, 0.15);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--navy-blue);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.data-status-loading {
+    border-color: rgba(109, 210, 220, 0.8);
+}
+
+.data-status-success {
+    border-color: #8ac89a;
+    background: #edf8f0;
+    color: #155724;
+}
+
+.data-status-error {
+    border-color: #e6a3a9;
+    background: #fff1f2;
+    color: #721c24;
+}
+
+.data-retry {
+    border: 0;
+    border-bottom: 2px solid currentColor;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+}
+
+.data-empty {
+    width: 100%;
+    padding: 2rem;
+    color: #5a6470;
+    text-align: center;
+}
+
+#home-data-status {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+
 /* Footer */
 .site-footer {
     background-color: var(--navy-blue);
@@ -873,6 +949,9 @@ body.menu-open {
 }
 
 .close-button {
+    border: 0;
+    padding: 0.25rem;
+    background: transparent;
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
@@ -883,6 +962,11 @@ body.menu-open {
 
 .close-button:hover {
     color: var(--light-teal);
+}
+
+.close-button:focus-visible {
+    outline: 3px solid var(--light-teal);
+    outline-offset: 2px;
 }
 
 .modal-body {

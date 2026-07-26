@@ -1,127 +1,131 @@
 /**
- * Junior Current Website
- * Roster Page Functionality
+ * Junior Current current-roster rendering.
+ * AllPlays controls membership, names, numbers, and current photos. The local
+ * profile copy below is only an editorial overlay for returning players.
  */
 
-// Player data array
-const players = [
-    {
-        name: "Neda",
-        number: "#1",
-        position: "Goalkeeper",
-        secondaryPosition: "Center Back",
-        description: "Calm under pressure, Neda brings focus and power to the goal box with confident decision-making.",
-        positionCategory: "goalkeeper",
-        photoUrl: "Images/roster/neda.jpg"
+const legacyPlayerProfiles = {
+    Neda: {
+        position: 'Goalkeeper',
+        secondaryPosition: 'Center Back',
+        description: 'Calm under pressure, Neda brings focus and power to the goal box with confident decision-making.',
+        positionCategory: 'goalkeeper',
+        photoUrl: 'Images/roster/neda.jpg'
     },
-    {
-        name: "Emmie",
-        number: "#2",
-        position: "Midfielder",
-        secondaryPosition: "Forward",
-        description: "Tireless and selfless, Emmie is everywhere—pressing, passing, and leading by example.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/emmie.jpg"
+    Emmie: {
+        position: 'Midfielder',
+        secondaryPosition: 'Forward',
+        description: 'Tireless and selfless, Emmie is everywhere—pressing, passing, and leading by example.',
+        positionCategory: 'midfielder',
+        photoUrl: 'Images/roster/emmie.jpg'
     },
-    {
-        name: "Vivian",
-        number: "#3",
-        position: "Defender",
-        secondaryPosition: "Midfielder",
-        description: "Composed and reliable, Vivian reads the game well and provides solid defensive coverage with smart positioning.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/vivian.png"
+    Vivian: {
+        position: 'Defender',
+        secondaryPosition: 'Midfielder',
+        description: 'Composed and reliable, Vivian reads the game well and provides solid defensive coverage with smart positioning.',
+        positionCategory: 'defender',
+        photoUrl: 'Images/roster/vivian.png'
     },
-    {
-        name: "Teagan",
-        number: "#4",
-        position: "Center Back",
-        secondaryPosition: "Goalkeeper",
-        description: "Solid and steady, Teagan is the backbone of the defense and leads with quiet strength.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/tegan.jpg"
+    Teagan: {
+        position: 'Center Back',
+        secondaryPosition: 'Goalkeeper',
+        description: 'Solid and steady, Teagan is the backbone of the defense and leads with quiet strength.',
+        positionCategory: 'defender',
+        photoUrl: 'Images/roster/tegan.jpg'
     },
-    {
-        name: "Livy",
-        number: "#5",
-        position: "Defender",
-        secondaryPosition: "Midfielder",
-        description: "Steady and thoughtful, Livy supports her teammates with smart play and strong positioning.",
-        positionCategory: "defender",
-        photoUrl: "Images/roster/livi.jpg"
+    Livy: {
+        position: 'Defender',
+        secondaryPosition: 'Midfielder',
+        description: 'Steady and thoughtful, Livy supports her teammates with smart play and strong positioning.',
+        positionCategory: 'defender',
+        photoUrl: 'Images/roster/livi.jpg'
     },
-    {
-        name: "Harper",
-        number: "#6",
-        position: "Forward",
-        secondaryPosition: "Midfielder",
-        description: "Dynamic and creative, Harper brings speed and skill to the attacking third with natural goal-scoring instincts.",
-        positionCategory: "forward",
-        photoUrl: "Images/roster/harper.png"
+    Riley: {
+        position: 'Midfield',
+        secondaryPosition: 'Striker',
+        description: 'Creative and confident, Riley brings flair and rhythm to the field with her footwork and movement.',
+        positionCategory: 'midfielder',
+        photoUrl: 'Images/roster/riley.jpg'
     },
-    {
-        name: "Riley",
-        number: "#7",
-        position: "Midfield",
-        secondaryPosition: "Striker",
-        description: "Creative and confident, Riley brings flair and rhythm to the field with her footwork and movement.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/riley.jpg"
+    Saavya: {
+        position: 'Midfield',
+        secondaryPosition: 'Utility Player',
+        description: 'A true team player, Saavya can step into any position with composure and grit.',
+        positionCategory: 'midfielder',
+        photoUrl: 'Images/roster/saavya.jpg'
     },
-    {
-        name: "Saavya",
-        number: "#8",
-        position: "Midfield",
-        secondaryPosition: "Utility Player",
-        description: "A true team player, Saavya can step into any position with composure and grit.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/saavya.jpg"
+    Audrey: {
+        position: 'Striker',
+        secondaryPosition: 'Forward',
+        description: 'Fierce, focused, and fearless in front of goal, Audrey brings a striker\'s mentality and sharp instincts.',
+        positionCategory: 'forward',
+        photoUrl: 'Images/roster/audry.jpg'
     },
-    {
-        name: "Audrey",
-        number: "#9",
-        position: "Striker",
-        secondaryPosition: "Forward",
-        description: "Fierce, focused, and fearless in front of goal, Audrey brings a striker's mentality and sharp instincts.",
-        positionCategory: "forward",
-        photoUrl: "Images/roster/audry.jpg"
+    Payton: {
+        position: 'Midfielder',
+        secondaryPosition: 'Winger',
+        description: 'A visionary playmaker, Payton sees passing lanes others miss and sets the tempo for the team.',
+        positionCategory: 'midfielder',
+        photoUrl: 'Images/roster/payton.jpg'
     },
-    {
-        name: "Payton",
-        number: "#10",
-        position: "Midfielder",
-        secondaryPosition: "Winger",
-        description: "A visionary playmaker, Payton sees passing lanes others miss and sets the tempo for the team.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/payton.jpg"
+    Madison: {
+        position: 'Forward',
+        secondaryPosition: 'Midfielder',
+        description: 'Energetic and vocal, Madison pushes the team forward with her relentless pace and presence.',
+        positionCategory: 'forward',
+        photoUrl: 'Images/roster/madison.jpg'
     },
-    {
-        name: "Madison",
-        number: "#11",
-        position: "Forward",
-        secondaryPosition: "Midfielder",
-        description: "Energetic and vocal, Madison pushes the team forward with her relentless pace and presence.",
-        positionCategory: "forward",
-        photoUrl: "Images/roster/madison.jpg"
-    },
-    {
-        name: "Sela",
-        number: "#12",
-        position: "Midfielder",
-        secondaryPosition: "Goalkeeper",
-        description: "Smart and intuitive, Sela has a game sense that allows her to shine in key moments.",
-        positionCategory: "midfielder",
-        photoUrl: "Images/roster/Sela.jpg"
+    Sela: {
+        position: 'Midfielder',
+        secondaryPosition: 'Goalkeeper',
+        description: 'Smart and intuitive, Sela has a game sense that allows her to shine in key moments.',
+        positionCategory: 'midfielder',
+        photoUrl: 'Images/roster/Sela.jpg'
     }
-];
+};
 
-/**
- * Get position-specific icon class
- * @param {string} positionCategory - Player's position category
- * @returns {string} - Font Awesome icon class
- */
+const profileNameByPlayerId = Object.freeze({
+    '3i8gNO9PDkymlzyxTWfb': 'Saavya',
+    'L0oSkcksF9GzC78I2owh': 'Emmie',
+    'LsDbznWzPtljxHPsOUNq': 'Teagan',
+    'N4yJ1YDOFpr0r02DuBuM': 'Sela',
+    'PFkgAkMl7bdJsGBgyLph': 'Riley',
+    'YSOQNbUcl1wBv8xp40Qx': 'Neda',
+    'dreR528YQ9geSUZASnGq': 'Vivian',
+    'iziPOcQpijDCrxKJ4NNe': 'Madison',
+    'nbbf0uTCafODYiP0siEL': 'Audrey',
+    'qJ5BLRZ1XXzeCyZxsLgn': 'Livy',
+    'snRmz9GMkmoqc8sCaN2x': 'Payton'
+});
+
+let currentPlayers = [];
+let activePositionFilter = 'all';
+
+function inferPositionCategory(position) {
+    const text = String(position || '').toLowerCase();
+    if (text.includes('goal')) return 'goalkeeper';
+    if (text.includes('back') || text.includes('defend')) return 'defender';
+    if (text.includes('mid')) return 'midfielder';
+    if (text.includes('forward') || text.includes('striker') || text.includes('wing')) return 'forward';
+    return '';
+}
+
+function mergePlayerProfile(player) {
+    const profileName = profileNameByPlayerId[player.id];
+    const profile = profileName ? legacyPlayerProfiles[profileName] : null;
+    const position = player.position || profile?.position || '';
+    return {
+        ...player,
+        photoUrl: player.photoUrl || profile?.photoUrl || null,
+        position,
+        secondaryPosition: profile?.secondaryPosition || '',
+        description: profile?.description || '',
+        positionCategory: inferPositionCategory(player.position) || profile?.positionCategory || ''
+    };
+}
+
 function getPositionIcon(positionCategory) {
-    switch(positionCategory) {
+    switch (positionCategory) {
         case 'forward':
             return 'fa-person-running';
         case 'midfielder':
@@ -135,13 +139,8 @@ function getPositionIcon(positionCategory) {
     }
 }
 
-/**
- * Get position-specific color
- * @param {string} positionCategory - Player's position category
- * @returns {string} - CSS color variable
- */
 function getPositionColor(positionCategory) {
-    switch(positionCategory) {
+    switch (positionCategory) {
         case 'forward':
             return 'var(--red)';
         case 'midfielder':
@@ -155,90 +154,153 @@ function getPositionColor(positionCategory) {
     }
 }
 
-/**
- * Generate HTML for player cards
- * @param {string} positionFilter - Filter players by position category
- */
+function appendPlayerPlaceholder(container, player) {
+    container.classList.add('player-icon-container');
+    container.style.backgroundColor = `${getPositionColor(player.positionCategory)}40`;
+    const icon = document.createElement('i');
+    icon.className = `fas ${getPositionIcon(player.positionCategory)} player-icon`;
+    icon.style.color = getPositionColor(player.positionCategory);
+    icon.setAttribute('aria-hidden', 'true');
+    container.appendChild(icon);
+}
+
+function createPlayerCard(player) {
+    const card = document.createElement('article');
+    card.className = 'player-card';
+    if (player.positionCategory) card.dataset.position = player.positionCategory;
+
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'player-image';
+    if (player.photoUrl) {
+        const image = document.createElement('img');
+        image.src = player.photoUrl;
+        image.alt = player.position ? `${player.name} — ${player.position}` : player.name;
+        image.className = 'player-photo';
+        image.loading = 'lazy';
+        image.addEventListener('error', () => {
+            image.remove();
+            appendPlayerPlaceholder(imageContainer, player);
+        }, { once: true });
+        imageContainer.appendChild(image);
+    } else {
+        appendPlayerPlaceholder(imageContainer, player);
+    }
+
+    if (player.number) {
+        const number = document.createElement('span');
+        number.className = 'player-number';
+        number.textContent = `#${player.number}`;
+        imageContainer.appendChild(number);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'player-info';
+    const name = document.createElement('h3');
+    name.className = 'player-name';
+    name.textContent = player.name;
+    info.appendChild(name);
+
+    const positions = [player.position, player.secondaryPosition].filter(Boolean);
+    if (positions.length) {
+        const position = document.createElement('p');
+        position.className = 'player-position';
+        position.textContent = positions.join(' / ');
+        info.appendChild(position);
+    }
+    if (player.description) {
+        const description = document.createElement('p');
+        description.className = 'player-description';
+        description.textContent = player.description;
+        info.appendChild(description);
+    }
+
+    card.append(imageContainer, info);
+    return card;
+}
+
+function renderRosterStatus(message, tone = 'loading', includeRetry = false) {
+    const status = document.getElementById('roster-status');
+    if (!status) return;
+    status.className = `data-status data-status-${tone}`;
+    status.replaceChildren();
+    const text = document.createElement('span');
+    text.textContent = message;
+    status.appendChild(text);
+    if (includeRetry) {
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.className = 'data-retry';
+        retry.textContent = 'Try again';
+        retry.addEventListener('click', () => loadCurrentRoster(true));
+        status.appendChild(retry);
+    }
+}
+
 function generatePlayerCards(positionFilter = 'all') {
-    const playerCardsContainer = document.querySelector('.player-cards');
-    
-    if (!playerCardsContainer) {
-        console.error('Player cards container not found');
+    const container = document.querySelector('.player-cards');
+    if (!container) return;
+    container.replaceChildren();
+    const filtered = positionFilter === 'all'
+        ? currentPlayers
+        : currentPlayers.filter((player) => player.positionCategory === positionFilter);
+    filtered.forEach((player) => container.appendChild(createPlayerCard(player)));
+    if (!filtered.length && currentPlayers.length) {
+        const empty = document.createElement('p');
+        empty.className = 'data-empty';
+        empty.textContent = 'No players are listed at this position.';
+        container.appendChild(empty);
+    }
+}
+
+function updatePositionFilters() {
+    const available = new Set(currentPlayers.map((player) => player.positionCategory).filter(Boolean));
+    document.querySelectorAll('.roster-filters .filter-btn').forEach((button) => {
+        const position = button.dataset.position;
+        button.hidden = position !== 'all' && !available.has(position);
+    });
+}
+
+async function loadCurrentRoster(force = false) {
+    const dataClient = window.JRKC_PUBLIC_DATA;
+    if (!dataClient) {
+        renderRosterStatus('Current roster is temporarily unavailable.', 'error');
         return;
     }
-    
-    // Clear any existing content
-    playerCardsContainer.innerHTML = '';
-    
-    // Filter players if needed
-    const filteredPlayers = positionFilter === 'all' 
-        ? players 
-        : players.filter(player => player.positionCategory === positionFilter);
-    
-    // Generate player cards
-    filteredPlayers.forEach(player => {
-        const playerCard = document.createElement('div');
-        playerCard.className = 'player-card';
-        playerCard.setAttribute('data-position', player.positionCategory);
-        
-        // Get position-specific styling
-        const iconClass = getPositionIcon(player.positionCategory);
-        const positionColor = getPositionColor(player.positionCategory);
-        
-        // Determine whether to use photo or icon
-        let imageContent;
-        if (player.photoUrl) {
-            imageContent = `<img src="${player.photoUrl}" alt="${player.name} - ${player.position}" class="player-photo">`;
-        } else {
-            imageContent = `<i class="fas ${iconClass} player-icon" style="color: ${positionColor};"></i>`;
-        }
-        
-        playerCard.innerHTML = `
-            <div class="player-image ${!player.photoUrl ? 'player-icon-container' : ''}" ${!player.photoUrl ? `style="background-color: ${positionColor}40;"` : ''}>
-                ${imageContent}
-            </div>
-            <div class="player-info">
-                <h3 class="player-name">${player.name}</h3>
-                <p class="player-position">${player.position} / ${player.secondaryPosition}</p>
-                <p class="player-description">${player.description}</p>
-            </div>
-        `;
-        
-        playerCardsContainer.appendChild(playerCard);
-    });
+    renderRosterStatus('Loading the current AllPlays roster…', 'loading');
+    try {
+        const payload = await dataClient.loadRoster({ force });
+        currentPlayers = payload.players.map(mergePlayerProfile);
+        activePositionFilter = 'all';
+        updatePositionFilters();
+        document.querySelectorAll('.roster-filters .filter-btn').forEach((button) => {
+            button.classList.toggle('active', button.dataset.position === 'all');
+        });
+        generatePlayerCards();
+        renderRosterStatus(
+            currentPlayers.length
+                ? `${currentPlayers.length} current players • Updated from AllPlays`
+                : 'No active players are currently listed.',
+            currentPlayers.length ? 'success' : 'empty'
+        );
+    } catch (error) {
+        currentPlayers = [];
+        generatePlayerCards();
+        renderRosterStatus('We could not load the current roster. No archived players are being shown as current.', 'error', true);
+        console.error('Failed to load current roster:', error);
+    }
 }
 
-/**
- * Initialize the roster page
- */
 function initRosterPage() {
-    // Generate initial player cards
-    generatePlayerCards();
-    
-    // Set up position filters
-    const filterButtons = document.querySelectorAll('.roster-filters .filter-btn');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Filter players
-            const positionFilter = this.getAttribute('data-position');
-            generatePlayerCards(positionFilter);
+    document.querySelectorAll('.roster-filters .filter-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+            activePositionFilter = button.dataset.position || 'all';
+            document.querySelectorAll('.roster-filters .filter-btn').forEach((candidate) => {
+                candidate.classList.toggle('active', candidate === button);
+            });
+            generatePlayerCards(activePositionFilter);
         });
     });
-    
-    // Add event listeners for player cards
-    document.addEventListener('click', function(e) {
-        const playerCard = e.target.closest('.player-card');
-        if (playerCard) {
-            // Could expand to show more player details in the future
-            playerCard.classList.toggle('expanded');
-        }
-    });
+    loadCurrentRoster();
 }
 
-// Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initRosterPage);

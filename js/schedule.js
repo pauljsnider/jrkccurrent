@@ -621,6 +621,9 @@ const games = [
     // Season complete - no upcoming games
 ];
 
+let currentScheduleFilter = 'upcoming';
+let matchReportTrigger = null;
+
 // Expose games for other pages (e.g., homepage stats)
 try {
   window.games = games;
@@ -669,6 +672,10 @@ function formatGameTime(timeString) {
  */
 function parseGameDateTime(game) {
     try {
+        if (game && game.startsAt) {
+            const apiDate = new Date(game.startsAt);
+            return isNaN(apiDate) ? null : apiDate;
+        }
         const stamp = game && game.date ? `${game.date}${game.time ? ' ' + game.time : ''}` : '';
         const dt = new Date(stamp);
         return isNaN(dt) ? null : dt;
@@ -699,7 +706,9 @@ function isDateInPast(dateString) {
  * @param {boolean} isExhibition - Whether the game is an exhibition match
  * @returns {string} - CSS class name
  */
-function getResultClass(result, isExhibition) {
+function getResultClass(result, isExhibition, status = '') {
+    if (status === 'cancelled' || status === 'postponed') return 'result-cancelled';
+    if (status === 'live') return 'result-live';
     if (isExhibition) return 'result-exhibition';
     
     switch(result) {
@@ -714,6 +723,35 @@ function getResultClass(result, isExhibition) {
     }
 }
 
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function renderScheduleStatus(message, tone = 'loading', includeRetry = false) {
+    ['schedule-status', 'home-data-status'].forEach((id) => {
+        const status = document.getElementById(id);
+        if (!status) return;
+        status.className = `data-status data-status-${tone}`;
+        status.replaceChildren();
+        const text = document.createElement('span');
+        text.textContent = message;
+        status.appendChild(text);
+        if (includeRetry) {
+            const retry = document.createElement('button');
+            retry.type = 'button';
+            retry.className = 'data-retry';
+            retry.textContent = 'Try again';
+            retry.addEventListener('click', () => loadLiveSchedule(true));
+            status.appendChild(retry);
+        }
+    });
+}
+
 /**
  * Generate HTML for schedule table
  * @param {string} filter - Filter games by status (all, past, upcoming)
@@ -722,9 +760,9 @@ function generateSchedule(filter = 'all') {
     const scheduleContainer = document.querySelector('.schedule-table');
     
     if (!scheduleContainer) {
-        console.error('Schedule container not found');
         return;
     }
+    currentScheduleFilter = filter;
     
     // Filter and sort games
     let filteredGames;
@@ -759,6 +797,19 @@ function generateSchedule(filter = 'all') {
             break;
         }
     }
+
+    if (!filteredGames.length) {
+        scheduleContainer.innerHTML = `
+            <div class="data-empty schedule-empty">
+                ${filter === 'upcoming'
+                    ? 'No upcoming games are currently scheduled.'
+                    : filter === 'past'
+                        ? 'No past games are available.'
+                        : 'No games are available.'}
+            </div>
+        `;
+        return;
+    }
     
     // Create table structure
     let tableHTML = `
@@ -777,11 +828,17 @@ function generateSchedule(filter = 'all') {
     
     // Generate table rows
     filteredGames.forEach(game => {
-        const resultClass = getResultClass(game.result, game.isExhibition);
+        const resultClass = getResultClass(game.result, game.isExhibition, game.status);
         let resultText;
         
         // Determine result text based on game status and data
-        if (game.isPast) {
+        if (game.status === 'cancelled') {
+            resultText = 'Cancelled';
+        } else if (game.status === 'postponed') {
+            resultText = 'Postponed';
+        } else if (game.status === 'live') {
+            resultText = game.score ? `Live ${game.score}` : 'Live';
+        } else if (game.isPast || parseGameDateTime(game) < now) {
             if (game.result && game.score) {
                 resultText = `${game.result} ${game.score}`;
             } else if (game.result) {
@@ -794,19 +851,20 @@ function generateSchedule(filter = 'all') {
         }
         
         // Check if this game has a match report
-        const hasMatchReport = matchReports[game.date];
+        const reportKey = game.reportKey || game.date;
+        const hasMatchReport = matchReports[reportKey];
         const matchReportLink = hasMatchReport ? 
-            `<br><a href="#" onclick="showMatchReport('${game.date}'); return false;" class="match-report-link">📰 Match Report</a>` : '';
+            `<br><a href="#" data-report-key="${escapeHtml(reportKey)}" onclick="showMatchReport(this.dataset.reportKey); return false;" class="match-report-link">📰 Match Report</a>` : '';
         const videoLink = hasMatchReport && hasMatchReport.video ? 
-            `<br><a href="${hasMatchReport.video}" target="_blank" rel="noopener noreferrer" class="video-link">🎥 Game Video</a>` : '';
+            `<br><a href="${escapeHtml(hasMatchReport.video)}" target="_blank" rel="noopener noreferrer" class="video-link">🎥 Game Video</a>` : '';
         
         tableHTML += `
             <tr>
-                <td>${game.date}</td>
-                <td>${game.opponent}${game.isExhibition ? ' (Exhibition)' : ''}</td>
-                <td>${game.time}</td>
-                <td>${game.location}</td>
-                <td><span class="game-result ${resultClass}">${resultText}</span>${matchReportLink}${videoLink}</td>
+                <td>${escapeHtml(game.date)}</td>
+                <td>${escapeHtml(game.opponent)}${game.isExhibition ? ' (Exhibition)' : ''}</td>
+                <td>${escapeHtml(game.time)}</td>
+                <td>${escapeHtml(game.location)}</td>
+                <td><span class="game-result ${resultClass}">${escapeHtml(resultText)}</span>${matchReportLink}${videoLink}</td>
             </tr>
         `;
     });
@@ -822,8 +880,55 @@ function generateSchedule(filter = 'all') {
 /**
  * Initialize the schedule page
  */
+function addLiveMatchReports(liveGames) {
+    liveGames.forEach((game) => {
+        if (!game.summary) return;
+        matchReports[game.reportKey] = {
+            date: game.date,
+            report: game.summary,
+            score: game.score,
+            result: game.result,
+            video: game.videoUrl
+        };
+    });
+}
+
+async function loadLiveSchedule(force = false) {
+    const dataClient = window.JRKC_PUBLIC_DATA;
+    if (!dataClient) {
+        renderScheduleStatus('Live updates are unavailable; showing the preserved match archive.', 'error');
+        return;
+    }
+
+    renderScheduleStatus('Checking AllPlays for the latest matches…', 'loading');
+    try {
+        const payload = await dataClient.loadGames({ force });
+        const archive = games.filter((game) => game.source !== 'allplays');
+        const merged = dataClient.mergeArchivedAndLiveGames(archive, payload.games);
+        games.splice(0, games.length, ...merged);
+        addLiveMatchReports(games.filter((game) => game.source === 'allplays'));
+        window.games = games;
+        window.matchReports = matchReports;
+        generateSchedule(currentScheduleFilter);
+        renderScheduleStatus(
+            `${payload.games.length} live ${payload.games.length === 1 ? 'match' : 'matches'} • 2023–2025 archive preserved`,
+            'success'
+        );
+        window.dispatchEvent(new CustomEvent('jrkc:schedule-updated', {
+            detail: { source: 'allplays', games: games.length }
+        }));
+    } catch (error) {
+        generateSchedule(currentScheduleFilter);
+        renderScheduleStatus('Live updates could not be loaded; showing the preserved 2023–2025 archive.', 'error', true);
+        window.dispatchEvent(new CustomEvent('jrkc:schedule-updated', {
+            detail: { source: 'archive', error: true, games: games.length }
+        }));
+        console.error('Failed to load live AllPlays schedule:', error);
+    }
+}
+
 function initSchedulePage() {
-    // Generate initial schedule - start with upcoming games
+    // Render the local archive immediately while the current schedule loads.
     generateSchedule('upcoming');
     
     // Set up filter buttons
@@ -846,23 +951,27 @@ function initSchedulePage() {
             this.classList.add('active');
             
             // Filter schedule
-            const filter = this.getAttribute('data-filter');
+            const filter = this.getAttribute('data-filter') || 'all';
             generateSchedule(filter);
         });
     });
+
+    loadLiveSchedule();
 }
 
 /**
  * Show match report in modal popup
  * @param {string} gameDate - Date of the game to show report for
  */
-function showMatchReport(gameDate) {
-    const report = matchReports[gameDate];
+function showMatchReport(reportKey) {
+    const report = matchReports[reportKey];
     if (!report) {
-        console.error('No match report found for date:', gameDate);
+        console.error('No match report found for:', reportKey);
         return;
     }
     
+    matchReportTrigger = document.activeElement;
+
     // Create modal if it doesn't exist
     let modal = document.getElementById('matchReportModal');
     if (!modal) {
@@ -875,7 +984,7 @@ function showMatchReport(gameDate) {
     const modalContent = document.getElementById('modalContent');
     const modalScore = document.getElementById('modalScore');
     
-    modalTitle.textContent = `Match Report - ${gameDate}`;
+    modalTitle.textContent = `Match Report - ${report.date || reportKey}`;
     modalContent.textContent = report.report;
     modalScore.textContent = report.score && report.result ? 
         `Final Score: ${report.result} ${report.score}` : '';
@@ -883,6 +992,7 @@ function showMatchReport(gameDate) {
     // Show modal
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    modal.querySelector('.close-button')?.focus();
 }
 
 /**
@@ -893,12 +1003,15 @@ function createMatchReportModal() {
     const modal = document.createElement('div');
     modal.id = 'matchReportModal';
     modal.className = 'match-report-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'modalTitle');
     
     modal.innerHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Match Report</h2>
-                <span class="close-button" onclick="closeMatchReportModal()">&times;</span>
+                <button type="button" class="close-button" onclick="closeMatchReportModal()" aria-label="Close match report">&times;</button>
             </div>
             <div class="modal-body">
                 <div id="modalScore" class="match-score"></div>
@@ -925,6 +1038,8 @@ function closeMatchReportModal() {
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = ''; // Restore background scrolling
+        matchReportTrigger?.focus();
+        matchReportTrigger = null;
     }
 }
 
