@@ -27,7 +27,7 @@
                 <li><a href="awards.html">Awards</a></li>
                 <li><a href="coaches.html">Coaches</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="https://allplays.ai/app/#/teams/vulKI10em7YQ0W28AKnu">Manage Team</a></li>
             </ul>
         </nav>
     </header>
@@ -35,7 +35,18 @@
     <main>
         <section class="container">
             <h1>Team Schedule</h1>
-            <p class="schedule-intro text-center mb-2">View our complete game schedule, including past results and upcoming matches. Our team competes in the Greater Kansas City Youth Soccer League.</p>
+            <p class="schedule-intro text-center mb-2">View our complete game schedule, including past results and upcoming matches. Our team competes in the Greater Kansas City Youth Soccer League. Times are shown in Central Time.</p>
+            <div class="schedule-actions" aria-label="Schedule actions">
+                <a class="btn btn-primary" href="https://us-central1-game-flow-c6311.cloudfunctions.net/publicTeamGamesIcs?teamId=vulKI10em7YQ0W28AKnu">
+                    <i class="fas fa-calendar-plus" aria-hidden="true"></i> Subscribe to Calendar
+                </a>
+                <a class="btn btn-secondary" href="https://allplays.ai/app/#/teams/vulKI10em7YQ0W28AKnu">
+                    <i class="fas fa-pen-to-square" aria-hidden="true"></i> Manage in AllPlays
+                </a>
+            </div>
+            <div id="schedule-status" class="data-status data-status-loading" role="status" aria-live="polite">
+                <span>Checking AllPlays for the latest matches…</span>
+            </div>
             
             <div class="schedule-filters">
                 <button class="filter-btn active" data-filter="upcoming">Upcoming Games</button>
@@ -73,18 +84,19 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <p>Junior Current | Powered by Passion | Fall 2025</p>
+            <p>Junior Current | Powered by Passion | Current schedule powered by AllPlays</p>
             <div class="social-icons">
                 <a href="https://www.facebook.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://x.com/thekccurrent" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.instagram.com/kccurrent/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
+            <p class="copyright">&copy; <span data-current-year>2026</span> Junior Current. All rights reserved. | Created by Madison & <a href="https://paulsnider.net" target="_blank" rel="noopener noreferrer">Paul Snider</a></p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/allplays-public-data.js"></script>
     <script src="js/schedule.js"></script>
 </body>
 </html>

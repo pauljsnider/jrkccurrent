@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelector('.nav-links');
     
     if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
         mobileMenuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             navLinks.classList.toggle('active');
+            this.setAttribute('aria-expanded', String(navLinks.classList.contains('active')));
             
             // Animate hamburger icon
             const hamburger = this.querySelector('.hamburger');
@@ -31,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 navLinks.classList.remove('active');
                 if (mobileMenuToggle) {
                     mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
                     
                     // Reset hamburger icon
                     const hamburger = mobileMenuToggle.querySelector('.hamburger');
@@ -52,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.remove('active');
             if (mobileMenuToggle) {
                 mobileMenuToggle.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 
                 // Reset hamburger icon
                 const hamburger = mobileMenuToggle.querySelector('.hamburger');
@@ -84,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 navLinks.classList.remove('active');
                 if (mobileMenuToggle) {
                     mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
                     
                     // Reset hamburger icon
                     const hamburger = mobileMenuToggle.querySelector('.hamburger');

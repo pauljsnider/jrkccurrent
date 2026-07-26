@@ -1,5 +1,7 @@
 # GitHub Pages Compatibility Test Report
 
+> Historical report from May 2025. As of July 2026, login and team management redirect to AllPlays, while the current roster and schedule load from the public AllPlays APIs.
+
 ## Overview
 This report summarizes the findings from testing the Junior Current website for GitHub Pages compatibility as specified in task 11.4 of the implementation plan. The test focused on ensuring all links use relative paths and that the site structure is compatible with GitHub Pages hosting.
 
