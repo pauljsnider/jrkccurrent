@@ -19,22 +19,40 @@ test('roster, schedule, and homepage load the shared public data client before c
     });
 });
 
-test('public pages link team management to AllPlays and schedule exposes calendar subscription', () => {
+test('public pages link to the legacy AllPlays team without app management links', () => {
     ['index.html', 'roster.html', 'schedule.html', 'awards.html', 'coaches.html', 'about.html']
         .forEach((page) => {
             const html = read(page);
-            assert.match(html, /https:\/\/allplays\.ai\/app\/#\/teams\/vulKI10em7YQ0W28AKnu/);
+            assert.match(html, /https:\/\/allplays\.ai\/team\.html\?teamId=vulKI10em7YQ0W28AKnu/);
+            assert.doesNotMatch(html, /https:\/\/allplays\.ai\/app\/#\/teams/);
+            assert.doesNotMatch(html, /Manage (?:Team|in AllPlays)/);
             assert.doesNotMatch(html, /href="login\.html">Login/);
         });
+    ['index.html', 'roster.html', 'schedule.html'].forEach((page) => {
+        const html = read(page);
+        assert.match(html, /https:\/\/allplays\.ai\/edit-roster\.html\?teamId=vulKI10em7YQ0W28AKnu/);
+        assert.match(html, /https:\/\/allplays\.ai\/edit-schedule\.html\?teamId=vulKI10em7YQ0W28AKnu/);
+    });
     assert.match(read('schedule.html'), /publicTeamGamesIcs\?teamId=vulKI10em7YQ0W28AKnu/);
 });
 
-test('legacy login/admin pages redirect to real AllPlays authentication and management', () => {
-    assert.match(read('login.html'), /window\.location\.replace\('https:\/\/allplays\.ai\/app\/#\/auth'\)/);
-    assert.match(read('admin.html'), /window\.location\.replace\('https:\/\/allplays\.ai\/app\/#\/teams\/vulKI10em7YQ0W28AKnu'\)/);
+test('legacy login/admin pages redirect to legacy AllPlays authentication and management', () => {
+    assert.match(read('login.html'), /window\.location\.replace\('https:\/\/allplays\.ai\/login\.html'\)/);
+    assert.match(read('admin.html'), /window\.location\.replace\('https:\/\/allplays\.ai\/edit-team\.html\?teamId=vulKI10em7YQ0W28AKnu'\)/);
     assert.equal(existsSync(join(siteRoot, 'js', 'auth.js')), false);
     assert.equal(existsSync(join(siteRoot, 'js', 'admin.js')), false);
     assert.doesNotMatch(read('login.html'), /demo123|admin@juniorcurrent\.com/);
+});
+
+test('live games expose legacy game and replay links without archive-count status copy', () => {
+    const scheduleSource = read('js/schedule.js');
+    const homeSource = read('js/season-record.js');
+    assert.match(scheduleSource, /buildLegacyGameUrl/);
+    assert.match(scheduleSource, /buildLegacyReplayUrl/);
+    assert.match(homeSource, /buildLegacyGameUrl/);
+    assert.match(homeSource, /buildLegacyReplayUrl/);
+    assert.doesNotMatch(scheduleSource, /live \$\{payload\.games\.length\}/);
+    assert.doesNotMatch(scheduleSource, /archive preserved/);
 });
 
 test('retired TeamSnap updater is absent and archive instructions point to AllPlays', () => {

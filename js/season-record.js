@@ -33,6 +33,28 @@
         return link;
     }
 
+    function createLegacyLink(label, url, onDark = false) {
+        if (!url) return null;
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.className = `legacy-game-link${onDark ? ' legacy-game-link-on-dark' : ''}`;
+        link.textContent = label;
+        return link;
+    }
+
+    function appendLegacyGameLinks(container, game, includeReplay = false) {
+        const dataClient = window.JRKC_PUBLIC_DATA;
+        if (!dataClient || !game.apiGameId) return;
+        const gameLink = createLegacyLink('Game', dataClient.buildLegacyGameUrl(game.apiGameId));
+        if (gameLink) container.appendChild(gameLink);
+        if (includeReplay) {
+            const replayLink = createLegacyLink('Replay', dataClient.buildLegacyReplayUrl(game.apiGameId));
+            if (replayLink) container.appendChild(replayLink);
+        }
+    }
+
     function renderRecentGames(recentGames) {
         const container = document.getElementById('recent-games-list');
         if (!container) return;
@@ -72,13 +94,14 @@
             result.append(` ${game.result && game.score ? `${game.result} ${game.score}` : game.result || 'Final'}`);
             details.append(opponent, result);
 
+            const links = document.createElement('div');
+            links.className = 'game-links legacy-game-links';
             const reportLink = createMatchReportLink(game);
             if (reportLink) {
-                const links = document.createElement('div');
-                links.className = 'game-links';
                 links.appendChild(reportLink);
-                details.appendChild(links);
             }
+            appendLegacyGameLinks(links, game, game.status === 'completed');
+            if (links.children.length) details.appendChild(links);
             item.append(date, details);
             container.appendChild(item);
         });
@@ -122,6 +145,14 @@
         appendIcon(location, 'fa-map-marker-alt');
         location.append(` ${game.location || 'Location TBD'}`);
         card.append(header, opponent, location);
+        if (game.apiGameId) {
+            const link = createLegacyLink(
+                'View Game on AllPlays',
+                dataClient.buildLegacyGameUrl(game.apiGameId),
+                true
+            );
+            if (link) card.appendChild(link);
+        }
         container.appendChild(card);
     }
 

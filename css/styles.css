@@ -432,10 +432,52 @@ a:hover {
     color: var(--white);
 }
 
+.legacy-site-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem auto 1.5rem;
+}
+
+.legacy-site-links .btn {
+    min-width: 8rem;
+}
+
+.legacy-game-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 0.45rem;
+}
+
+.legacy-game-link {
+    color: var(--navy-blue);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18rem;
+}
+
+.legacy-game-link:hover {
+    color: var(--red);
+}
+
+.legacy-game-link-on-dark {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--white);
+}
+
+.legacy-game-link-on-dark:hover {
+    color: var(--light-teal);
+}
+
 .btn:focus-visible,
 .data-retry:focus-visible,
 .filter-btn:focus-visible,
-.nav-links a:focus-visible {
+.nav-links a:focus-visible,
+.legacy-game-link:focus-visible {
     outline: 3px solid var(--light-teal);
     outline-offset: 3px;
 }
@@ -1153,7 +1195,10 @@ body.menu-open {
 }
 
 .game-links {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.65rem;
     align-self: flex-end;
     margin-top: 0.15rem;
 }

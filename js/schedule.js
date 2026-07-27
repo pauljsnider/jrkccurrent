@@ -732,12 +732,31 @@ function escapeHtml(value) {
         .replace(/'/g, '&#039;');
 }
 
+function renderLegacyGameLinks(game) {
+    const dataClient = window.JRKC_PUBLIC_DATA;
+    if (!dataClient || !game.apiGameId) return '';
+    const links = [];
+    const gameUrl = dataClient.buildLegacyGameUrl(game.apiGameId);
+    if (gameUrl) {
+        links.push(`<a href="${escapeHtml(gameUrl)}" target="_blank" rel="noopener noreferrer" class="legacy-game-link">Game</a>`);
+    }
+    if (game.status === 'completed') {
+        const replayUrl = dataClient.buildLegacyReplayUrl(game.apiGameId);
+        if (replayUrl) {
+            links.push(`<a href="${escapeHtml(replayUrl)}" target="_blank" rel="noopener noreferrer" class="legacy-game-link">Replay</a>`);
+        }
+    }
+    return links.length ? `<div class="legacy-game-links">${links.join('')}</div>` : '';
+}
+
 function renderScheduleStatus(message, tone = 'loading', includeRetry = false) {
     ['schedule-status', 'home-data-status'].forEach((id) => {
         const status = document.getElementById(id);
         if (!status) return;
+        status.hidden = !message;
         status.className = `data-status data-status-${tone}`;
         status.replaceChildren();
+        if (!message) return;
         const text = document.createElement('span');
         text.textContent = message;
         status.appendChild(text);
@@ -857,6 +876,7 @@ function generateSchedule(filter = 'all') {
             `<br><a href="#" data-report-key="${escapeHtml(reportKey)}" onclick="showMatchReport(this.dataset.reportKey); return false;" class="match-report-link">📰 Match Report</a>` : '';
         const videoLink = hasMatchReport && hasMatchReport.video ? 
             `<br><a href="${escapeHtml(hasMatchReport.video)}" target="_blank" rel="noopener noreferrer" class="video-link">🎥 Game Video</a>` : '';
+        const legacyGameLinks = renderLegacyGameLinks(game);
         
         tableHTML += `
             <tr>
@@ -864,7 +884,7 @@ function generateSchedule(filter = 'all') {
                 <td>${escapeHtml(game.opponent)}${game.isExhibition ? ' (Exhibition)' : ''}</td>
                 <td>${escapeHtml(game.time)}</td>
                 <td>${escapeHtml(game.location)}</td>
-                <td><span class="game-result ${resultClass}">${escapeHtml(resultText)}</span>${matchReportLink}${videoLink}</td>
+                <td><span class="game-result ${resultClass}">${escapeHtml(resultText)}</span>${matchReportLink}${videoLink}${legacyGameLinks}</td>
             </tr>
         `;
     });
@@ -910,10 +930,7 @@ async function loadLiveSchedule(force = false) {
         window.games = games;
         window.matchReports = matchReports;
         generateSchedule(currentScheduleFilter);
-        renderScheduleStatus(
-            `${payload.games.length} live ${payload.games.length === 1 ? 'match' : 'matches'} • 2023–2025 archive preserved`,
-            'success'
-        );
+        renderScheduleStatus('', 'success');
         window.dispatchEvent(new CustomEvent('jrkc:schedule-updated', {
             detail: { source: 'allplays', games: games.length }
         }));
