@@ -76,6 +76,8 @@ test('affected pages use content-hashed assets so GitHub Pages deploys are not m
     const assets = {
         'css/styles.css': ['index.html', 'schedule.html', 'roster.html'],
         'js/allplays-public-data.js': ['index.html', 'schedule.html', 'roster.html'],
+        'js/schedule.js': ['index.html', 'schedule.html'],
+        'js/season-record.js': ['index.html'],
         'css/player-cards.css': ['roster.html'],
         'js/roster.js': ['roster.html']
     };

@@ -8,6 +8,8 @@ const writeChanges = process.argv.includes('--write');
 const assets = {
     'css/styles.css': ['index.html', 'schedule.html', 'roster.html'],
     'js/allplays-public-data.js': ['index.html', 'schedule.html', 'roster.html'],
+    'js/schedule.js': ['index.html', 'schedule.html'],
+    'js/season-record.js': ['index.html'],
     'css/player-cards.css': ['roster.html'],
     'js/roster.js': ['roster.html']
 };
@@ -26,7 +28,7 @@ for (const [asset, pages] of Object.entries(assets)) {
     const contents = await readFile(path.join(siteRoot, asset));
     const versionedAsset = `${asset}?v=${gitBlobVersion(contents)}`;
     const escapedAsset = asset.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const assetPattern = new RegExp(`${escapedAsset}\\?v=[a-f0-9]+`, 'g');
+    const assetPattern = new RegExp(`${escapedAsset}(?:\\?v=[a-f0-9]+)?`, 'g');
 
     for (const page of pages) {
         const current = pageUpdates.get(page) ?? await readFile(path.join(siteRoot, page), 'utf8');
