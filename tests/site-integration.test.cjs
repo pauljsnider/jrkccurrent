@@ -1,10 +1,19 @@
 const assert = require('node:assert/strict');
+const { createHash } = require('node:crypto');
 const { readFileSync, existsSync } = require('node:fs');
 const { join } = require('node:path');
 const test = require('node:test');
 
 const siteRoot = join(__dirname, '..');
 const read = (path) => readFileSync(join(siteRoot, path), 'utf8');
+const assetVersion = (path) => {
+    const contents = readFileSync(join(siteRoot, path));
+    return createHash('sha1')
+        .update(`blob ${contents.length}\0`)
+        .update(contents)
+        .digest('hex')
+        .slice(0, 8);
+};
 
 test('roster, schedule, and homepage load the shared public data client before consumers', () => {
     const pages = {
@@ -63,15 +72,19 @@ test('successful live-data states hide cleanly and roster cards link to legacy p
     assert.match(rosterSource, /View \$\{player\.name\}'s AllPlays profile/);
 });
 
-test('affected pages use versioned live-data assets so GitHub Pages deploys are not masked by browser cache', () => {
-    ['index.html', 'schedule.html', 'roster.html'].forEach((page) => {
-        const html = read(page);
-        assert.match(html, /css\/styles\.css\?v=20260727/);
-        assert.match(html, /js\/allplays-public-data\.js\?v=20260727/);
+test('affected pages use content-hashed assets so GitHub Pages deploys are not masked by browser cache', () => {
+    const assets = {
+        'css/styles.css': ['index.html', 'schedule.html', 'roster.html'],
+        'js/allplays-public-data.js': ['index.html', 'schedule.html', 'roster.html'],
+        'css/player-cards.css': ['roster.html'],
+        'js/roster.js': ['roster.html']
+    };
+    Object.entries(assets).forEach(([asset, pages]) => {
+        const expected = `${asset}?v=${assetVersion(asset)}`;
+        pages.forEach((page) => {
+            assert.ok(read(page).includes(expected), `${page} loads ${expected}`);
+        });
     });
-    const roster = read('roster.html');
-    assert.match(roster, /css\/player-cards\.css\?v=20260727/);
-    assert.match(roster, /js\/roster\.js\?v=20260727/);
 });
 
 test('retired TeamSnap updater is absent and archive instructions point to AllPlays', () => {
