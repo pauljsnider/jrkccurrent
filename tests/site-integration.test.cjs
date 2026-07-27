@@ -63,6 +63,17 @@ test('successful live-data states hide cleanly and roster cards link to legacy p
     assert.match(rosterSource, /View \$\{player\.name\}'s AllPlays profile/);
 });
 
+test('affected pages use versioned live-data assets so GitHub Pages deploys are not masked by browser cache', () => {
+    ['index.html', 'schedule.html', 'roster.html'].forEach((page) => {
+        const html = read(page);
+        assert.match(html, /css\/styles\.css\?v=20260727/);
+        assert.match(html, /js\/allplays-public-data\.js\?v=20260727/);
+    });
+    const roster = read('roster.html');
+    assert.match(roster, /css\/player-cards\.css\?v=20260727/);
+    assert.match(roster, /js\/roster\.js\?v=20260727/);
+});
+
 test('retired TeamSnap updater is absent and archive instructions point to AllPlays', () => {
     assert.equal(existsSync(join(siteRoot, 'update_schedule.sh')), false);
     const instructions = read('FALL2025_SCHEDULE_INSTRUCTIONS.md');
