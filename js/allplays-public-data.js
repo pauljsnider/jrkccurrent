@@ -54,6 +54,12 @@
         return `${LEGACY_ORIGIN}/game.html?teamId=${encodeURIComponent(TEAM_ID)}&gameId=${encodeURIComponent(id)}`;
     }
 
+    function buildLegacyPlayerUrl(playerId) {
+        const id = cleanText(playerId);
+        if (!id) return null;
+        return `${LEGACY_ORIGIN}/player.html#teamId=${encodeURIComponent(TEAM_ID)}&playerId=${encodeURIComponent(id)}`;
+    }
+
     function buildLegacyReplayUrl(gameId) {
         const id = cleanText(gameId);
         if (!id) return null;
@@ -309,6 +315,7 @@
 
     return Object.freeze({
         buildLegacyGameUrl,
+        buildLegacyPlayerUrl,
         buildLegacyReplayUrl,
         config,
         cleanText,

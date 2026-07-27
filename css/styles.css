@@ -502,6 +502,10 @@ a:hover {
     text-align: center;
 }
 
+.data-status[hidden] {
+    display: none;
+}
+
 .data-status-loading {
     border-color: rgba(109, 210, 220, 0.8);
 }

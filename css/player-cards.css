@@ -14,8 +14,10 @@
 .player-card {
     background-color: var(--white);
     border-radius: 8px;
+    color: inherit;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-top: 4px solid var(--light-teal);
     position: relative;
@@ -24,6 +26,11 @@
 .player-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.player-card:focus-visible {
+    outline: 3px solid var(--light-teal);
+    outline-offset: 4px;
 }
 
 .player-image {

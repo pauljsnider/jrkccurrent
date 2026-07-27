@@ -43,6 +43,15 @@ test('builds encoded legacy game and replay links only for valid game ids', () =
     assert.equal(publicData.buildLegacyReplayUrl(null), null);
 });
 
+test('builds encoded legacy player links only for valid player ids', () => {
+    assert.equal(
+        publicData.buildLegacyPlayerUrl('player 1/blue'),
+        'https://allplays.ai/player.html#teamId=vulKI10em7YQ0W28AKnu&playerId=player%201%2Fblue'
+    );
+    assert.equal(publicData.buildLegacyPlayerUrl(''), null);
+    assert.equal(publicData.buildLegacyPlayerUrl(null), null);
+});
+
 test('normalizes public roster players without accepting unsafe photos', () => {
     assert.deepEqual(publicData.normalizeApiPlayer({
         id: 'player-1',
