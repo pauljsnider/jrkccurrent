@@ -55,6 +55,14 @@ test('live games expose legacy game and replay links without archive-count statu
     assert.doesNotMatch(scheduleSource, /archive preserved/);
 });
 
+test('successful live-data states hide cleanly and roster cards link to legacy player profiles', () => {
+    assert.match(read('css/styles.css'), /\.data-status\[hidden\]\s*\{\s*display:\s*none;/);
+    const rosterSource = read('js/roster.js');
+    assert.match(rosterSource, /buildLegacyPlayerUrl\(player\.id\)/);
+    assert.match(rosterSource, /document\.createElement\(playerUrl \? 'a' : 'article'\)/);
+    assert.match(rosterSource, /View \$\{player\.name\}'s AllPlays profile/);
+});
+
 test('retired TeamSnap updater is absent and archive instructions point to AllPlays', () => {
     assert.equal(existsSync(join(siteRoot, 'update_schedule.sh')), false);
     const instructions = read('FALL2025_SCHEDULE_INSTRUCTIONS.md');

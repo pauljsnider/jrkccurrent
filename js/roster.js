@@ -165,8 +165,15 @@ function appendPlayerPlaceholder(container, player) {
 }
 
 function createPlayerCard(player) {
-    const card = document.createElement('article');
+    const playerUrl = window.JRKC_PUBLIC_DATA?.buildLegacyPlayerUrl(player.id);
+    const card = document.createElement(playerUrl ? 'a' : 'article');
     card.className = 'player-card';
+    if (playerUrl) {
+        card.href = playerUrl;
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        card.setAttribute('aria-label', `View ${player.name}'s AllPlays profile`);
+    }
     if (player.positionCategory) card.dataset.position = player.positionCategory;
 
     const imageContainer = document.createElement('div');
