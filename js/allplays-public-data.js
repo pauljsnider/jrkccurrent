@@ -11,6 +11,7 @@
 
     const TEAM_ID = 'vulKI10em7YQ0W28AKnu';
     const FUNCTIONS_ORIGIN = 'https://us-central1-game-flow-c6311.cloudfunctions.net';
+    const LEGACY_ORIGIN = 'https://allplays.ai';
     const TIME_ZONE = 'America/Chicago';
     const LIVE_DATA_START = '2026-01-01T00:00:00.000Z';
     const REQUEST_TIMEOUT_MS = 8000;
@@ -19,8 +20,10 @@
         rosterUrl: `${FUNCTIONS_ORIGIN}/publicTeamRosterV1?teamId=${encodeURIComponent(TEAM_ID)}`,
         gamesUrl: `${FUNCTIONS_ORIGIN}/publicTeamGamesV1?teamId=${encodeURIComponent(TEAM_ID)}&from=2026-01-01&limit=500`,
         calendarUrl: `${FUNCTIONS_ORIGIN}/publicTeamGamesIcs?teamId=${encodeURIComponent(TEAM_ID)}`,
-        manageTeamUrl: `https://allplays.ai/app/#/teams/${encodeURIComponent(TEAM_ID)}`,
-        signInUrl: 'https://allplays.ai/app/#/auth',
+        legacyTeamUrl: `${LEGACY_ORIGIN}/team.html?teamId=${encodeURIComponent(TEAM_ID)}`,
+        legacyRosterUrl: `${LEGACY_ORIGIN}/edit-roster.html?teamId=${encodeURIComponent(TEAM_ID)}`,
+        legacyScheduleUrl: `${LEGACY_ORIGIN}/edit-schedule.html?teamId=${encodeURIComponent(TEAM_ID)}`,
+        legacySignInUrl: `${LEGACY_ORIGIN}/login.html`,
         timeZone: TIME_ZONE,
         liveDataStart: LIVE_DATA_START
     });
@@ -43,6 +46,18 @@
         } catch (error) {
             return null;
         }
+    }
+
+    function buildLegacyGameUrl(gameId) {
+        const id = cleanText(gameId);
+        if (!id) return null;
+        return `${LEGACY_ORIGIN}/game.html?teamId=${encodeURIComponent(TEAM_ID)}&gameId=${encodeURIComponent(id)}`;
+    }
+
+    function buildLegacyReplayUrl(gameId) {
+        const id = cleanText(gameId);
+        if (!id) return null;
+        return `${LEGACY_ORIGIN}/live-game.html?teamId=${encodeURIComponent(TEAM_ID)}&gameId=${encodeURIComponent(id)}&replay=true`;
     }
 
     function asDate(value) {
@@ -293,6 +308,8 @@
     }
 
     return Object.freeze({
+        buildLegacyGameUrl,
+        buildLegacyReplayUrl,
         config,
         cleanText,
         deriveSeasonSummary,

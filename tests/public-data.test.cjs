@@ -7,16 +7,40 @@ const vm = require('node:vm');
 const siteRoot = join(__dirname, '..');
 const publicData = require('../js/allplays-public-data.js');
 
-test('uses versioned public AllPlays endpoints and the public team calendar', () => {
+test('uses versioned public APIs and exposes legacy AllPlays destinations', () => {
     assert.equal(publicData.config.teamId, 'vulKI10em7YQ0W28AKnu');
     assert.match(publicData.config.rosterUrl, /publicTeamRosterV1/);
     assert.match(publicData.config.gamesUrl, /publicTeamGamesV1/);
     assert.match(publicData.config.gamesUrl, /from=2026-01-01/);
     assert.match(publicData.config.calendarUrl, /publicTeamGamesIcs/);
     assert.equal(
-        publicData.config.manageTeamUrl,
-        'https://allplays.ai/app/#/teams/vulKI10em7YQ0W28AKnu'
+        publicData.config.legacyTeamUrl,
+        'https://allplays.ai/team.html?teamId=vulKI10em7YQ0W28AKnu'
     );
+    assert.equal(
+        publicData.config.legacyRosterUrl,
+        'https://allplays.ai/edit-roster.html?teamId=vulKI10em7YQ0W28AKnu'
+    );
+    assert.equal(
+        publicData.config.legacyScheduleUrl,
+        'https://allplays.ai/edit-schedule.html?teamId=vulKI10em7YQ0W28AKnu'
+    );
+    assert.equal(publicData.config.legacySignInUrl, 'https://allplays.ai/login.html');
+    assert.equal(publicData.config.manageTeamUrl, undefined);
+    assert.equal(publicData.config.signInUrl, undefined);
+});
+
+test('builds encoded legacy game and replay links only for valid game ids', () => {
+    assert.equal(
+        publicData.buildLegacyGameUrl('game 1/blue'),
+        'https://allplays.ai/game.html?teamId=vulKI10em7YQ0W28AKnu&gameId=game%201%2Fblue'
+    );
+    assert.equal(
+        publicData.buildLegacyReplayUrl('game 1/blue'),
+        'https://allplays.ai/live-game.html?teamId=vulKI10em7YQ0W28AKnu&gameId=game%201%2Fblue&replay=true'
+    );
+    assert.equal(publicData.buildLegacyGameUrl(''), null);
+    assert.equal(publicData.buildLegacyReplayUrl(null), null);
 });
 
 test('normalizes public roster players without accepting unsafe photos', () => {
